@@ -95,7 +95,7 @@
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="music" role="tabpanel" aria-labelledby="music-tab">
 
-                    <form class="search-form">
+                    <form action="{{ url('search') }}" method="GET" class="search-form">
 
                         <div class="search-group">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -139,7 +139,7 @@
 
             <ul class="menu-list-inner">
 
-                <li><a href="#">About Us</a></li>
+                <li><a href="{{ url('/about') }}">About Us</a></li>
                 <li><a href="{{ url('/contact') }}">Contact Us</a></li>
 
 
@@ -149,8 +149,8 @@
             <div class="side-menu-GDPR">
 
                 <ul>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="{{ url('/term') }}">Terms & Conditions</a></li>
+                    <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
                 </ul>
 
             </div>

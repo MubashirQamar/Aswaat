@@ -66,6 +66,10 @@ class SongsController extends Controller
         $songs->genre_id = trim(implode(",", $request->genre));
         $songs->instrument_id = trim(implode(",", $request->instrument));
         $songs->price = $request->price;
+        $songs->sort_instrument = $request->instrument2;
+        $songs->sort_bpm = $request->bpm;
+        $songs->sort_duration = $request->duration;
+        $songs->tags = $request->tag;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -122,6 +126,10 @@ class SongsController extends Controller
         $songs->genre_id = implode(", ", $request->genre);
         $songs->instrument_id = implode(", ", $request->instrument);
         $songs->price = $request->price;
+        $songs->sort_instrument = $request->instrument2;
+        $songs->sort_bpm = $request->bpm;
+        $songs->sort_duration = $request->duration;
+        $songs->tags = $request->tag;
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');

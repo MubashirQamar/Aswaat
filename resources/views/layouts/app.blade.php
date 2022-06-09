@@ -148,6 +148,9 @@
             }
         });
     });
+    $('.sort-filter').change(function(){
+       $('#filter-form').submit();
+    });
 
     $(".add-to-cart").click(function(e) {
         e.preventDefault();
@@ -179,6 +182,7 @@
         e.preventDefault();
         var current = $(this);
         var ele = $(this).parent("button").attr("data-id");
+        var type = $(this).parent("button").attr("data-type");
         // $(this).css({"color": "yellow"});
         console.log(ele);
         $.ajax({
@@ -187,6 +191,7 @@
             data: {
                 _token: '{{ csrf_token() }}',
                 id: ele,
+                type: type,
 
             },
             success: function(response) {
@@ -196,7 +201,7 @@
                     });
                 } else {
                     current.css({
-                        "color": "yellow"
+                        "color": "#ffc107"
                     });
 
                 }

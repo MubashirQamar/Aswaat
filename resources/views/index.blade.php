@@ -156,36 +156,37 @@
 
                     <div class="music-filter">
 
-                        <form class="filter-form">
-                            <select>
-                                <option>Sort by ASWAT list</option>
-                                <option>Top Download</option>
-                                <option>Newest </option>
+                        <form method="GET" id="filter-form" class="filter-form">
+                            <select name="sort" class="sort-filter">
+                                {{-- <option>Sort by ASWAT list</option> --}}
+                                <option  value="top">Top Download</option>
+                                <option value="newest">Newest </option>
 
                             </select>
 
-                            <select>
-                                <option>Instruments</option>
-                                <option>Vocal & Instrumental </option>
-                                <option>Vocal Only </option>
+                            <select name="instrument" class="sort-filter">
+                                <option value="1">Vocal & Instrumental </option>
+                                <option value="2">Vocal Only </option>
+                                <option value="3">Instruments</option>
 
                             </select>
 
-                            <select>
+                            <select name="bpm" class="sort-filter">
                                 <option>BPM</option>
-                                <option>Slow </option>
-                                <option>Med-Slow </option>
-                                <option>Medium </option>
-                                <option>Med-Fast </option>
-                                <option>Fast </option>
+                                <option value="slow">Slow </option>
+                                <option value="medslow">Med-Slow </option>
+                                <option value="medium">Medium </option>
+                                <option value="medfast">Med-Fast </option>
+                                <option value="fast">Fast </option>
                             </select>
 
-                            <select>
+                            <select name="duration" class="sort-filter">
                                 <option>Any Duration</option>
-                                <option>10 - 30 sec </option>
-                                <option>30 - 50 sec </option>
-                                <option>50+ sec     </option>
+                                <option value="1">10 - 30 sec </option>
+                                <option value="2">30 - 50 sec </option>
+                                <option value="3">50+ sec     </option>
                             </select>
+                            <input type="hidden" name="type" value="{{ $type }}">
                         </form>
 
                     </div>
@@ -193,6 +194,7 @@
 
                     <input type="hidden" id="current_music_id" value="">
                     {{-- Music  start --}}
+
                     @if ($type != 'soundtrack')
                         <div class="music-list" id="playlist">
                             <script>
@@ -269,8 +271,8 @@
                                                     <button data-id="{{ $mus->id }}"
                                                         data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i
                                                             class="fa-solid fa-download download"></i></button>
-                                                    <button data-id="{{ $mus->id }}"><i
-                                                            class="fa-solid fa-star add-favourite"></i></button>
+                                                    <button data-id="{{ $mus->id }}" data-type="0" ><i
+                                                            class="fa-solid fa-star @if (in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
                                                             <button data-id="{{ $mus->id }}"
                                                                 data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                                                 <i class="fa-solid fa-share share"></i></button>
@@ -280,8 +282,8 @@
                                                     <button data-id="{{ $mus->id }}"
                                                         data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i
                                                             class="fa-solid fa-download download"></i></button>
-                                                    <button data-id="{{ $mus->id }}"><i
-                                                            class="fa-solid fa-star add-favourite"></i></button>
+                                                    <button data-id="{{ $mus->id }}" data-type="0"><i
+                                                            class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif  add-favourite"></i></button>
                                                             <button data-id="{{ $mus->id }}"
                                                                 data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                                                 <i class="fa-solid fa-share share"></i></button>
@@ -435,7 +437,7 @@
                                                     <button data-id="{{ $mus->id }}"
                                                         data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
                                                             class="fa-solid fa-download download"></i></button>
-                                                    <button data-id="{{ $mus->id }}"><i
+                                                    <button data-id="{{ $mus->id }}" data-type="1"><i
                                                             class="fa-solid fa-star add-favourite"></i></button>
                                                     <button data-id="{{ $mus->id }}"
                                                         data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
@@ -446,7 +448,7 @@
                                                     <button data-id="{{ $mus->id }}"
                                                         data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
                                                             class="fa-solid fa-download download"></i></button>
-                                                    <button data-id="{{ $mus->id }}"><i
+                                                    <button data-id="{{ $mus->id }}" data-type="1"><i
                                                             class="fa-solid fa-star add-favourite"></i></button>
                                                     <button data-id="{{ $mus->id }}"
                                                         data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i

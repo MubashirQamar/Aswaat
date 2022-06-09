@@ -78,21 +78,21 @@
 
             <div class="contact-box">
                 <div class="icon-wrapper">
-                    <i class="fa fa-comment contact-icon">
+                    <i class="fa-solid fa-phone contact-icon">
                         <span class="fix-editor">&nbsp;</span></i>
                     <p> +966 59 505 8885 </p>
                 </div>
             </div>
             <div class="contact-box">
                 <div class="icon-wrapper">
-                    <i class="fa fa-comment contact-icon">
+                    <i class="fa-solid fa-envelope contact-icon">
                         <span class="fix-editor">&nbsp;</span></i>
                     <p> talabat@awwat.com </p>
                 </div>
             </div>
             <div class="contact-box">
                 <div class="icon-wrapper">
-                    <i class="fa fa-comment contact-icon">
+                    <i class="fa-solid fa-location-dot contact-icon">
                         <span class="fix-editor">&nbsp;</span></i>
 
                 </div>

@@ -179,6 +179,74 @@
                         @endif
                         </div>
                     </div>
+                    <hr />
+                    <h4><b>Sorting Filters</b></h4>
+                    <hr />
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="instrument2">
+                            Instrument
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <select class="form-control select2-multiple" name="instrument2" >
+                                <option @if($song->sort_instrument == 1) selected @endif value="1">Vocal & Instrumental </option>
+                                <option @if($song->sort_instrument == 2) selected @endif value="2">Vocal Only </option>
+                                <option @if($song->sort_instrument == 3) selected @endif value="3">Instruments</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="bpm">
+                            BPM
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <select class="form-control select2-multiple" name="bpm" >
+                                <option @if($song->sort_bpm == 'slow') selected @endif value="slow">Slow </option>
+                                <option @if($song->sort_bpm == 'medslow') selected @endif value="medslow">Med-Slow </option>
+                                <option @if($song->sort_bpm == 'medium') selected @endif value="medium">Medium </option>
+                                <option @if($song->sort_bpm == 'medfast') selected @endif value="medfast">Med-Fast </option>
+                                <option @if($song->sort_bpm == 'fast') selected @endif value="fast">Fast </option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="duration">
+                            Durations
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <select class="form-control select2-multiple" name="duration" required>
+                                <option @if($song->sort_duration	 == 1) selected @endif value="1">10 - 30 sec </option>
+                                <option @if($song->sort_duration	 == 2) selected @endif value="2">30 - 50 sec </option>
+                                <option @if($song->sort_duration	 == 3) selected @endif value="3">50+ sec     </option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="tag">
+                            Tags
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <input class="col-sm-12 form-control input-tags" value="{{ $song->tags }}" name="tag" data-role="tagsinput">
+
+                        </div>
+                    </div>
                     <div class="form-group row m-t-md">
                         <div class="col-sm-offset-2 col-sm-12 text-right">
                             <button type="submit" class="btn btn-primary">Save</button>

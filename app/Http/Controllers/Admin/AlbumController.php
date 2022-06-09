@@ -49,6 +49,11 @@ class AlbumController extends Controller
         $album->subcat_id =  implode(",", $request->subcat_id);
         $album->artist_id =  $request->artist;
         $album->price =  $request->price;
+
+        $album->sort_instrument = $request->instrument2;
+        $album->sort_bpm = $request->bpm;
+        $album->sort_duration = $request->duration;
+        $album->tags = $request->tag;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $image_name  = $this->media->getFileName($image);
@@ -100,6 +105,10 @@ class AlbumController extends Controller
         $album->subcat_id =  implode(",", $request->subcat_id);
         $album->artist_id =  $request->artist;
         $album->price =  $request->price;
+        $album->sort_instrument = $request->instrument2;
+        $album->sort_bpm = $request->bpm;
+        $album->sort_duration = $request->duration;
+        $album->tags = $request->tag;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $image_name  = $this->media->getFileName($image);

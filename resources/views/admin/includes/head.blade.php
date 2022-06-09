@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="{{ asset('assets/material-design-icons/material-design-icons.css')}}" type="text/css" />
 
     <link rel="stylesheet" href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css')}}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('frontend/css/bootstrap-tagsinput.css')}}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('assets/styles/app.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/select2/select2.min.css')}}">
     <link rel="stylesheet" href="{{ asset('assets/styles/font.css')}}" type="text/css" />
