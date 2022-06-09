@@ -329,6 +329,10 @@ a {
     color: var(--white);
 }
 
+.searchnav .tab-content ul {
+    padding-left: 2rem!important;
+}
+
 .searchnav .menu-list-inner a {
     color: var(--white);
     font-size: 12px;
@@ -518,6 +522,7 @@ a {
 
 .music-list p {
     margin-bottom: 0;
+    font-size: 14px!important;
 }
 
 .music-list img {
@@ -638,8 +643,12 @@ a {
     color: var(--white);
 }
 
-.sign-up p,
-ul {
+.sign-up p {
+    color: var(--white);
+    padding: 0!important;
+}
+
+.sign-up ul {
     color: var(--white);
     padding: 0!important;
 }
@@ -1234,4 +1243,49 @@ ul {
 
 .package-section {
     height: 300vh;
+}
+
+.payment-img {
+    display: flex;
+    width: 100%;
+    align-content: space-around;
+    align-items: stretch;
+    justify-content: center;
+}
+
+.payment-img img {
+    width: 100px;
+    margin: 10px;
+}
+
+.package-bottom-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.package-bottom-section p {
+    color: var(--white);
+}
+
+.yellow {
+    color: var(--yellow);
+}
+
+.terms-heading {
+    color: var(--primary-dark);
+    text-transform: uppercase;
+    padding: 40px;
+    margin-left: 15px;
+}
+
+.terms-conditions {
+    color: var(--white);
+}
+
+.terms-conditions p {
+    color: var(--white)!important;
+    padding: 10px;
 }

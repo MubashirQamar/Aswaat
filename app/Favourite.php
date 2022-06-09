@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Favourite extends Model
 {
@@ -13,7 +14,7 @@ class Favourite extends Model
     }
     public static function favourites()
     {
-       $favourites = Favourite::with('songs')->get();
+       $favourites = Favourite::with('songs')->where('user_id',Auth::user()->id)->orderBy('id','DESC')->get();
      foreach($favourites as $favourite)
      {
          $artist_id=explode(',',$favourite->songs->artist_id);

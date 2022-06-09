@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Download extends Model
 {
@@ -14,7 +15,7 @@ class Download extends Model
 
     public static function downloads()
     {
-       $downloads = Download::with('songs')->get();
+       $downloads = Download::with('songs')->where('user_id',Auth::user()->id)->orderBy('id','DESC')->get();
      foreach($downloads as $download)
      {
          $artist_id=explode(',',$download->songs->artist_id);

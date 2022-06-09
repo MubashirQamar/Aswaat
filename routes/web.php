@@ -21,6 +21,10 @@ Route::get('/contact', 'HomeController@contactus');
 Route::get('/packages', 'HomeController@package');
 Route::get('/sound-effects', 'HomeController@sound_effect');
 Route::get('/sound-tracks', 'HomeController@sound_track');
+Route::get('/search', 'HomeController@search');
+Route::get('/terms', 'HomeController@terms');
+Route::get('/privacy', 'HomeController@privacy');
+Route::get('/about', 'HomeController@about');
 Route::get('/album/{id}', 'HomeController@album');
 Route::get('/change-language/{lang}',"\App\Http\Controllers\HomeController@changeLang");
 

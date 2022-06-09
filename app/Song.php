@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\DB;
 class Song extends Model
 {
     //
+    public function downloads()
+    {
+        return $this->hasMany('App\Download','song_id','id');
+    }
+
     public static function songs()
     {
-       $songs = Song::get();
+        $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->get();
+
      foreach($songs as $song)
      {
          $artist_id=explode(',',$song->artist_id);
@@ -27,7 +33,8 @@ class Song extends Model
     }
     public static function songsfilterByMusicType($music_type_id)
     {
-       $songs = Song::get();
+       $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->get();
+
      foreach($songs as $song)
      {
          $artist_id=explode(',',$song->artist_id);

@@ -240,6 +240,7 @@ class UserController extends Controller
             } else {
                 $favourite = new Favourite;
                 $favourite->user_id = Auth::user()->id;
+                $favourite->type = $request->type;
                 $favourite->song_id = $id;
                 if ($favourite->save()) {
                     return response()->json([

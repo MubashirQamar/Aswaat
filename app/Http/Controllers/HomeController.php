@@ -33,6 +33,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        $type=0;
         if (isset($request->type)) {
             if ($request->type == 'soundtrack') {
                 $data['music'] = DB::table('albums')
@@ -41,9 +42,10 @@ class HomeController extends Controller
                     ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
                     ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
                     ->get();
+                    $type=1;
                 $data['type'] = $request->type;
                 $data['albums'] = SubCategory::with('category')->get();
-            } else if ($request->type == 0) {
+            } else if ($request->type == 0 && $request->type!='music') {
                 $data['music'] = DB::table('albums')
                     ->join('artists', 'artists.id', '=', 'albums.artist_id')
                     ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
@@ -53,16 +55,34 @@ class HomeController extends Controller
                     ->get();
                 $data['type'] = 'soundtrack';
                 $data['albums'] = SubCategory::with('category')->get();
-            } else {
+
+            }
+            else if(isset($request->sort) && $request->type == 'music'){
+                $data['music'] = Song::songsfilterByMusicType($request->type);
+                $data['type'] = $request->type;
+                $data['albums'] = SubCategory::with('category')->get();
+                // return 'ggg';
+            }
+            else {
+
                 $data['music'] = Song::songsfilterByMusicType($request->type);
                 $data['type'] = $request->type;
                 $data['albums'] = SubCategory::with('category')->get();
             }
-        } else {
+        }
+
+        else {
             $data['music'] = Song::songs();
             $data['type'] = 'music';
 
             $data['albums'] = SubCategory::with('category')->get();
+        }
+        if(Auth::user())
+        {
+            $data['favourite']=Favourite::where('user_id',Auth::user()->id)->where('type',$type)->get()->pluck('song_id')->toArray();
+        }else
+        {
+            $data['favourite'] = array();
         }
 
         $data['music_type'] = MusicType::get();
@@ -154,5 +174,25 @@ class HomeController extends Controller
     }
     public function contactus(){
         return view('contact');
+    }
+    public function search(Request $request){
+        $data['music'] = DB::table('albums')
+        ->join('artists', 'artists.id', '=', 'albums.artist_id')
+        ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+        ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+
+        ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+        ->get();
+
+        return view('search',$data);
+    }
+    public function terms(){
+        return view('terms');
+    }
+    public function privacy(){
+        return view('privacy');
+    }
+    public function about(){
+        return view('about_us');
     }
 }

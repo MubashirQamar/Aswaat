@@ -148,7 +148,74 @@
                         </div>
                     </div>
 
-                    {{-- <hr /> --}}
+                    <hr />
+                    <h4><b>Sorting Filters</b></h4>
+                    <hr />
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="instrument2">
+                            Instrument
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <select class="form-control select2-multiple" name="instrument2" >
+                                <option value="1">Vocal & Instrumental </option>
+                                <option value="2">Vocal Only </option>
+                                <option value="3">Instruments</option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="bpm">
+                            BPM
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <select class="form-control select2-multiple" name="bpm" >
+                                <option value="slow">Slow </option>
+                                <option value="medslow">Med-Slow </option>
+                                <option value="medium">Medium </option>
+                                <option value="medfast">Med-Fast </option>
+                                <option value="fast">Fast </option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="duration">
+                            Durations
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <select class="form-control select2-multiple" name="duration" required>
+                                <option value="1">10 - 30 sec </option>
+                                <option value="2">30 - 50 sec </option>
+                                <option value="3">50+ sec     </option>
+
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+
+                        <label class="col-sm-2 form-control-label" for="tag">
+                            Tags
+                        </label>
+
+                        <div class="col-sm-10 controls ">
+
+                            <input class="col-sm-12 form-control" name="tag" data-role="tagsinput">
+
+                        </div>
+                    </div>
                     <div class="form-group row m-t-md">
                         <div class="col-sm-offset-2 col-sm-12 text-right">
                             <button type="submit" class="btn btn-primary">Save</button>

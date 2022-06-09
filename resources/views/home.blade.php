@@ -39,9 +39,9 @@
                     <button class="nav-link" id="v-pills-downloads-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-downloads" type="button" role="tab" aria-controls="v-pills-downloads"
                         aria-selected="false">My Downloads</button>
-                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
+                    {{-- <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
-                        aria-selected="false">Payments</button>
+                        aria-selected="false">Payments</button> --}}
                     <button class="nav-link" onclick="$('#logoutform').submit()" id="v-pills-signout-tab"
                         data-bs-toggle="pill" data-bs-target="#v-pills-signout" type="button" role="tab"
                         aria-controls="v-pills-settings" aria-selected="false">Sign Out</button>
@@ -87,18 +87,18 @@
                                 <li>
                                     <span class="grey-text">Username: </span>
                                     <span class="txt-white"><input type="text" class="" id="name"
-                                            readonly name="name" value="{{ Auth::user()->name }}"> </span>
+                                            readonly name="name" onchange="saveuser()" value="{{ Auth::user()->name }}"> </span>
                                     <a class="profile-update" href="#">[Edit]</a>
                                 </li>
                                 <li>
                                     <span class="grey-text">Email: </span>
-                                    <span class="txt-white"><input type="text" id="email" readonly name="email"
+                                    <span class="txt-white"><input type="text" onchange="saveuser()" id="email" readonly name="email"
                                             value="{{ Auth::user()->email }}"></span>
                                     <a class="profile-update" href="#">[Edit]</a>
                                 </li>
                                 <li>
                                     <span class="grey-text">Password: </span>
-                                    <span class="txt-white"><input type="text" id="password" readonly name="password"
+                                    <span class="txt-white"><input type="text" onchange="saveuser()" id="password" readonly name="password"
                                             value="*****" required></span>
                                     <a class="profile-update" href="#">[Edit]</a>
                                 </li>
@@ -190,8 +190,8 @@
                                                             <button data-id="{{ $favourite->songs->id }}"
                                                                 data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
                                                                     class="fa-solid fa-download download"></i></button>
-                                                            <button data-id="{{ $favourite->songs->id }}"><i
-                                                                    class="fa-solid fa-star add-favourite"></i></button>
+                                                            {{-- <button data-id="{{ $favourite->songs->id }}"><i
+                                                                    class="fa-solid fa-star add-favourite"></i></button> --}}
                                                             <button data-id="{{ $favourite->songs->id }}"><i
                                                                     class="fa-solid fa-share share"></i></button>
                                                         @else
@@ -211,8 +211,8 @@
                                                         <button data-id="{{ $favourite->songs->id }}"
                                                             data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
-                                                        <button onclick="location.href='{{ route('login') }}'"><i
-                                                                class="fa-solid fa-star"></i></button>
+                                                        {{-- <button onclick="location.href='{{ route('login') }}'"><i
+                                                                class="fa-solid fa-star"></i></button> --}}
 
                                                         <button
                                                             data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}">
@@ -425,9 +425,15 @@
                     }
                 }
             );
+
+
+
         })
+        function saveuser(){
+        // var currentInput = a.val();
+                        $('#profile_form').submit();
 
-
+                }
         $('.profile-update').click(function(e) {
             console.log();
             $('.edit-profile input').attr('readonly', true);
