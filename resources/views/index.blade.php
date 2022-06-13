@@ -159,34 +159,35 @@
                         <form method="GET" id="filter-form" class="filter-form">
                             <select name="sort" class="sort-filter">
                                 {{-- <option>Sort by ASWAT list</option> --}}
-                                <option  value="top">Top Download</option>
-                                <option value="newest">Newest </option>
+                                <option @if($sort == 'top') selected @endif  value="top">Top Download</option>
+                                <option @if($sort == 'newest') selected @endif value="newest">Newest </option>
 
                             </select>
 
                             <select name="instrument" class="sort-filter">
-                                <option value="1">Vocal & Instrumental </option>
-                                <option value="2">Vocal Only </option>
-                                <option value="3">Instruments</option>
+                                <option @if($instrument == 1) selected @endif value="newest" value="1">Vocal & Instrumental </option>
+                                <option @if($instrument == 2) selected @endif  value="2">Vocal Only </option>
+                                <option @if($instrument == 3) selected @endif  value="3">Instruments</option>
 
                             </select>
 
                             <select name="bpm" class="sort-filter">
                                 <option>BPM</option>
-                                <option value="slow">Slow </option>
-                                <option value="medslow">Med-Slow </option>
-                                <option value="medium">Medium </option>
-                                <option value="medfast">Med-Fast </option>
-                                <option value="fast">Fast </option>
+                                <option  @if($bpm == 'slow') selected @endif value="slow">Slow </option>
+                                <option @if($bpm == 'medslow') selected @endif value="medslow">Med-Slow </option>
+                                <option @if($bpm == 'medium') selected @endif value="medium">Medium </option>
+                                <option @if($bpm == 'medfast') selected @endif value="medfast">Med-Fast </option>
+                                <option @if($bpm == 'fast') selected @endif value="fast">Fast </option>
                             </select>
 
                             <select name="duration" class="sort-filter">
                                 <option>Any Duration</option>
-                                <option value="1">10 - 30 sec </option>
-                                <option value="2">30 - 50 sec </option>
-                                <option value="3">50+ sec     </option>
+                                <option  @if($duration == 1) selected @endif value="1">10 - 30 sec </option>
+                                <option  @if($duration == 2) selected @endif value="2">30 - 50 sec </option>
+                                <option  @if($duration == 3) selected @endif value="3">50+ sec     </option>
                             </select>
                             <input type="hidden" name="type" value="{{ $type }}">
+                            <input type="hidden" name="music_type_id" value="{{ $music_type_id }}">
                         </form>
 
                     </div>
@@ -195,7 +196,7 @@
                     <input type="hidden" id="current_music_id" value="">
                     {{-- Music  start --}}
 
-                    @if ($type != 'soundtrack')
+                    @if ($type != 'soundtrack' || $type!=0)
                         <div class="music-list" id="playlist">
                             <script>
                                 var mux = 0;

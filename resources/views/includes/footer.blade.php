@@ -10,7 +10,7 @@
 
                 <li><a href="{{ url('/contact') }}">Contact Us</a></li>
                 <li><a href="{{ url('/about') }}">About Us</a></li>
-                <li><a href="{{ url('/term') }}">Terms & Conditions</a></li>
+                <li><a href="{{ url('/terms') }}">Terms & Conditions</a></li>
                 <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
 
             </ul>

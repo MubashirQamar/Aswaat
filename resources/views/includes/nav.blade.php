@@ -149,7 +149,7 @@
             <div class="side-menu-GDPR">
 
                 <ul>
-                    <li><a href="{{ url('/term') }}">Terms & Conditions</a></li>
+                    <li><a href="{{ url('/terms') }}">Terms & Conditions</a></li>
                     <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
                 </ul>
 
