@@ -33,19 +33,64 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $type=0;
+        $type = 0;
+        $sort = 0;
+        $data['sort'] = 'top';
+        $data['instrument'] = 3;
+        $data['bpm'] = 0;
+        $data['duration'] = 0;
+        if (isset($request->sort)) {
+            $sort = 1;
+            $data['sort'] = $request->sort;
+            $data['instrument'] = $request->instrument;
+            $data['bpm'] = $request->bpm;
+            $data['duration'] = $request->duration;
+        }
+        $data['music_type_id'] = 0;
         if (isset($request->type)) {
-            if ($request->type == 'soundtrack') {
+            //  fetch sound track
+            if ($request->type == 'soundtrack' && $sort == 0) {
                 $data['music'] = DB::table('albums')
                     ->join('artists', 'artists.id', '=', 'albums.artist_id')
                     ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
                     ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
                     ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
                     ->get();
-                    $type=1;
+                $type = 1;
                 $data['type'] = $request->type;
                 $data['albums'] = SubCategory::with('category')->get();
-            } else if ($request->type == 0 && $request->type!='music') {
+            }
+            //  fetch sound track by sorting
+            else if (isset($request->sort) && $request->type == 'soundtrack') {
+                $music = DB::table('albums')
+                    ->join('artists', 'artists.id', '=', 'albums.artist_id')
+                    ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+                    ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+                    ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name');
+                if (is_numeric($request->instrument) == 1) {
+                    $music  = $music->where('sort_instrument', $request->instrument);
+                } else {
+                    $music  = $music->where('sort_instrument', 3);
+                }
+                if (is_numeric($request->bpm) == 1) {
+                    $music  = $music->where('sort_bpm', $request->bpm);
+                }
+                if (is_numeric($request->duration) == 1) {
+                    $music  = $music->where('sort_duration', $request->duration);
+                }
+                if ($request->sort == 'top') {
+                    $music  = $music->orderBy('id', 'desc');
+                } else {
+                    $music  = $music->orderBy('id', 'desc');
+                }
+                $music = $music->get();
+
+                $data['music'] = $music;
+                $data['type'] = 'soundtrack';
+                $data['albums'] = SubCategory::with('category')->get();
+            }
+            //  fetch albums
+            else if ($request->type == 0 && $request->type != 'music' &&  $sort == 0) {
                 $data['music'] = DB::table('albums')
                     ->join('artists', 'artists.id', '=', 'albums.artist_id')
                     ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
@@ -53,16 +98,48 @@ class HomeController extends Controller
                     ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
                     ->whereRaw("find_in_set('" . $request->id . "',albums.subcat_id)")
                     ->get();
-                $data['type'] = 'soundtrack';
+                $data['type'] = 0;
+                $data['music_type_id'] = $request->id;
                 $data['albums'] = SubCategory::with('category')->get();
-
             }
-            else if(isset($request->sort) && $request->type == 'music'){
-                $data['music'] = Song::songsfilterByMusicType($request->type);
+            //  fetch album  by sorting
+            else if ($request->type == 0 && $request->type != 'music' &&  $sort == 1 && isset($request->music_type_id)) {
+                $music = DB::table('albums')
+                    ->join('artists', 'artists.id', '=', 'albums.artist_id')
+                    ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+                    ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+                    ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+                    ->whereRaw("find_in_set('" . $request->music_type_id . "',albums.subcat_id)");
+
+                if (is_numeric($request->instrument) == 1) {
+                    $music  = $music->where('albums.sort_instrument', $request->instrument);
+                }
+                if (is_numeric($request->bpm) == 1) {
+                    $music  = $music->where('albums.sort_bpm', $request->bpm);
+                }
+                if (is_numeric($request->duration) == 1) {
+                    $music  = $music->where('albums.sort_duration', $request->duration);
+                }
+                if ($request->sort == 'top') {
+                    $music  = $music->orderBy('albums.id', 'desc');
+                } else {
+                    $music  = $music->orderBy('albums.id', 'desc');
+                }
+                $music = $music->get();
+
+                $data['music'] = $music;
+                $data['music_type_id'] = $request->music_type_id;
+                $data['type'] = 0;
+                $data['albums'] = SubCategory::with('category')->get();
+                // return 'ff';
+            }
+            //  fetch music by sorting
+            else if (isset($request->sort) && $request->type == 'music') {
+                $data['music'] = Song::songsSortfilterByMusicType($request->sort, $request->instrument, $request->bpm, $request->duration);
                 $data['type'] = $request->type;
                 $data['albums'] = SubCategory::with('category')->get();
-                // return 'ggg';
             }
+            //  fetch music by music type id
             else {
 
                 $data['music'] = Song::songsfilterByMusicType($request->type);
@@ -70,22 +147,21 @@ class HomeController extends Controller
                 $data['albums'] = SubCategory::with('category')->get();
             }
         }
-
+        //  fetch music
         else {
             $data['music'] = Song::songs();
             $data['type'] = 'music';
 
             $data['albums'] = SubCategory::with('category')->get();
         }
-        if(Auth::user())
-        {
-            $data['favourite']=Favourite::where('user_id',Auth::user()->id)->where('type',$type)->get()->pluck('song_id')->toArray();
-        }else
-        {
+        if (Auth::user()) {
+            $data['favourite'] = Favourite::where('user_id', Auth::user()->id)->where('type', $type)->get()->pluck('song_id')->toArray();
+        } else {
             $data['favourite'] = array();
         }
 
         $data['music_type'] = MusicType::get();
+        // return $data;
         return view('index', $data);
     }
     public function sound_effect()
@@ -103,16 +179,56 @@ class HomeController extends Controller
             ->get();
         return view('sound_track', $data);
     }
-    public function album($id)
+    public function album(Request $request, $id)
     {
+        $sort = 0;
+        $data['sort'] = 'top';
+        $data['instrument'] = 3;
+        $data['bpm'] = 0;
+        $data['duration'] = 0;
+        if (isset($request->sort)) {
+            $sort = 1;
+            $data['sort'] = $request->sort;
+            $data['instrument'] = $request->instrument;
+            $data['bpm'] = $request->bpm;
+            $data['duration'] = $request->duration;
+        }
+
         $data['album'] = SubCategory::find($id);
-        $data['music'] = DB::table('albums')
-            ->join('artists', 'artists.id', '=', 'albums.artist_id')
-            ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
-            ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
-            ->whereRaw("find_in_set('" . $id . "',albums.subcat_id)")
-            ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
-            ->get();
+        if ($sort == 1) {
+            $music = DB::table('albums')
+                ->join('artists', 'artists.id', '=', 'albums.artist_id')
+                ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+                ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+                ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+                ->whereRaw("find_in_set('" . $id . "',albums.subcat_id)");
+
+            if (is_numeric($request->instrument) == 1) {
+                $music  = $music->where('albums.sort_instrument', $request->instrument);
+            }
+            if (is_numeric($request->bpm) == 1) {
+                $music  = $music->where('albums.sort_bpm', $request->bpm);
+            }
+            if (is_numeric($request->duration) == 1) {
+                $music  = $music->where('albums.sort_duration', $request->duration);
+            }
+            if ($request->sort == 'top') {
+                $music  = $music->orderBy('albums.id', 'desc');
+            } else {
+                $music  = $music->orderBy('albums.id', 'desc');
+            }
+            $music = $music->get();
+
+            $data['music'] = $music;
+        } else {
+            $data['music'] = DB::table('albums')
+                ->join('artists', 'artists.id', '=', 'albums.artist_id')
+                ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+                ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+                ->whereRaw("find_in_set('" . $id . "',albums.subcat_id)")
+                ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+                ->get();
+        }
         return view('album', $data);
     }
     public function profile()
@@ -172,27 +288,84 @@ class HomeController extends Controller
         session()->put("lang_code", $langcode);
         return redirect()->back();
     }
-    public function contactus(){
+    public function contactus()
+    {
         return view('contact');
     }
-    public function search(Request $request){
-        $data['music'] = DB::table('albums')
-        ->join('artists', 'artists.id', '=', 'albums.artist_id')
-        ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
-        ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+    public function search(Request $request)
+    {
+        $sort = 0;
+        $data['sort'] = 'top';
+        $data['instrument'] = 3;
+        $data['bpm'] = 0;
+        $data['duration'] = 0;
+        $count=0;
+        $search = $data['search'] = $request->searchmusic;
+        if (isset($request->sort)) {
+            $sort = 1;
+            $data['sort'] = $request->sort;
+            $data['instrument'] = $request->instrument;
+            $data['bpm'] = $request->bpm;
+            $data['duration'] = $request->duration;
+            $albums = DB::table('albums')
+            ->join('artists', 'artists.id', '=', 'albums.artist_id')
+            ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+            ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+            ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+            ->where('tags', 'LIKE', "%{$search}%");
 
-        ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
-        ->get();
+        if (is_numeric($request->instrument) == 1) {
+            $albums  = $albums->where('albums.sort_instrument', $request->instrument);
+        }
+        if (is_numeric($request->bpm) == 1) {
+            $albums  = $albums->where('albums.sort_bpm', $request->bpm);
+        }
+        if (is_numeric($request->duration) == 1) {
+            $albums  = $albums->where('albums.sort_duration', $request->duration);
+        }
+        if ($request->sort == 'top') {
+            $albums  = $albums->orderBy('albums.id', 'desc');
+        } else {
+            $albums  = $albums->orderBy('albums.id', 'desc');
+        }
+        $albums = $albums->get();
+        $data['albums'] = $albums;
+         $music = $data['music'] = Song::songsSortSearchfilterByMusicType($request->sort, $request->instrument, $request->bpm, $request->duration,$search);
+        $count+=count($albums);
+        $count+=count($music);
+        }else{
+            $albums =  $data['albums'] = DB::table('albums')
+            ->join('artists', 'artists.id', '=', 'albums.artist_id')
+            ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+            ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+            ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+            ->where('tags', 'LIKE', "%{$search}%")
+            ->get();
+            $music =   $data['music'] = Song::songsSearchfilterByMusicType($search);
+            $count+=count($albums);
+            $count+=count($music);
+        }
 
-        return view('search',$data);
+        if (Auth::user()) {
+            $data['favourite'] = Favourite::where('user_id', Auth::user()->id)->where('type', 0)->get()->pluck('song_id')->toArray();
+        } else {
+            $data['favourite'] = array();
+        }
+         $data['count']=$count;
+
+
+        return view('search', $data);
     }
-    public function terms(){
+    public function terms()
+    {
         return view('terms');
     }
-    public function privacy(){
+    public function privacy()
+    {
         return view('privacy');
     }
-    public function about(){
+    public function about()
+    {
         return view('about_us');
     }
 }
