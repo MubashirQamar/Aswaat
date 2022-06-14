@@ -256,7 +256,7 @@ class HomeController extends Controller
         } else {
             $data['modal'] = 0;
         }
-        $data['packages'] = Package::get();
+          $data['packages'] = Package::with('package_detail')->get();
         return view('package', $data);
     }
     public function cart()

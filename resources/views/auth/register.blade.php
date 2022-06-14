@@ -46,29 +46,33 @@
 
                 </div>
 
+                <div class="form-group form-check custom-check">
+                    <input type="checkbox" class="form-check-input" required id="exampleCheck1">
+                    <label class="form-check-label" for="exampleCheck1"> I agree to these <a href="{{ url('/terms') }}" target="_blank">Terms and Conditions</a>.</label>
+                  </div>
                 <div class="button-group">
                     <button class="custom-btn primary-btn"> Proceed </button>
                 </div>
 
             </form>
+            <div class="sign-up bottom-section">
+                <h2 class="title">Start using Aswat for FREE!</h2>
 
+                    <p class="align-left"> With a free account you can. </p>
+
+                    <ul class="menu-list-inner">
+
+                        <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Download Music & SFX of your choice</li>
+                        <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Organized your own favorite list</li>
+                        <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Purchase Music & SFX individually</li>
+
+
+
+                    </ul>
+
+            </div>
         </div>
-        <div class="sign-up bottom-section">
-            <h2 class="title">Start using Aswat for FREE!</h2>
 
-                <p class="align-left"> With a free account you can. </p>
-
-                <ul class="menu-list-inner">
-
-                    <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Download Music & SFX of your choice</li>
-                    <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Organized your own favorite list</li>
-                    <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Purchase Music & SFX individually</li>
-
-
-
-                </ul>
-
-        </div>
     </main>
 
     {{-- <div class="container" style="display: none">

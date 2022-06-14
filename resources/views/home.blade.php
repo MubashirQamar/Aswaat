@@ -173,7 +173,7 @@
                                                     <div id="fav{{ $loop->iteration }}" class="waveform"></div>
                                                 </div>
                                                 <span class="music-price">
-                                                    SR . {{ $favourite->songs->price }}
+                                                    $ . {{ $favourite->songs->price }}
                                                 </span>
                                             </div>
                                             <div class="items-right">
@@ -326,7 +326,7 @@
                                                     <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                                 </div>
                                                 <span class="music-price">
-                                                    SR . {{ $download->songs->price }}
+                                                    $ . {{ $download->songs->price }}
                                                 </span>
                                             </div>
                                             <div class="items-right">

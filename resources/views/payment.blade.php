@@ -45,7 +45,7 @@
                                             <p>Package {{  $details['name'] }}</p>
                                         </td>
 
-                                        <td><strong> SR. {{ $details['price'] }}</strong></td>
+                                        <td><strong> $. {{ $details['price'] }}</strong></td>
 
                                     </tr>
                                 @endforeach
@@ -72,7 +72,7 @@
                                     Total
                                 </td>
                                 <td nowrap="true" class="pull-right">
-                                    SR. {{ $total  }}
+                                    $. {{ $total  }}
                                 </td>
                             </tr>
 

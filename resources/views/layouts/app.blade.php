@@ -47,12 +47,12 @@
     {{-- Footer Starts --}}
     @include('includes.footer')
 
-    <div id="soicalmedialink" class="modal fade" role="dialog">
+    <div id="soicalmedialink" class="modal fade social-media-modal" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header ">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
                     <h5>Do you like this? Share with your friends!</h5>
@@ -68,8 +68,11 @@
                             <li class="bg_whatsapp"><a href="#" class="share_icon" rel="tooltip"
                                     title="Whatsapp"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></a></li>
                             <li class="bg_copylink"><a href="#" class="share_icon" rel="tooltip"
-                                    title="Copy Link"><i class="fa-solid fa-link"></i></a></li>
+                                    title="Copy Link"><i class="fa-solid fa-link"></i></a>
+
+                            </li>
                         </ul>
+                        <div class="copy-link" style="display: none"> <b><span>link is copied</span></b>  </div>
                     </div>
                 </div>
             </div>
@@ -149,6 +152,7 @@
         });
     });
     $('.sort-filter').change(function(){
+        document.cookie=1;
        $('#filter-form').submit();
     });
 
@@ -298,7 +302,10 @@
         // let params = `;
 
         navigator.clipboard.writeText(link);
-
+        $('.copy-link').css('display','');
+        setTimeout(() => {
+            $('.copy-link').css('display','none');
+        }, 3000);
         // $(this).append('<p>URL copied!</p>')
         // window.open('https://api.whatsapp.com/send?text='+link,'popUpWindow','height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
     });

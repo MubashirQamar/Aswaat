@@ -73,7 +73,7 @@
             </form>
 
         </div>
-        <hr class="contact-hr">
+        {{-- <hr class="contact-hr"> --}}
         <div class="sign-up  contact-info-section">
 
             <div class="contact-box">
@@ -92,12 +92,13 @@
             </div>
             <div class="contact-box">
                 <div class="icon-wrapper">
-                    <i class="fa-solid fa-location-dot contact-icon">
-                        <span class="fix-editor">&nbsp;</span></i>
-
+                    <i class="fa-solid fa-location-dot contact-icon"></i>
+                    {{-- <i class="fa-solid fa-location-dot "> --}}
+                        {{-- <span class="fix-editor">&nbsp;</span></i> --}}
+                        <p> Al Fahd Building 1 - Office 19 </p>
+                        <p> Mohammed Bin Saud Dis.,Dammam,Saudia Arabia </p>
                 </div>
-                <p> Al Fahd Building 1 - Office 19 </p>
-                <p> Mohammed Bin Saud Dis.,Dammam,Saudia Arabia </p>
+
             </div>
         </div>
     </main>

@@ -35,7 +35,7 @@
 
 
 
-                <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }} "><a class="nav-link" href="{{ url('/') }}">Music</a></li>
+                <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }} "><a class="nav-link" href="{{ url('/') }}">Home</a></li>
 
 
 
