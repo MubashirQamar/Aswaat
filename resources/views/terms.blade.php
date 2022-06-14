@@ -6,7 +6,7 @@
 
 
 
-            <div class=" album-container">
+            <div class=" about-container">
 
                 <div class="row">
                     <h3 class="terms-heading"><b>Terms & Conditions </b></h3>

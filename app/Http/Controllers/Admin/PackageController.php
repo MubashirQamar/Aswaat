@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Package;
+use App\PackageDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PackageController extends Controller
 {
@@ -27,6 +29,7 @@ class PackageController extends Controller
     public function edit($id)
     {
         $data['package'] = Package::find($id);
+        $data['package_detail'] = PackageDetail::where('package_id',$id)->get();
         return view('admin.package.edit', $data);
     }
 
@@ -41,6 +44,18 @@ class PackageController extends Controller
         $package->price = $request->price;
 
         $package->save();
+
+        if(count($request->description) != 0 ){
+            for ($i=0; $i < count($request->description) ; $i++) {
+                # code...
+                $package_detail=new PackageDetail;
+                $package_detail->package_id=$package->id;
+                $package_detail->description=$request->description[$i];
+                $package_detail->save();
+            }
+
+        }
+
         return redirect('/admin/package')->with('success', 'Package is successfully saved');
     }
 
@@ -53,6 +68,20 @@ class PackageController extends Controller
         $package->downloads = $request->downloads;
         $package->price = $request->price;
         $package->save();
+
+        if(count($request->description) != 0 ){
+            DB::table('package_details')->where('package_id', $id)->delete();
+
+            for ($i=0; $i < count($request->description) ; $i++) {
+                # code...
+                $package_detail=new PackageDetail;
+                $package_detail->package_id=$id;
+                $package_detail->description=$request->description[$i];
+                $package_detail->save();
+            }
+
+        }
+
         return redirect('/admin/package')->with('success', 'Package is successfully Updated');
     }
 

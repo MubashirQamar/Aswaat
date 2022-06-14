@@ -42,18 +42,13 @@
                                     </select>
 
                                     <select name="bpm" class="sort-filter">
-                                        <option>BPM</option>
-                                        <option @if ($bpm == 'slow') selected @endif value="slow">Slow
-                                        </option>
-                                        <option @if ($bpm == 'medslow') selected @endif value="medslow">Med-Slow
-                                        </option>
-                                        <option @if ($bpm == 'medium') selected @endif value="medium">Medium
-                                        </option>
-                                        <option @if ($bpm == 'medfast') selected @endif value="medfast">Med-Fast
-                                        </option>
-                                        <option @if ($bpm == 'fast') selected @endif value="fast">Fast
-                                        </option>
-                                    </select>
+                                    <option @if($bpm==0) selected @endif value="0">BPM</option>
+                                    <option @if($bpm == "slow" && !is_numeric($bpm)) selected @endif value="slow">Slow </option>
+                                    <option @if($bpm == "medslow" && !is_numeric($bpm)) selected @endif value="medslow">Med-Slow </option>
+                                    <option @if($bpm == "medium" && !is_numeric($bpm)) selected @endif value="medium">Medium </option>
+                                    <option @if($bpm == "medfast" && !is_numeric($bpm)) selected @endif value="medfast">Med-Fast </option>
+                                    <option @if($bpm == "fast" && !is_numeric($bpm)) selected @endif value="fast">Fast </option>
+                                </select>
 
                                     <select name="duration" class="sort-filter">
                                         <option>Any Duration</option>
@@ -69,6 +64,7 @@
 
                             </div>
                             <input type="hidden" id="current_album_id" value="">
+                            <input type="hidden" id="current_music_id" value="">
                             <div class="music-list" id="playlist">
                                 {{-- albums Start --}}
                                 <script>
@@ -97,7 +93,7 @@
                                             @endif
 
                                             {{-- <button class="btn btn-default" > --}}
-                                            <i class="fa-solid fa-play" id="icon-play{{ $loop->iteration }}"
+                                            <i class="fa-solid fa-play" id="album_icon-play{{ $loop->iteration }}"
                                                 onclick="pausealbum('{{ $loop->iteration }}')"></i>
 
                                             {{-- </button> --}}
@@ -105,7 +101,7 @@
 
                                             <span class="artist-name">
                                                 <p id="album_name{{ $loop->iteration }}">{{ $alb->name }}</p>
-                                                <p id="artist_name{{ $loop->iteration }}">
+                                                <p id="album_artist_name{{ $loop->iteration }}">
 
                                                     {{ $alb->artist_name }}
 
@@ -129,7 +125,7 @@
                                                 <div id="album{{ $loop->iteration }}" class="waveform"></div>
                                             </div>
                                             <span class="music-price">
-                                                SR . {{ $alb->price }}
+                                                $. {{ $alb->price }}
                                             </span>
                                         </div>
                                         <div class="items-right">
@@ -283,7 +279,7 @@
                                                 <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                             </div>
                                             <span class="music-price">
-                                                SR . {{ $mus->price }}
+                                                $. {{ $mus->price }}
                                             </span>
                                         </div>
                                         <div class="items-right">
@@ -425,7 +421,7 @@
         var wavesurfer, current_album_id,current_music_id;
         // Init on DOM ready
         function updatetime(time) {
-            var current_album = $('#current_album_id').val();
+            var current_album = $('#current_music_id').val();
             $('#currenttime' + current_album).text(formatTimecode(time));
         }
         function updatealbtime(time) {
@@ -445,6 +441,7 @@
                 minPxPerSec: 5
             });
             current_album_id = $('#current_album_id').val();
+            current_music_id = $('#current_music_id').val();
 
             wavesurfer.on('play', function() {
                 document.querySelector('#bottom-play').style.display = 'none';
@@ -473,7 +470,7 @@
         });
         setTimeout(() => {
             displayTime();
-        }, 3000);
+        }, 13000);
 
         function displayTime() {
             for (let index = 1; index <= alb; index++) {
@@ -497,22 +494,28 @@
                 updatealbtime(time);
                 // console.log('dsfaf',time)
             });
-            this["album" + id].on("audioprocess", () => {
-                const time = this["album" + id].getCurrentTime();
-                // currenttime.innerHTML = formatTimecode(time)
-                updatealbtime(time);
-                // console.log('dsfaf',time)
-            });
-            this["album" + id].on('finish', function() {
-                // setCurrentSong((currentTrack + 1) % links.length);
-                $('#icon-play' + id).removeClass('fa-pause');
-                $('#icon-play' + id).addClass('fa-play');
-            });
+
             this["music" + id].on('finish', function() {
                 // setCurrentSong((currentTrack + 1) % links.length);
                 $('#icon-play' + id).removeClass('fa-pause');
                 $('#icon-play' + id).addClass('fa-play');
             });
+        }
+        function timeralbumfuc(id) {
+
+
+           this["album" + id].on("audioprocess", () => {
+                const time = this["album" + id].getCurrentTime();
+                // currenttime.innerHTML = formatTimecode(time)
+                updatealbtime(time);
+                console.log('dsfaf',time);
+            });
+            this["album" + id].on('finish', function() {
+                // setCurrentSong((currentTrack + 1) % links.length);
+                $('#album_icon-play' + id).removeClass('fa-pause');
+                $('#album_icon-play' + id).addClass('fa-play');
+            });
+
         }
 
         function pausealbum(sad) {
@@ -532,8 +535,8 @@
             $('#current_album_id').val(sad);
             for (i = 1; i <= alb; i++) {
                 this["album" + i].pause();
-                $('#icon-play' + i).removeClass('fa-pause');
-                $('#icon-play' + i).addClass('fa-play');
+                $('#album_icon-play' + i).removeClass('fa-pause');
+                $('#album_icon-play' + i).addClass('fa-play');
                 // $('#demo' + i).css('visibility', 'visible');
                 $('#album_item' + i).val(0);
 
@@ -548,11 +551,11 @@
                 $('#album_action').empty();
                 $('#album_action').append(album_action);
                 // $('#demo' + sad).css('visibility', 'hidden');
-                this["album" + sad].load(album_url);
+                // this["album" + sad].load(album_url);
                 this["album" + sad].play();
                 // this["album" + sad].setMute(true);
-                $('#icon-play' + sad).removeClass('fa-play');
-                $('#icon-play' + sad).addClass('fa-pause');
+                $('#album_icon-play' + sad).removeClass('fa-play');
+                $('#album_icon-play' + sad).addClass('fa-pause');
                 $('#album_name').text(albumname);
                 $('#artist_name').text(artistname);
                 $('#category').text(categoryname);
@@ -560,7 +563,7 @@
                 $('#time_dur1').text(duration);
                 $('#album_item' + sad).val(1);
                 // playlist();
-                timerfuc(sad);
+                timeralbumfuc(sad);
                 // $('#waveform2').play();
                 // wavesurfer.load(links[currentTrack].href);
             }

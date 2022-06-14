@@ -5,6 +5,7 @@
 <script src="{{ asset('assets/select2/select2.min.js') }}"></script>
 <script src="{{ asset('assets/scripts/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('assets/scripts/alert.js') }}"></script>
+@stack('include-js')
 
 <script src="{{ asset('assets/scripts/main.js') }}"></script>
 <script>

@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <main>
         <section class="home-section" id="home"
@@ -116,7 +115,7 @@
 
         </section>
 
-        <section>
+        <section id="music-section" >
 
             <div class="music-section">
 
@@ -172,12 +171,12 @@
                             </select>
 
                             <select name="bpm" class="sort-filter">
-                                <option>BPM</option>
-                                <option  @if($bpm == 'slow') selected @endif value="slow">Slow </option>
-                                <option @if($bpm == 'medslow') selected @endif value="medslow">Med-Slow </option>
-                                <option @if($bpm == 'medium') selected @endif value="medium">Medium </option>
-                                <option @if($bpm == 'medfast') selected @endif value="medfast">Med-Fast </option>
-                                <option @if($bpm == 'fast') selected @endif value="fast">Fast </option>
+                                <option @if($bpm==0) selected @endif value="0">BPM</option>
+                                <option @if($bpm == "slow" && !is_numeric($bpm)) selected @endif value="slow">Slow </option>
+                                <option @if($bpm == "medslow" && !is_numeric($bpm)) selected @endif value="medslow">Med-Slow </option>
+                                <option @if($bpm == "medium" && !is_numeric($bpm)) selected @endif value="medium">Medium </option>
+                                <option @if($bpm == "medfast" && !is_numeric($bpm)) selected @endif value="medfast">Med-Fast </option>
+                                <option @if($bpm == "fast" && !is_numeric($bpm)) selected @endif value="fast">Fast </option>
                             </select>
 
                             <select name="duration" class="sort-filter">
@@ -234,13 +233,13 @@
                                             <p id="music_name{{ $loop->iteration }}">{{ $mus->name }}</p>
                                             <p id="artist_name{{ $loop->iteration }}">
                                                 @foreach ($mus->artist_name as $art)
-                                                    {{ $art->name . ',' }}
+                                                    {{ $art->name  }}
                                                 @endforeach
                                             </p>
                                         </span>
                                         <p class="category" id="category{{ $loop->iteration }}">
                                             @foreach ($mus->genre as $gen)
-                                                {{ $gen->name . ',' }}
+                                                {{ $gen->name  }}
                                             @endforeach
                                         </p>
                                         <p class="time"><span id="currenttime{{ $loop->iteration }}"></span> /
@@ -255,7 +254,7 @@
                                             <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                         </div>
                                         <span class="music-price">
-                                            SR . {{ $mus->price }}
+                                            $. {{ $mus->price }}
                                         </span>
                                     </div>
                                     <div class="items-right">
@@ -421,7 +420,7 @@
                                             <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                         </div>
                                         <span class="music-price">
-                                            SR . {{ $mus->price }}
+                                            $. {{ $mus->price }}
                                         </span>
                                     </div>
                                     <div class="items-right">
@@ -655,7 +654,7 @@
         });
         setTimeout(() => {
             displayTime();
-        }, 3000);
+        }, 12000);
 
         function displayTime() {
             for (let index = 1; index <= mux; index++) {
@@ -823,5 +822,18 @@
             setCurrentSong(currentTrack);
             // });
         }
+
     </script>
+    @if($type != 'music' )
+    <script>
+         $(document).ready(function() {
+
+        $('html, body').animate({
+        scrollTop: $("#music-section").offset().top
+        }, 'smooth');
+        // var elmntToView = document.getElementById("music-section");
+        //     elmntToView.scrollIntoView({behavior: "smooth"});
+        })
+    </script>
+    @endif
 @endpush

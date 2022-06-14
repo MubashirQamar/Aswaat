@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="main-section ">
+    <div class="main-section package">
 
         <h2 class="title">Select Package</h2>
         <h5 class="sub-title"> Unlimited Music & SFX - Download & get life time license! </h5>
@@ -20,8 +20,17 @@
 
                         <div class="pkg-box">
 
-                            <p>Pay at regular price.</p>
-                            <p>&lt; More Details &gt;</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span> Pay at regular price.</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Pay For Each File You Download</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>All Social Media Platforms</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Paid Ads</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Commercial Projects</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Client Work</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Podcasts</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Any online platform</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Broadcast & TV</p>
+                            <p><span><i class="fa-solid fa-circle-check"></i></span>Usage License Provided</p>
+                            {{-- <p>&lt; More Details &gt;</p> --}}
 
                         </div>
 
@@ -31,13 +40,17 @@
 
                             <div class="pkg-group">
                                 <input type="radio" id="{{ $package->name }}" value="{{ $package->id }}" name="package">
-                                <label for="silver">{{ $package->name }} @ Sr.{{ $package->price }}/mo.</label>
+                                <label for="silver">{{ $package->name }} @ $ .{{ $package->price }}/mo.</label>
                             </div>
 
                             <div class="pkg-box">
 
-                                <p>{{ $package->downloads }} downloads/mo.</p>
-                                <p>&lt; More Details &gt;</p>
+                                <p><span><i class="fa-solid fa-circle-check"></i></span>{{ $package->downloads }}
+                                    download/month.</p>
+                                @foreach ($package->package_detail as $detail)
+                                    <p><span><i class="fa-solid fa-circle-check"></i></span>{{ $detail->description }}</p>
+                                @endforeach
+
 
                             </div>
 
@@ -50,7 +63,7 @@
 
                         <div class="pkg-group gold">
                             <input type="radio" id="gold" name="package">
-                            <label for="gold">Gold @ Sr.00.00/mo.</label>
+                            <label for="gold">Gold @ $ .00.00/mo.</label>
                         </div>
 
                         <div class="pkg-box gold">
@@ -61,6 +74,18 @@
                         </div>
 
                     </div> --}}
+                    <div class="row">
+                        <div class="container">
+                            <div class="col-lg-12 sign-up text-center mt-5">
+                                <p><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Secure
+                                    Payments</p>
+                                <div class="payment-img">
+                                    <img src="{{ asset('frontend/images/payments.jpg') }}">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     @if (Auth::user())
                         {{-- <div id="paypal-button-container"></div> --}}
                         <div class="col-lg-12 text-end my-5">
@@ -75,23 +100,13 @@
 
         </div>
     </div>
-        <div class="row">
-            <div class="container">
-                <div class="col-lg-12 sign-up text-center mt-5">
-                    <p><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Secure Payments</p>
-                    <div class="payment-img">
-                        <img width="100px" src="{{ asset('frontend/images/paypal-package.png') }}">
-                        <img width="80px" height="40px" src="{{ asset('frontend/images/Apple_Pay.png') }}">
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 
 
     <div class="package-bottom-section ">
 
-        <h2 class="title">Enterprice Package</h2>
+        <h2 class="title">Enterprise Package</h2>
         <p>Specialized Music & Sound Effects</p>
         <p>Customiized licesence & Terms</p>
         <p>Exclusive Ownership of Files</p>

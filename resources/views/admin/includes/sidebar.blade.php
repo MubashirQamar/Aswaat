@@ -57,7 +57,7 @@
                                     <span ui-include="'{{ asset('assets/images/i_0.svg') }}"></span>
                                 </i>
                             </span>
-                            <span class="nav-text">Sub Category</span>
+                            <span class="nav-text">Album</span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('admin/music-type*')) ? 'active' : '' }}">
@@ -117,7 +117,7 @@
                                     <span ui-include="'{{ asset('assets/images/i_0.svg') }}"></span>
                                 </i>
                             </span>
-                            <span class="nav-text">Songs</span>
+                            <span class="nav-text">Home Page</span>
                         </a>
                     </li>
                     <li class="{{ (request()->is('admin/album*')) ? 'active' : '' }}">
@@ -127,7 +127,7 @@
                                     <span ui-include="'{{ asset('assets/images/i_0.svg') }}"></span>
                                 </i>
                             </span>
-                            <span class="nav-text">Album</span>
+                            <span class="nav-text">All Files</span>
                         </a>
                     </li>
                     {{-- <li>

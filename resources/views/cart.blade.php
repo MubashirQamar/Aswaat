@@ -32,7 +32,7 @@
                                         <td>
                                             <p>{{ $details['duration'] }}</p>
                                         </td>
-                                        <td><strong>SR. {{ $details['price'] }}</strong></td>
+                                        <td><strong>$. {{ $details['price'] }}</strong></td>
                                         <td>
                                             <i class="fa-solid fa-xmark remove-from-cart"></i>
 
@@ -62,7 +62,7 @@
                                     Total
                                 </td>
                                 <td nowrap="true" class="pull-right">
-                                    SR. {{ Auth::user()->subscription_id == -1 ? $total : '00' }}
+                                    $. {{ Auth::user()->subscription_id == -1 ? $total : '00' }}
                                 </td>
                             </tr>
                             @if (Auth::user()->subscription_id == -1)

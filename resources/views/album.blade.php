@@ -113,7 +113,7 @@
                                                 <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                             </div>
                                             <span class="music-price">
-                                                SR . {{ $mus->price }}
+                                                $. {{ $mus->price }}
                                             </span>
                                         </div>
                                         <div class="items-right">
