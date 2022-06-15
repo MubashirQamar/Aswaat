@@ -30,15 +30,9 @@
             @endif
             <div class="d-flex align-items-start profile-nav">
                 <div class="nav nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
-                        aria-selected="true">Profile</button>
-                    <button class="nav-link" id="v-pills-favourites-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-favourites" type="button" role="tab" aria-controls="v-pills-favourites"
-                        aria-selected="false">My Favourites</button>
-                    <button class="nav-link" id="v-pills-downloads-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-downloads" type="button" role="tab" aria-controls="v-pills-downloads"
-                        aria-selected="false">My Downloads</button>
+                    <a class="nav-link @if($tab =='profile') active @endif" id="v-pills-home-tab" href="{{ url('home') }}?tab=profile">Profile</a>
+                    <a class="nav-link @if($tab =='favourites') active @endif" id="v-pills-favourites-tab" href="{{ url('home') }}?tab=favourites">My Favourites</a>
+                    <a class="nav-link @if($tab =='downloads') active @endif" id="v-pills-downloads-tab"  href="{{ url('home') }}?tab=downloads">My Downloads</a>
                     {{-- <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
                         aria-selected="false">Payments</button> --}}
@@ -53,7 +47,7 @@
                 </div>
                 <div class="tab-content" id="v-pills-tabContent">
 
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                    <div class="tab-pane fade @if($tab =='profile') show active @endif" id="v-pills-home" role="tabpanel"
                         aria-labelledby="v-pills-home-tab">
                         <p>Hello, {{ Auth::user()->name }}</p>
 
@@ -109,7 +103,7 @@
 
                     {{-- favourite start tab --}}
                     <input type="hidden" id="fav_current_music_id" value="">
-                    <div class="tab-pane fade" id="v-pills-favourites" role="tabpanel"
+                    <div class="tab-pane fade @if($tab =='favourites') show active @endif " id="v-pills-favourites" role="tabpanel"
                         aria-labelledby="v-pills-favourites-tab">
                         <div class="col-lg-12 " style="width:100%">
                             <div class="music-player ">
@@ -195,13 +189,13 @@
                                                             <button data-id="{{ $favourite->songs->id }}"><i
                                                                     class="fa-solid fa-share share"></i></button>
                                                         @else
-                                                            <button data-id="{{ $favourite->songs->id }}"><i
+                                                            <button data-id="{{ $favourite->songs->id }}" data-type="0"><i
                                                                     class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                             <button data-id="{{ $favourite->songs->id }}"
                                                                 data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
                                                                     class="fa-solid fa-download download"></i></button>
-                                                            <button data-id="{{ $favourite->songs->id }}"><i
-                                                                    class="fa-solid fa-star add-favourite"></i></button>
+                                                            <!--<button data-id="{{ $favourite->songs->id }}"><i-->
+                                                            <!--        class="fa-solid fa-star add-favourite"></i></button>-->
                                                             <button data-id="{{ $favourite->songs->id }}"><i
                                                                     class="fa-solid fa-share share"></i></button>
                                                         @endif
@@ -261,7 +255,7 @@
                     {{-- favourite ends tab --}}
 
                     {{-- downloads start tab --}}
-                    <div class="tab-pane fade" id="v-pills-downloads" role="tabpanel"
+                    <div class="tab-pane fade @if($tab =='downloads') show active @endif" id="v-pills-downloads" role="tabpanel"
                         aria-labelledby="v-pills-downloads-tab">
                         <input type="hidden" id="current_music_id" value="">
                         <div class="col-lg-12 " style="width:100%">
@@ -459,7 +453,7 @@
         }
         setTimeout(() => {
             displayTime();
-        }, 3000);
+        }, 13000);
 
         function displayTime() {
             for (let index = 1; index <= mux; index++) {
@@ -485,7 +479,12 @@
 
 
                 // console.log('dsfaf',time)
-            })
+            });
+             this["music" + id].on('finish', function() {
+                // setCurrentSong((currentTrack + 1) % links.length);
+                $('#icon-play' + id).removeClass('fa-pause');
+                $('#icon-play' + id).addClass('fa-play');
+            });
         }
 
         function favtimerfuc(id) {
@@ -497,7 +496,12 @@
 
 
                 // console.log('dsfaf',time)
-            })
+            });
+             this["music" + id].on('finish', function() {
+                // setCurrentSong((currentTrack + 1) % links.length);
+                $('#fav-icon-play' + id).removeClass('fa-pause');
+                $('#fav-icon-play' + id).addClass('fa-play');
+            });
         }
 
         function pausemusic(sad) {

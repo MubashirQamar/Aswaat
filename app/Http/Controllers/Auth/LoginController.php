@@ -76,6 +76,8 @@ class LoginController extends Controller
               case '0':
                 if(count($checkpack)!=0)
                 return redirect('/home');
+                else if(Auth::user()->subscription_id == -1)
+                return redirect('/home');
                 else
                 return redirect('/packages');
                 break;

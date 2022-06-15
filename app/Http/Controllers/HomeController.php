@@ -35,11 +35,13 @@ class HomeController extends Controller
     {
         $type = 0;
         $sort = 0;
+        $scroll=0;
         $data['sort'] = 'top';
         $data['instrument'] = 3;
         $data['bpm'] = 0;
         $data['duration'] = 0;
         if (isset($request->sort)) {
+            $scroll=1;
             $sort = 1;
             $data['sort'] = $request->sort;
             $data['instrument'] = $request->instrument;
@@ -49,6 +51,7 @@ class HomeController extends Controller
         $data['music_type_id'] = 0;
         if (isset($request->type)) {
             //  fetch sound track
+            $scroll=1;
             if ($request->type == 'soundtrack' && $sort == 0) {
                 $data['music'] = DB::table('albums')
                     ->join('artists', 'artists.id', '=', 'albums.artist_id')
@@ -159,7 +162,7 @@ class HomeController extends Controller
         } else {
             $data['favourite'] = array();
         }
-
+        $data['scroll'] = $scroll;
         $data['music_type'] = MusicType::get();
         // return $data;
         return view('index', $data);
@@ -182,7 +185,9 @@ class HomeController extends Controller
     public function album(Request $request, $id)
     {
         $sort = 0;
+
         $data['sort'] = 'top';
+
         $data['instrument'] = 3;
         $data['bpm'] = 0;
         $data['duration'] = 0;
@@ -229,12 +234,17 @@ class HomeController extends Controller
                 ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
                 ->get();
         }
+
         return view('album', $data);
     }
-    public function profile()
+    public function profile(Request $req)
     {
         $date = date('Y-m-d');
         $q = Subscription::where('end_date',  '>=', $date)->where('status', 'Active')->get();
+         $data['tab']="profile";
+            if(isset($req->tab)){
+                $data['tab']=$req->tab;
+            }
 
         $data['credit'] =  $totals = $q->sum('total_download') - $q->sum('use_download');
 

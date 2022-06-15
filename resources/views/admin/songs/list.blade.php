@@ -3,7 +3,7 @@
     <div class="padding">
         <div class="box">
             <div class="box-header d-flex">
-                <h2>Songs</h2>
+                <h2>Home Page</h2>
                 <a href="{{ url('admin/songs/add') }}"><button class="btn btn-info"> Add New </button></a>
             </div>
             <div class="box-divider m-a-0"></div>

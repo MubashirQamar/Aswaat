@@ -9,6 +9,7 @@ use App\Container\CommonContainer;
 use App\Http\Controllers\Controller;
 use App\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AlbumController extends Controller
 {
@@ -21,7 +22,12 @@ class AlbumController extends Controller
     }
     public function index()
     {
-        $data['albums'] = Album::get();
+        $data['albums'] =  DB::table('albums')
+        ->join('artists', 'artists.id', '=', 'albums.artist_id')
+        ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+        ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+        ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+        ->get();
         return view('admin.album.list', $data);
     }
     public function add()

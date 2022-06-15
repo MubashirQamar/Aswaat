@@ -3,7 +3,7 @@
     <div class="padding">
         <div class="box">
             <div class="box-header d-flex">
-                <h2>Edit Album</h2>
+                <h2>Edit All Files</h2>
                 <a href="{{ url('admin/album') }}"><button class="btn btn-info"> Back </button></a>
             </div>
             <div class="box-divider m-a-0"></div>
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="music_type" class="col-sm-2 form-control-label">Sub Category</label>
+                        <label for="music_type" class="col-sm-2 form-control-label">Album</label>
                         <div class="col-sm-10">
                             <select class="form-control select2-multiple" name="subcat_id[]" required multiple="multiple">
                                 <?php
@@ -90,19 +90,19 @@
 
                     </div>
                     <div class="row form-group">
-
                         <label class="col-sm-2 form-control-label" for="audio">
-                            Sound File
+                            Upload Zip File
                         </label>
-                        <div class="col-sm-10">
-                            <audio id="audio" controls>
-                                <source
-                                    @if (isset($album->audio)) src="{{ asset('assets/images/album/' . $album->audio) }}" @else src="" @endif
-                                    id="src" />
-                            </audio>
-                            <input class="col-sm-12 form-control" id="audio-upload" name="audio" type="file">
-
+                        <div class="col-sm-10 d-flex">
+                            <input class="col-sm-12 form-control" name="audio" type="file">
+                            @if (isset($album->audio))
+                                <a href="{{ asset('assets/images/album/' . $album->audio) }}" download
+                                    target="_blank"><button type="button" class="btn btn-default btn-download"><i
+                                            class="fa-solid fa-download"></i> Download</button>
+                                </a>
+                            @endif
                         </div>
+
 
                     </div>
                     <div class="form-group row">
@@ -120,7 +120,7 @@
 
                         </div>
                     </div>
-                    <div class="row form-group">
+                    <div class="row form-group" style="display: none;">
 
                         <label class="col-sm-2 form-control-label" for="pdf_file">
                             PDF File
@@ -137,7 +137,7 @@
 
                         </div>
                     </div>
-                    <div class="row form-group">
+                    <div class="row form-group" style="display: none;">
 
                         <label class="col-sm-2 form-control-label" for="copyright">
                             Copy Right File

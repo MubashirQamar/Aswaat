@@ -3,7 +3,7 @@
     <div class="padding">
         <div class="box">
             <div class="box-header d-flex">
-                <h2>Album</h2>
+                <h2>All Files</h2>
                 <a href="{{ url('admin/album/add') }}"><button class="btn btn-info"> Add New </button></a>
             </div>
             <div class="box-divider m-a-0"></div>
@@ -22,8 +22,8 @@
                             <tr>
                                 <th>S No.</th>
                                 <th>Sound Name</th>
-                                {{-- <th>Artists</th> --}}
-                                {{-- <th>Genres</th> --}}
+                                <th>Album</th>
+
 
                                 <th>Action</th>
                             </tr>
@@ -33,8 +33,8 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $album->name }}</td>
-                                    {{-- <td> @foreach($album->artist_name AS $art){{ $art->name.','  }}@endforeach</td> --}}
-                                    {{-- <td>@foreach($album->genre AS $gen){{ $gen->name.','  }}@endforeach</td> --}}
+                                    <td>{{ $album->cat_name }}</td>
+
 
                                     <td>
                                         <a href="{{ url('admin/album/edit/' . $album->id) }}"><i
