@@ -40,7 +40,7 @@
 
                             <div class="pkg-group">
                                 <input type="radio" id="{{ $package->name }}" value="{{ $package->id }}" name="package">
-                                <label for="silver">{{ $package->name }} @ $ .{{ $package->price }}/mo.</label>
+                                <label for="silver">{{ $package->name }} @ $ {{ $package->price }}/mo.</label>
                             </div>
 
                             <div class="pkg-box">
@@ -63,7 +63,7 @@
 
                         <div class="pkg-group gold">
                             <input type="radio" id="gold" name="package">
-                            <label for="gold">Gold @ $ .00.00/mo.</label>
+                            <label for="gold">Gold @ $00.00/mo.</label>
                         </div>
 
                         <div class="pkg-box gold">

@@ -9,7 +9,7 @@
             <div class=" album-container">
 
                 <div class="row">
-                    <h2 class="text-album">{{ $album->name }} </h2>
+                    <h2 class="text-album"><span>{{ $album->name }} </span></h2>
 
 
 
@@ -34,14 +34,14 @@
 
                                     </select>
 
-                                    <select name="bpm" class="sort-filter">
-                                        <option>BPM</option>
-                                        <option  @if($bpm == 'slow') selected @endif value="slow">Slow </option>
-                                        <option @if($bpm == 'medslow') selected @endif value="medslow">Med-Slow </option>
-                                        <option @if($bpm == 'medium') selected @endif value="medium">Medium </option>
-                                        <option @if($bpm == 'medfast') selected @endif value="medfast">Med-Fast </option>
-                                        <option @if($bpm == 'fast') selected @endif value="fast">Fast </option>
-                                    </select>
+                                     <select name="bpm" class="sort-filter">
+                                    <option @if($bpm==0) selected @endif value="0">BPM</option>
+                                    <option @if($bpm == "slow" && !is_numeric($bpm)) selected @endif value="slow">Slow </option>
+                                    <option @if($bpm == "medslow" && !is_numeric($bpm)) selected @endif value="medslow">Med-Slow </option>
+                                    <option @if($bpm == "medium" && !is_numeric($bpm)) selected @endif value="medium">Medium </option>
+                                    <option @if($bpm == "medfast" && !is_numeric($bpm)) selected @endif value="medfast">Med-Fast </option>
+                                    <option @if($bpm == "fast" && !is_numeric($bpm)) selected @endif value="fast">Fast </option>
+                                  </select>
 
                                     <select name="duration" class="sort-filter">
                                         <option>Any Duration</option>
@@ -113,7 +113,7 @@
                                                 <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                             </div>
                                             <span class="music-price">
-                                                $. {{ $mus->price }}
+                                                $ {{ $mus->price }}
                                             </span>
                                         </div>
                                         <div class="items-right">
@@ -302,7 +302,7 @@
         });
         setTimeout(() => {
             displayTime();
-        }, 3000);
+        }, 13000);
 
         function displayTime() {
             for (let index = 1; index <= mux; index++) {
@@ -360,7 +360,7 @@
                 $('#music_action').empty();
                 $('#music_action').append(music_action);
                 // $('#demo' + sad).css('visibility', 'hidden');
-                this["music" + sad].load(music_url);
+                // this["music" + sad].load(music_url);
                 this["music" + sad].play();
                 // this["music" + sad].setMute(true);
                 $('#icon-play' + sad).removeClass('fa-play');

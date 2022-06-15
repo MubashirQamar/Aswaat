@@ -11,7 +11,7 @@
 			          </div>
 			          <div class="clear">
 			          	<div class="text-muted">Artist</div>
-			            <h4 class="m-a-0 text-md _600"><a href="">7530</a></h4>
+			            <h4 class="m-a-0 text-md _600"><a href="">{{ $artist }}</a></h4>
 			          </div>
 			        </div>
 			    </div>
@@ -22,7 +22,7 @@
 			          </div>
 			          <div class="clear">
 			          	<div class="text-muted">Package</div>
-			            <h4 class="m-a-0 text-md _600"><a href="">2980</a></h4>
+			            <h4 class="m-a-0 text-md _600"><a href="">{{ $package }}</a></h4>
 			          </div>
 			        </div>
 			    </div>
@@ -33,7 +33,7 @@
 			          </div>
 			          <div class="clear">
 			          	<div class="text-muted">Subscriber</div>
-			            <h4 class="m-a-0 text-md _600"><a href="">630</a></h4>
+			            <h4 class="m-a-0 text-md _600"><a href="">{{ count($subscriber) }}</a></h4>
 			          </div>
 			        </div>
 			    </div>
@@ -44,7 +44,7 @@
 			          </div>
 			          <div class="clear">
 			          	<div class="text-muted">Songs</div>
-			            <h4 class="m-a-0 text-md _600"><a href="">750</a></h4>
+			            <h4 class="m-a-0 text-md _600"><a href="">{{ $song }}</a></h4>
 			          </div>
 			        </div>
 			    </div>

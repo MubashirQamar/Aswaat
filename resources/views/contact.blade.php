@@ -2,12 +2,25 @@
 
 @section('content')
     <main>
+        @if (session()->get('msg'))
 
-        <div class="sign-up contact-section">
+        <div class="sign-up contact-section text-center" id="contactsec2"  >
 
             <h2 class="title">Contact Us</h2>
 
-            <form method="POST" action="#">
+            <p> Your details have been submitted successfully. </p>
+            <p> One of our sales representative will get touch with you shortly. </p>
+
+        </div>
+        @endif
+        <div class="sign-up contact-section" id="contactsec1"   @if (session()->get('msg')) style="display:none"   @endif>
+
+
+
+
+            <h2 class="title">Contact Us</h2>
+
+            <form method="POST" action="{{ route('contact') }}">
                 @csrf
                 <div class="form-group">
                     <label for="name">Name:</label>
@@ -103,3 +116,14 @@
         </div>
     </main>
 @endsection
+@push('include-js')
+@if (session()->get('msg'))
+<script>
+    setTimeout(() => {
+        $('#contactsec1').css('display','block');
+     $('#contactsec2').css('display','none');
+
+ }, 5000);
+</script>
+@endif
+@endpush

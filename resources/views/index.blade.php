@@ -123,7 +123,7 @@
 
                     <ul class="music-menu">
 
-                        <li>
+                        {{-- <li>
                             <a href="{{ url('/') }}" class="">Music</a>
                         </li>
 
@@ -135,9 +135,9 @@
                                 <a href="{{ url('/') }}?type={{ $mustype->id }}"
                                     class="">{{ $mustype->name }}</a>
                             </li>
-                        @endforeach
+                        @endforeach --}}
                             @foreach($albums as $album)
-                            <li>
+                            <li @if($music_type_id == $album->id) class="active" @endif>
                                 <a href="{{ url('/') }}?type=0&id={{ $album->id }}"
                                     class="">{{ $album->name }}</a>
                             </li>
@@ -254,7 +254,7 @@
                                             <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                         </div>
                                         <span class="music-price">
-                                            $. {{ $mus->price }}
+                                            $ {{ $mus->price }}
                                         </span>
                                     </div>
                                     <div class="items-right">
@@ -420,7 +420,7 @@
                                             <div id="music{{ $loop->iteration }}" class="waveform"></div>
                                         </div>
                                         <span class="music-price">
-                                            $. {{ $mus->price }}
+                                            $ {{ $mus->price }}
                                         </span>
                                     </div>
                                     <div class="items-right">
@@ -824,7 +824,7 @@
         }
 
     </script>
-    @if($type != 'music' )
+    @if($scroll == 1 )
     <script>
          $(document).ready(function() {
 

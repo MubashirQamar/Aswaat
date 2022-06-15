@@ -27,7 +27,7 @@ Route::get('/privacy', 'HomeController@privacy');
 Route::get('/about', 'HomeController@about');
 Route::get('/album/{id}', 'HomeController@album');
 Route::get('/change-language/{lang}',"\App\Http\Controllers\HomeController@changeLang");
-
+Route::post('contact-us','MailController@sendmail')->name('contact');
 Auth::routes();
 Route::group(['prefix' => '/', 'middleware' => ['role:0', 'auth']], function () {
     Route::get('/home', 'HomeController@profile')->name('home');
