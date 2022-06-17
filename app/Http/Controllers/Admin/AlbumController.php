@@ -26,7 +26,7 @@ class AlbumController extends Controller
         ->join('artists', 'artists.id', '=', 'albums.artist_id')
         ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
         ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
-        ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+        ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name','sub_categories.name as subcat_name')
         ->get();
         return view('admin.album.list', $data);
     }

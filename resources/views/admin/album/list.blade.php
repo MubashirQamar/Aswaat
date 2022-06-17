@@ -33,7 +33,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $album->name }}</td>
-                                    <td>{{ $album->cat_name }}</td>
+                                    <td>{{ $album->subcat_name }}</td>
 
 
                                     <td>

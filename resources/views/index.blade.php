@@ -1,9 +1,11 @@
 @extends('layouts.app')
 @section('content')
     <main>
+        {{-- <section class="home-section" id="home"
+            style="background-image: url('{{ asset('frontend/images/English-Header.jpg') }}')!important"> --}}
         <section class="home-section" id="home"
             style="background-image: url('{{ asset('frontend/images/English-Header.jpg') }}')!important">
-
+                <img src="{{ asset('frontend/images/English-Header.jpg') }}">
 
 
             <!--begin container -->
