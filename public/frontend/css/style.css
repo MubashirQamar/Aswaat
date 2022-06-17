@@ -387,6 +387,21 @@ a {
     height: 70vh;
 }
 
+.home-section img {
+    width: 100%;
+    position: absolute;
+    /* z-index: 1; */
+    /* background-color: var(--primary-dark); */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+    /* height: 70vh; */
+}
+
+.home-section .btn-group {
+    left: 120px;
+    top: 92px;
+}
+
 .sound-section {
     width: 100%;
     position: relative;

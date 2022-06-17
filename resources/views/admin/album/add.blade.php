@@ -34,7 +34,7 @@
                     <div class="form-group row">
                         <label for="music_type" class="col-sm-2 form-control-label">Album</label>
                         <div class="col-sm-10">
-                            <select class="form-control select2-multiple" name="subcat_id[]" required multiple="multiple">
+                            <select class="form-control select2-multiple" name="subcat_id[]" required >
 
                                 @foreach ($category as $cat)
                                 <optgroup label="{{ $cat->name }}">

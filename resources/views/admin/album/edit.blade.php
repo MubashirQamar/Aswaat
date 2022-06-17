@@ -35,14 +35,14 @@
                     <div class="form-group row">
                         <label for="music_type" class="col-sm-2 form-control-label">Album</label>
                         <div class="col-sm-10">
-                            <select class="form-control select2-multiple" name="subcat_id[]" required multiple="multiple">
+                            <select class="form-control select2-multiple" name="subcat_id[]" required>
                                 <?php
                                 $subcat_id = explode(',', $album->subcat_id);
                                 ?>
                                 @foreach ($category as $cat)
                                     <optgroup label="{{ $cat->name }}">
                                         @foreach ($cat->subcategory as $sub_cat)
-                                            <option @if (in_array($sub_cat->id, $subcat_id)) {{ 'selected' }} @endif
+                                            <option @if ($album->subcat_id == $sub_cat->id) {{ 'selected' }} @endif
                                                 value="{{ $sub_cat->id }}">{{ $sub_cat->name }}</option>
                                         @endforeach
 
