@@ -396,6 +396,25 @@
                 <a id="downloadLink" href="{{ asset(session('download')) }}" download></a>
             @endif
         </div>
+        <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Added to cart!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Song Name has been added to cart.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">Go To
+                                Cart</button></a>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Listen To More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 @endsection
 @push('include-js')

@@ -16,8 +16,10 @@
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> --}}
-    <script src="https://unpkg.com/wavesurfer.js@6.2.0/dist/wavesurfer.js"></script>
+   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> -->
+     <script src="https://unpkg.com/wavesurfer.js@6.2.0/dist/wavesurfer.js"></script>
+
+<!--<script src="{{ asset('frontend/js/wavesurfer.js') }}"></script>-->
     <script>
         function formatTimecode(sec) {
             var seconds = sec;
@@ -124,7 +126,6 @@
 </body>
 
 </html>
-
 <script src="{{ asset('frontend/vendor/jquery.js') }}"></script>
 <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
