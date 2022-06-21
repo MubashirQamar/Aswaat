@@ -210,13 +210,16 @@
                     </form>
 
                 </div>
-
+            <div class="loader" id="loader">
+                <div class="lds-facebook"><div></div><div></div><div></div></div>
+                <h3>Loading ...</h3>
+            </div>
 
                 <input type="hidden" id="current_music_id" value="">
                 {{-- Music  start --}}
 
                 @if ($type != 'soundtrack' || $type!=0)
-                <div class="music-list" id="playlist">
+                <div class="music-list" id="playlist" style="visibility: hidden;">
                     <script>
                         var mux = 0;
                     </script>
@@ -316,10 +319,10 @@
                                                         maxCanvasWidth: 150,
                                                         width: 150,
                                                         responsive: true,
-                                
-                                
+
+
                                                     });
-                                
+
                                                 this["music" + mux].load("{{ asset('assets/images/songs/' . $mus->demo_audio) }}");
 
                                 //  $('#time'+mux).text(parseFloat(this["music"+mux].getDuration(),2));
@@ -339,7 +342,7 @@
 
                 {{-- sound track Start --}}
                 @else
-                <div class="music-list" id="playlist">
+                <div class="music-list" id="playlist" style="visibility: hidden;">
                     <script>
                         var mux = 0;
                     </script>
@@ -431,12 +434,12 @@
                                                         maxCanvasWidth: 150,
                                                         width: 150,
                                                         responsive: true,
-                                
-                                
+
+
                                                     });
-                                
+
                                                 this["music" + mux].load("{{ asset('assets/images/album/' . $mus->demo) }}");
-    
+
                                     //  $('#time'+mux).text(parseFloat(this["music"+mux].getDuration(),2));
                                 </script>
 
@@ -533,6 +536,7 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> --}}
 
 <script>
+$(".loader").fadeOut(25000);
     // function fetchsongs(){
     //         for (let index = 1; index <= mux; index++) {
     //             var song = $('#music_url'+index).attr('href');
@@ -602,7 +606,9 @@
     });
     setTimeout(() => {
         displayTime();
-    }, 15000);
+        $('#playlist').css('visibility','visible');
+        // $("#playlist").load(location.href+" #playlist>*","");
+    }, 25000);
 
     function displayTime() {
         for (let index = 1; index <= mux; index++) {
@@ -640,9 +646,9 @@
         var duration = $('#duration' + sad).text();
         var music_url = $('#music_url' + sad).attr('href');
         var music_action = $('#music_action' + sad).html();
-        // console.log(music_action);
+        console.log(this["music" + sad].getCurrentTime());
 
-
+         $('#currenttime' + sad).text(formatTimecode(this["music" + sad].getCurrentTime()));
         $('#duration' + sad).text();
         $('#current_music_id').val(sad);
         for (i = 1; i <= totalmux; i++) {
@@ -663,6 +669,7 @@
         } else {
             $('#music_action').empty();
             $('#music_action').append(music_action);
+
             // $('#demo' + sad).css('visibility', 'hidden');
             // this["music" + sad].load(music_url);
             this["music" + sad].play();
