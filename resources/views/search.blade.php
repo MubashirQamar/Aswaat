@@ -63,9 +63,13 @@
                                 </form>
 
                             </div>
+                            <div class="loader" id="loader">
+                                <div class="lds-facebook"><div></div><div></div><div></div></div>
+                                <h3>Loading ...</h3>
+                            </div>
                             <input type="hidden" id="current_album_id" value="">
                             <input type="hidden" id="current_music_id" value="">
-                            <div class="music-list" id="playlist">
+                            <div class="music-list" id="playlist" style="visibility: hidden;">
                                 {{-- albums Start --}}
                                 <script>
                                     var alb = 0;
@@ -418,6 +422,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> --}}
 
     <script>
+        $(".loader").fadeOut(25000);
         var wavesurfer, current_album_id,current_music_id;
         // Init on DOM ready
         function updatetime(time) {
@@ -469,8 +474,10 @@
             });
         });
         setTimeout(() => {
-            displayTime();
-        }, 13000);
+        displayTime();
+        $('#playlist').css('visibility','visible');
+        // $("#playlist").load(location.href+" #playlist>*","");
+    }, 25000);
 
         function displayTime() {
             for (let index = 1; index <= alb; index++) {
