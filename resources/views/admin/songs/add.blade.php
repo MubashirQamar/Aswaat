@@ -101,12 +101,9 @@
                     <div class="form-group row">
 
                         <label class="col-sm-2 form-control-label" for="audio">
-                            Song File
+                            Upload Zip File
                         </label>
                         <div class="col-sm-10">
-                            <audio id="audio" controls>
-                                <source src="" id="src" />
-                            </audio>
                             <input class="col-sm-12 form-control" id="audio-upload" name="audio" type="file">
 
                         </div>
@@ -124,24 +121,24 @@
 
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" style="display: none;">
 
                         <label class="col-sm-2 form-control-label" for="pdf_file">
                             PDF File
                         </label>
-                        <div class="col-sm-10 controls ">
+                        <div class="col-sm-10 controls " style="display: none;">
 
                             <input class="col-sm-12 form-control" name="pdf_file" type="file">
 
                         </div>
 
                     </div>
-                    <div class="form-group row">
+                    <div class="form-group row" style="display: none;">
 
                         <label class="col-sm-2 form-control-label" for="copyright">
                             Copy Right File
                         </label>
-                        <div class="col-sm-10 controls ">
+                        <div class="col-sm-10 controls " >
 
                             <input class="col-sm-12 form-control" name="copyright" type="file">
 

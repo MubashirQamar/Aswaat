@@ -106,7 +106,11 @@
                     <div class="tab-pane fade @if($tab =='favourites') show active @endif " id="v-pills-favourites" role="tabpanel"
                         aria-labelledby="v-pills-favourites-tab">
                         <div class="col-lg-12 " style="width:100%">
-                            <div class="music-player ">
+                            <div class="loader" id="loader">
+                                <div class="lds-facebook"><div></div><div></div><div></div></div>
+                                <h3>Loading ...</h3>
+                            </div>
+                            <div class="music-player " id="favourite_playlist" style="visibility: hidden;">
                                 <div class="music-list " id="playlist">
                                     <script>
                                         var fav = 0;
@@ -259,7 +263,11 @@
                         aria-labelledby="v-pills-downloads-tab">
                         <input type="hidden" id="current_music_id" value="">
                         <div class="col-lg-12 " style="width:100%">
-                            <div class="music-player">
+                            <div class="loader" id="loader">
+                                <div class="lds-facebook"><div></div><div></div><div></div></div>
+                                <h3>Loading ...</h3>
+                            </div>
+                            <div class="music-player" id="downloads_playlist" style="visibility: hidden">
                                 <div class="music-list" id="playlist">
                                     <script>
                                         var mux = 0;
@@ -418,6 +426,7 @@
     </section>
 @endsection
 @push('include-js')
+
     @if (session('download'))
         <script>
             window.onload = function() {
@@ -428,6 +437,7 @@
         </script>
     @endif
     <script>
+          $(".loader").fadeOut(25000);
         $(document).ready(function() {
             $("input").keyup(
                 function(e) {
@@ -472,7 +482,9 @@
         }
         setTimeout(() => {
             displayTime();
-        }, 13000);
+            $('#favourite_playlist').css('visibility','visible');
+            $('#downloads_playlist').css('visibility','visible');
+        }, 25000);
 
         function displayTime() {
             for (let index = 1; index <= mux; index++) {

@@ -121,16 +121,16 @@
                     <div class="row form-group">
 
                         <label class="col-sm-2 form-control-label" for="audio">
-                            Song File
+                            Upload Zip File
                         </label>
-                        <div class="col-sm-10">
-                            <audio id="audio" controls>
-                                <source
-                                    @if (isset($song->audio)) src="{{ asset('assets/images/songs/' . $song->audio) }}" @else src="" @endif
-                                    id="src" />
-                            </audio>
-                            <input class="col-sm-12 form-control" id="audio-upload" name="audio" type="file">
-
+                        <div class="col-sm-10 d-flex">
+                            <input class="col-sm-12 form-control" name="audio" type="file">
+                            @if (isset($song->audio))
+                                <a href="{{ asset('assets/images/songs/' . $song->audio) }}" download
+                                    target="_blank"><button type="button" class="btn btn-default btn-download"><i
+                                            class="fa-solid fa-download"></i> Download</button>
+                                </a>
+                            @endif
                         </div>
 
                     </div>
@@ -147,7 +147,7 @@
 
                         </div>
                     </div>
-                    <div class="row form-group">
+                    <div class="row form-group" style="display: none;">
 
                         <label class="col-sm-2 form-control-label" for="pdf_file">
                             PDF File
@@ -164,7 +164,7 @@
 
                         </div>
                     </div>
-                    <div class="row form-group">
+                    <div class="row form-group" style="display: none;">
 
                         <label class="col-sm-2 form-control-label" for="copyright">
                             Copy Right File
