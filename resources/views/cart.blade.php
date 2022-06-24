@@ -18,10 +18,13 @@
                         <tbody>
                             @php
                                 $total = 0;
+                                $button='button';
                             @endphp
                             @if (session('cart'))
+
                                 @foreach (session('cart') as $id => $details)
                                     @php
+                                        $button='submit';
                                         $total += $details['price'];
                                     @endphp
                                     <tr data-id="{{ $id }}">
@@ -106,7 +109,7 @@
 
                         <input type="hidden" name="desc"  value="Buy Songs">
                         <input type="hidden" name="amount"  value="{{ $total }}">
-                        <button type="submit" class="custom-btn primary-btn">Confirm
+                        <button type="{{$button}}" class="custom-btn primary-btn">Confirm
                             Purchase</button>
 
                     </div>
