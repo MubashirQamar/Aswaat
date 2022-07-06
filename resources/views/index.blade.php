@@ -282,15 +282,15 @@
                                 <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
 
                                 </form> --}}
-                                <button data-id="{{ $mus->id }}"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i class="fa-solid fa-download download"></i></button>
-                                <button data-id="{{ $mus->id }}" data-type="0"><i class="fa-solid fa-star @if (in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-star @if (in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                     <i class="fa-solid fa-share share"></i></button>
                                 @else
-                                <button data-id="{{ $mus->id }}"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i class="fa-solid fa-download download"></i></button>
-                                <button data-id="{{ $mus->id }}" data-type="0"><i class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif  add-favourite"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif  add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                     <i class="fa-solid fa-share share"></i></button>
                                 @endif
@@ -405,14 +405,14 @@
                                 <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
 
                                 </form> --}}
-                                <button data-id="{{ $mus->id }}"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-download download"></i></button>
-                                <button data-id="{{ $mus->id }}" data-type="1"><i class="fa-solid fa-star add-favourite"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-star add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-share share"></i></button>
                                 @else
-                                <button data-id="{{ $mus->id }}"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-download download"></i></button>
-                                <button data-id="{{ $mus->id }}" data-type="1"><i class="fa-solid fa-star add-favourite"></i></button>
+                                <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-star add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-share share"></i></button>
                                 @endif
                                 @else
@@ -536,7 +536,7 @@
 {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> --}}
 
 <script>
-$(".loader").fadeOut(25000);
+$(".loader").fadeOut(5000);
     // function fetchsongs(){
     //         for (let index = 1; index <= mux; index++) {
     //             var song = $('#music_url'+index).attr('href');
@@ -608,7 +608,7 @@ $(".loader").fadeOut(25000);
         displayTime();
         $('#playlist').css('visibility','visible');
         // $("#playlist").load(location.href+" #playlist>*","");
-    }, 25000);
+    }, 5000);
 
     function displayTime() {
         for (let index = 1; index <= mux; index++) {

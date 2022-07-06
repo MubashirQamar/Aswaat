@@ -22,12 +22,15 @@
                             @endphp
                             @if (session('cart'))
 
-                                @foreach (session('cart') as $id => $details)
+                                @foreach (session('cart') as $id => $detail)
+
+                                    @foreach ($detail as $key => $details)
+
                                     @php
                                         $button='submit';
                                         $total += $details['price'];
                                     @endphp
-                                    <tr data-id="{{ $id }}">
+                                    <tr data-id="{{ $key }}">
                                         {{-- <td class="cartimg"><img src="images/song.jpg"></td> --}}
                                         <td>
                                             <p>{{ $details['name'] }}</p>
@@ -41,6 +44,7 @@
 
                                         </td>
                                     </tr>
+                                @endforeach
                                 @endforeach
                             @else
                                 <tr>

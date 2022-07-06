@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Album;
 use App\Download;
 use App\Favourite;
 use App\Package;
@@ -71,26 +72,33 @@ class UserController extends Controller
         $totals = $q->sum('total_download') - $q->sum('use_download');
 
         $id = $request->id;
+        $type = $request->type;
+        $duration = $request->duration;
+        if($type==1){
+            $song = Album::findOrFail($id);
+        }else{
         $song = Song::findOrFail($id);
-
+        }
         $cart = session()->get('cart', []);
 
-        if (isset($cart[$id])) {
-            // $cart[$id]['quantity']++;
+        if (isset($cart[$type][$id])) {
+
         } else {
             $grant_total = $totals - count($cart)  ;
             if ($grant_total > 0) {
-                $cart[$id] = [
+                $cart[$type][$id]= [
                     "name" => $song->name,
+                    "type" => $type,
                     "price" => $song->price,
-                    "duration" => '3:51',
+                    "duration" => $duration,
                     "image" => $song->image
                 ];
             } else if (Auth::user()->subscription_id == -1) {
-                $cart[$id] = [
+                $cart[$type][$id] = [
                     "name" => $song->name,
                     "price" => $song->price,
-                    "duration" => '3:51',
+                    "type" => $type,
+                    "duration" => $duration,
                     "image" => $song->image
                 ];
             } else {
@@ -128,9 +136,22 @@ class UserController extends Controller
     {
         if ($request->id) {
             $cart = session()->get('cart');
-            if (isset($cart[$request->id])) {
-                unset($cart[$request->id]);
+            if (isset($cart[0][$request->id])) {
+                unset($cart[0][$request->id]);
+
                 session()->put('cart', $cart);
+                if(count($cart[0])== 0){
+                    unset($cart[0]);
+                    session()->put('cart', $cart);
+                }
+            }
+            else if (isset($cart[1][$request->id])) {
+                unset($cart[1][$request->id]);
+                session()->put('cart', $cart);
+                if(count($cart[1])== 0){
+                    unset($cart[1]);
+                    session()->put('cart', $cart);
+                }
             }
             // session()->flash('success', 'Product removed successfully');
         }
@@ -149,7 +170,8 @@ class UserController extends Controller
 
         if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE) {
 
-            foreach ($cart as  $key => $details) {
+            foreach ($cart as  $id => $detail) {
+                foreach ($detail as  $key => $details) {
                 $downloads = new Download;
                 $downloads->song_id = $key;
                 $downloads->user_id = Auth::user()->id;
@@ -183,9 +205,10 @@ class UserController extends Controller
                 if (isset($song->file)) {
                     $zip->addFile(public_path('assets/images/songs/' . $song->file), $song->file);
                 }
-                unset($cart[$key]);
+                unset($cart[$id][$key]);
                 session()->put('cart', $cart);
             }
+        }
 
 
 

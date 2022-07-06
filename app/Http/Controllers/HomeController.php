@@ -24,6 +24,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
+        $this->checkcart();
     }
 
     /**
@@ -35,13 +36,13 @@ class HomeController extends Controller
     {
         $type = 0;
         $sort = 0;
-        $scroll=0;
+        $scroll = 0;
         $data['sort'] = 'top';
         $data['instrument'] = 3;
         $data['bpm'] = 0;
         $data['duration'] = 0;
         if (isset($request->sort)) {
-            $scroll=1;
+            $scroll = 1;
             $sort = 1;
             $data['sort'] = $request->sort;
             $data['instrument'] = $request->instrument;
@@ -51,7 +52,7 @@ class HomeController extends Controller
         $data['music_type_id'] = 0;
         if (isset($request->type)) {
             //  fetch sound track
-            $scroll=1;
+            $scroll = 1;
             if ($request->type == 'soundtrack' && $sort == 0) {
                 $data['music'] = DB::table('albums')
                     ->join('artists', 'artists.id', '=', 'albums.artist_id')
@@ -234,24 +235,35 @@ class HomeController extends Controller
                 ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
                 ->get();
         }
-
+        if (Auth::user()) {
+            $data['favourite'] = Favourite::where('user_id', Auth::user()->id)->where('type', '1')->get()->pluck('song_id')->toArray();
+        } else {
+            $data['favourite'] = array();
+        }
         return view('album', $data);
     }
     public function profile(Request $req)
     {
         $date = date('Y-m-d');
         $q = Subscription::where('end_date',  '>=', $date)->where('status', 'Active')->get();
-         $data['tab']="profile";
-            if(isset($req->tab)){
-                $data['tab']=$req->tab;
-            }
+        $data['tab'] = "profile";
+        if (isset($req->tab)) {
+            $data['tab'] = $req->tab;
+        }
 
         $data['credit'] =  $totals = $q->sum('total_download') - $q->sum('use_download');
 
         $data['subscriber'] = Subscription::with('package')->where('user_id', Auth::user()->id)->where('status', 'Active')->orderBy('id', 'DESC')->first();
         $data['downloads'] = Download::downloads();
+
+        $data['downloads_album'] = Download::downloads_album();
+
         $data['favourites'] = Favourite::favourites();
+
+        $data['favourites_album'] = Favourite::favourites_album();
+
         $data['packages'] = Package::get();
+
         return view('home', $data);
     }
     public function package()
@@ -266,11 +278,15 @@ class HomeController extends Controller
         } else {
             $data['modal'] = 0;
         }
-          $data['packages'] = Package::with('package_detail')->get();
+        $data['packages'] = Package::with('package_detail')->get();
         return view('package', $data);
     }
     public function cart()
     {
+
+
+
+
         $date = date('Y-m-d');
         $q = Subscription::where('end_date',  '>=', $date)->where('status', 'Active')->get();
         $data['total_download'] = $q->sum('total_download');
@@ -309,7 +325,7 @@ class HomeController extends Controller
         $data['instrument'] = 3;
         $data['bpm'] = 0;
         $data['duration'] = 0;
-        $count=0;
+        $count = 0;
         $search = $data['search'] = $request->searchmusic;
         if (isset($request->sort)) {
             $sort = 1;
@@ -318,42 +334,42 @@ class HomeController extends Controller
             $data['bpm'] = $request->bpm;
             $data['duration'] = $request->duration;
             $albums = DB::table('albums')
-            ->join('artists', 'artists.id', '=', 'albums.artist_id')
-            ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
-            ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
-            ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
-            ->where('tags', 'LIKE', "%{$search}%");
+                ->join('artists', 'artists.id', '=', 'albums.artist_id')
+                ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+                ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+                ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+                ->where('tags', 'LIKE', "%{$search}%");
 
-        if (is_numeric($request->instrument) == 1) {
-            $albums  = $albums->where('albums.sort_instrument', $request->instrument);
-        }
-        if (is_numeric($request->bpm) == 1) {
-            $albums  = $albums->where('albums.sort_bpm', $request->bpm);
-        }
-        if (is_numeric($request->duration) == 1) {
-            $albums  = $albums->where('albums.sort_duration', $request->duration);
-        }
-        if ($request->sort == 'top') {
-            $albums  = $albums->orderBy('albums.id', 'desc');
+            if (is_numeric($request->instrument) == 1) {
+                $albums  = $albums->where('albums.sort_instrument', $request->instrument);
+            }
+            if (is_numeric($request->bpm) == 1) {
+                $albums  = $albums->where('albums.sort_bpm', $request->bpm);
+            }
+            if (is_numeric($request->duration) == 1) {
+                $albums  = $albums->where('albums.sort_duration', $request->duration);
+            }
+            if ($request->sort == 'top') {
+                $albums  = $albums->orderBy('albums.id', 'desc');
+            } else {
+                $albums  = $albums->orderBy('albums.id', 'desc');
+            }
+            $albums = $albums->get();
+            $data['albums'] = $albums;
+            $music = $data['music'] = Song::songsSortSearchfilterByMusicType($request->sort, $request->instrument, $request->bpm, $request->duration, $search);
+            $count += count($albums);
+            $count += count($music);
         } else {
-            $albums  = $albums->orderBy('albums.id', 'desc');
-        }
-        $albums = $albums->get();
-        $data['albums'] = $albums;
-         $music = $data['music'] = Song::songsSortSearchfilterByMusicType($request->sort, $request->instrument, $request->bpm, $request->duration,$search);
-        $count+=count($albums);
-        $count+=count($music);
-        }else{
             $albums =  $data['albums'] = DB::table('albums')
-            ->join('artists', 'artists.id', '=', 'albums.artist_id')
-            ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
-            ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
-            ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
-            ->where('tags', 'LIKE', "%{$search}%")
-            ->get();
+                ->join('artists', 'artists.id', '=', 'albums.artist_id')
+                ->join('sub_categories', 'sub_categories.id', '=', 'albums.subcat_id')
+                ->join('categories', 'categories.id', '=', 'sub_categories.cat_id')
+                ->select('albums.*', 'artists.name AS artist_name', 'categories.name AS cat_name')
+                ->where('tags', 'LIKE', "%{$search}%")
+                ->get();
             $music =   $data['music'] = Song::songsSearchfilterByMusicType($search);
-            $count+=count($albums);
-            $count+=count($music);
+            $count += count($albums);
+            $count += count($music);
         }
 
         if (Auth::user()) {
@@ -361,7 +377,7 @@ class HomeController extends Controller
         } else {
             $data['favourite'] = array();
         }
-         $data['count']=$count;
+        $data['count'] = $count;
 
 
         return view('search', $data);
@@ -377,5 +393,18 @@ class HomeController extends Controller
     public function about()
     {
         return view('about_us');
+    }
+    public function checkcart()
+    {
+        $cart = session()->get('cart');
+        if ($cart != 0) {
+            foreach ($cart as  $id => $detail) {
+                if (count($detail) == 0); {
+
+                    unset($cart[$id]);
+                    session()->put('cart', $cart);
+                }
+            }
+        }
     }
 }

@@ -116,7 +116,7 @@ function demo(event) {
     $("#srcdemo").attr("src", URL.createObjectURL(files[0]));
     document.getElementById("demo").load();
 }
-document.getElementById("audio-upload").addEventListener("change", audio, false);
+// document.getElementById("audio-upload").addEventListener("change", audio, false);
 document.getElementById("audio-upload1").addEventListener("change", demo, false);
 $('.select2-multiple').select2({
     placeholder: 'Select an option'

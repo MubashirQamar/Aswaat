@@ -161,7 +161,7 @@ class PaypalController extends Controller
                 $transaction->save();
             }
 
-             return Redirect::route('payment-msg');
+            return Redirect::route('payment-msg');
         }
 
         \Session::put('error', 'Payment failed !!');
@@ -254,7 +254,7 @@ class PaypalController extends Controller
 
             $cart = session()->get('cart');
             if (count($cart) == 0) {
-                 return Redirect::route('payment-msg');
+                return Redirect::route('payment-msg');
             }
             $zip = new ZipArchive;
             $fileName = 'myNewFile' . time() . '.zip';
@@ -269,44 +269,48 @@ class PaypalController extends Controller
 
             if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE) {
 
-                foreach ($cart as  $key => $details) {
-                    $downloads = new Download();
-                    $downloads->song_id = $key;
-                    $downloads->user_id = Auth::user()->id;
-                    $downloads->save();
-                    $pay_detail = new PaymentDetail;
-                    $pay_detail->payment_id = $pay->id;
-                    $pay_detail->relation_id = $key;
-                    $pay_detail->save();
-                    $sub = Subscription::where('user_id', Auth::user()->id)->where('end_date',  '>=', $date)->where('status','Active')->orderBy('id', 'ASC')->first();
-                    $use = $sub->use_download + 1;
-                    if($sub->total_download > $use){
-                    $sub->use_download +=  1;
+                foreach ($cart as  $id => $detail) {
+                    foreach ($detail as  $key => $details) {
+                        $downloads = new Download();
+                        $downloads->song_id = $key;
+                        $downloads->user_id = Auth::user()->id;
+                        $downloads->type = $details['type'];
+                        $downloads->save();
+                        $pay_detail = new PaymentDetail;
+                        $pay_detail->payment_id = $pay->id;
+                        $pay_detail->relation_id = $key;
+                        $pay_detail->save();
+                        $sub = Subscription::where('user_id', Auth::user()->id)->where('end_date',  '>=', $date)->where('status', 'Active')->orderBy('id', 'ASC')->first();
+                        if (Auth::user()->subscription_id != -1) {
+                            $use = $sub->use_download + 1;
+                            if ($sub->total_download > $use) {
+                                $sub->use_download +=  1;
 
-                    $sub->save();
+                                $sub->save();
+                            } else if ($sub->total_download == $use) {
+                                $sub->use_download += 1;
+                                $sub->status = 'Inactive';
 
-                    }else if($sub->total_download == $use)
-                    {
-                    $sub->use_download += 1;
-                    $sub->status = 'Inactive';
-
-                    $sub->save();
-
+                                $sub->save();
+                            }
+                        }
+                        $song = Song::find($key);
+                        if (isset($song->audio)) {
+                            $zip->addFile(public_path('assets/images/songs/' . $song->audio), $song->audio);
+                        }
+                        if (isset($song->image)) {
+                            $zip->addFile(public_path('assets/images/songs/' . $song->image), $song->image);
+                        }
+                        if (isset($song->copyright)) {
+                            $zip->addFile(public_path('assets/images/songs/' . $song->copyright), $song->copyright);
+                        }
+                        if (isset($song->file)) {
+                            $zip->addFile(public_path('assets/images/songs/' . $song->file), $song->file);
+                        }
+                        unset($cart[$id][$key]);
+                        session()->put('cart', $cart);
                     }
-                    $song = Song::find($key);
-                    if (isset($song->audio)) {
-                        $zip->addFile(public_path('assets/images/songs/' . $song->audio), $song->audio);
-                    }
-                    if (isset($song->image)) {
-                        $zip->addFile(public_path('assets/images/songs/' . $song->image), $song->image);
-                    }
-                    if (isset($song->copyright)) {
-                        $zip->addFile(public_path('assets/images/songs/' . $song->copyright), $song->copyright);
-                    }
-                    if (isset($song->file)) {
-                        $zip->addFile(public_path('assets/images/songs/' . $song->file), $song->file);
-                    }
-                    unset($cart[$key]);
+                    unset($cart[$id]);
                     session()->put('cart', $cart);
                 }
                 $transaction = new AppTransaction;
