@@ -11,8 +11,8 @@
 
 
 return array(
-    'client_id' =>'AQajALW5chfp03ViPd4WDbPlBCPWIkF1BbqdLcc7zvEu56ckFr3s1XVt3LuObxKrbvkc4BWerJ0au9rp',
-    'secret' => 'EAfYtBuyrSMs8QHxQKINybbn7TwVOrk1tRguaqWn81y5nfI5y7jPJIbkFnQ5rYPqrO-YuZ8oDaqC2IKs',
+    'client_id' =>'AU4_BktFl-ZP9ipBo3SOcAAGSvoUhtthqArEzVxAHGeF7IiutdVL8H34vtdqdX9ZbpCWv6x8PH4ZtgJB',
+    'secret' => 'EIx7FwqiewAuigTzNHNHM1fh0kISUzbFSHrFTfXeppDp_FY19ELKpur8z8d44GwHqxwFUgGfFMkyjIeS',
     'settings' => array(
         /**
          * Available option 'sandbox' or 'live'

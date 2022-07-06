@@ -143,22 +143,22 @@
                                                         <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
 
                                                     </form> --}}
-                                                        <button data-id="{{ $alb->id }}"><i
+                                                        <button data-id="{{ $alb->id }}" data-duration="alb_duration{{ $loop->iteration }}" data-type="1"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $alb->id }}"
                                                             data-href="{{ asset('assets/images/album/' . $alb->demo) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
-                                                        <button data-id="{{ $alb->id }}"><i
+                                                        <button data-id="{{ $alb->id }}" data-duration="alb_duration{{ $loop->iteration }}" data-type="1"><i
                                                                 class="fa-solid fa-star add-favourite"></i></button>
                                                         <button data-id="{{ $alb->id }}"><i
                                                                 class="fa-solid fa-share share"></i></button>
                                                     @else
-                                                        <button data-id="{{ $alb->id }}"><i
+                                                        <button data-id="{{ $alb->id }}" data-duration="alb_duration{{ $loop->iteration }}" data-type="1"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $alb->id }}"
                                                             data-href="{{ asset('assets/images/album/' . $alb->demo) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
-                                                        <button data-id="{{ $alb->id }}"><i
+                                                        <button data-id="{{ $alb->id }}" data-duration="alb_duration{{ $loop->iteration }}" data-type="1"><i
                                                                 class="fa-solid fa-star add-favourite"></i></button>
                                                         <button data-id="{{ $alb->id }}"><i
                                                                 class="fa-solid fa-share share"></i></button>
@@ -191,6 +191,7 @@
                                                         progressColor: "white",
                                                         height: 48,
                                                         maxCanvasWidth: 150,
+                                                        width: 150,
                                                         responsive: true,
 
                                                     });
@@ -295,23 +296,23 @@
                                             <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
 
                                         </form> --}}
-                                                        <button data-id="{{ $mus->id }}"><i
+                                                        <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $mus->id }}"
                                                             data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
-                                                        <button data-id="{{ $mus->id }}" data-type="0"><i
+                                                        <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i
                                                                 class="fa-solid fa-star @if (in_array($mus->id, $favourite)) yellow @endif add-favourite"></i></button>
                                                         <button data-id="{{ $mus->id }}"
                                                             data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                                             <i class="fa-solid fa-share share"></i></button>
                                                     @else
-                                                        <button data-id="{{ $mus->id }}"><i
+                                                        <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $mus->id }}"
                                                             data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
-                                                        <button data-id="{{ $mus->id }}" data-type="0"><i
+                                                        <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i
                                                                 class="fa-solid fa-star @if (in_array($mus->id, $favourite)) yellow @endif  add-favourite"></i></button>
                                                         <button data-id="{{ $mus->id }}"
                                                             data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">

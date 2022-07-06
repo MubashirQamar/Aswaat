@@ -1008,9 +1008,14 @@ a {
 
 .music-items .artist-name,
 .waveform {
+    /* overflow: hidden; */
     width: 150px !important;
     max-width: 150px !important;
     min-width: 150px !important
+}
+
+.music-items .music-price {
+    width: 80px;
 }
 
 .music-items .category {

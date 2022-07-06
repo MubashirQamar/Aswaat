@@ -131,25 +131,25 @@
                                                         <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
 
                                                     </form> --}}
-                                                        <button data-id="{{ $mus->id }}"><i
+                                                        <button data-id="{{ $mus->id }}"  data-duration="duration{{ $loop->iteration }}"  data-type="1"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $mus->id }}"
                                                             data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
-                                                        <button data-id="{{ $mus->id }}"><i
-                                                                class="fa-solid fa-star add-favourite"></i></button>
-                                                        <button data-id="{{ $mus->id }}"><i
+                                                        <button data-id="{{ $mus->id }}" data-type="1"><i
+                                                                class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
+                                                        <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
                                                                 class="fa-solid fa-share share"></i></button>
                                                     @else
-                                                        <button data-id="{{ $mus->id }}"><i
+                                                        <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}"  data-type="1"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $mus->id }}"
                                                             data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
-                                                        <button data-id="{{ $mus->id }}"><i
-                                                                class="fa-solid fa-star add-favourite"></i></button>
-                                                        <button data-id="{{ $mus->id }}"><i
-                                                                class="fa-solid fa-share share"></i></button>
+                                                        <button data-id="{{ $mus->id }}" data-type="1"><i
+                                                                class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
+                                                        <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
+                                                                class="fa-solid fa-share share" ></i></button>
                                                     @endif
                                                 @else
                                                     <button onclick="location.href='{{ route('login') }}'"><i
@@ -168,7 +168,7 @@
 
                                             </span>
                                         </div>
-                                        @if (Auth::user())
+
                                             <script>
                                                 mux++;
                                                 this["music" + mux] =
@@ -180,9 +180,7 @@
                                                         height: 48,
                                                         maxCanvasWidth: 150,
                                                         width: 150,
-                                                        fillParent: false,
-                                                        minPxPerSec: 5,
-                                                        responsive:true,
+                                                        responsive: true,
 
                                                     });
 
@@ -192,25 +190,7 @@
 
                                                 //  $('#time'+mux).text(parseFloat(this["music"+mux].getDuration(),2));
                                             </script>
-                                        @else
-                                            <script>
-                                                mux++;
-                                                this["music" + mux] =
-                                                    WaveSurfer.create({
-                                                        container: "#music{{ $loop->iteration }}",
-                                                        loopSelection: true,
-                                                        waveColor: "gray",
-                                                        progressColor: "white",
-                                                        height: 48,
-                                                        maxCanvasWidth: 150,
-                                                        responsive:true,
 
-
-                                                    });
-
-                                                this["music" + mux].load("{{ asset('assets/images/album/' . $mus->demo) }}");
-                                            </script>
-                                        @endif
                                     </div>
                                 @endforeach
 
@@ -259,7 +239,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> --}}
 
     <script>
-        $(".loader").fadeOut(25000);
+        $(".loader").fadeOut(5000);
         var wavesurfer, current_music_id;
         // Init on DOM ready
         function updatetime(time) {
@@ -309,7 +289,7 @@
         displayTime();
         $('#playlist').css('visibility','visible');
         // $("#playlist").load(location.href+" #playlist>*","");
-    }, 25000);
+    }, 5000);
 
         function displayTime() {
             for (let index = 1; index <= mux; index++) {

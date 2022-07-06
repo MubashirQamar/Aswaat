@@ -7,7 +7,15 @@
             <div class="profile-cart ">
                 <h2>My Account</h2>
                 <a href="{{ url('/cart') }}">Cart @if (session('cart'))
-                        ({{ count(session('cart')) }} items)
+                            <?php
+
+                                $cart = session('cart');
+                                $cart1=0;
+                                        foreach ($cart as  $id => $detail) {
+                                                $cart1+=count($cart[$id]);
+                                        }
+                                ?>
+                        ({{ $cart1 }} items)
                     @else
                         (0 items)
                         @endif <i class="fa-solid fa-arrow-right"></i></a>
@@ -115,19 +123,26 @@
                                     <script>
                                         var fav = 0;
                                     </script>
+                                    @php
+                                        $favo=0;
+                                    @endphp
+                                    {{--  favourite Songs Start --}}
                                     @foreach ($favourites as $favourite)
+                                        @php
+                                        $favo++;
+                                        @endphp
                                         <div class="music-items favourite">
                                             <div class="items-left">
                                                 <div style="display: none;">
                                                     @if (Auth::user())
-                                                        <a id="fav_url{{ $loop->iteration }}"
+                                                        <a id="fav_url{{ $favo }}"
                                                             href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"></a>
                                                     @else`
-                                                        <a id="fav_url{{ $loop->iteration }}"
+                                                        <a id="fav_url{{ $favo }}"
                                                             href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"></a>
                                                     @endif
                                                 </div>
-                                                <input type="hidden" id="fav_item{{ $loop->iteration }}" value="0">
+                                                <input type="hidden" id="fav_item{{ $favo }}" value="0">
                                                 @if (isset($favourite->songs->image))
                                                     <img src="{{ asset('assets/images/songs/' . $favourite->songs->image) }}"
                                                         alt="Upload Icon" data-holder-rendered="true" max-height="10px;"
@@ -138,84 +153,66 @@
                                                 @endif
 
                                                 {{-- <button class="btn btn-default" > --}}
-                                                <i class="fa-solid fa-play" id="fav-icon-play{{ $loop->iteration }}"
-                                                    onclick="favmusic('{{ $loop->iteration }}')"></i>
+                                                <i class="fa-solid fa-play" id="fav-icon-play{{ $favo }}"
+                                                    onclick="favmusic('{{ $favo }}')"></i>
 
                                                 {{-- </button> --}}
 
 
                                                 <span class="artist-name">
-                                                    <p id="fav_name{{ $loop->iteration }}">
+                                                    <p id="fav_name{{ $favo }}">
                                                         {{ $favourite->songs->name }}
                                                     </p>
-                                                    <p id="fav_artist_name{{ $loop->iteration }}">
+                                                    <p id="fav_artist_name{{ $favo }}">
                                                         @foreach ($favourite->songs->artist_name as $art)
-                                                            {{ $art->name . ',' }}
+                                                            {{ $art->name  }}
                                                         @endforeach
                                                     </p>
                                                 </span>
-                                                <p class="category" id="fav_category{{ $loop->iteration }}">
+                                                <p class="category" id="fav_category{{ $favo }}">
                                                     @foreach ($favourite->songs->genre as $gen)
-                                                        {{ $gen->name . ',' }}
+                                                        {{ $gen->name  }}
                                                     @endforeach
                                                 </p>
                                                 <p class="time"><span
-                                                        id="fav_currenttime{{ $loop->iteration }}"></span> / <span
-                                                        id="fav_duration{{ $loop->iteration }}"></span></p>
+                                                        id="fav_currenttime{{ $favo }}"></span> / <span
+                                                        id="fav_duration{{ $favo }}"></span></p>
 
 
 
-                                                <div class="demo" id="fav_demo{{ $loop->iteration }}"
+                                                <div class="demo" id="fav_demo{{ $favo }}"
                                                     style="width: 150px;">
 
-                                                    <div id="fav{{ $loop->iteration }}" class="waveform"></div>
+                                                    <div id="fav{{ $favo }}" class="waveform"></div>
                                                 </div>
                                                 <span class="music-price">
                                                     $ . {{ $favourite->songs->price }}
                                                 </span>
                                             </div>
                                             <div class="items-right">
-                                                <span class="music-action" id="fav_action{{ $loop->iteration }}">
-                                                    @if (Auth::user())
-                                                        @if (Auth::user()->subscription_id == -1)
-                                                            {{-- <form action="{{ route('add.to.cart', $favourite->songs->id) }}">
-                                                        @csrf
-                                                        <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
+                                                <span class="music-action" id="fav_action{{ $favo }}">
 
-                                                    </form> --}}
-                                                            <button data-id="{{ $favourite->songs->id }}"><i
+                                                        @if (Auth::user()->subscription_id == -1)
+
+                                                            <button data-id="{{ $favourite->songs->id }}"  data-duration="fav_duration{{ $favo }}" data-type="0"><i
                                                                     class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                             <button data-id="{{ $favourite->songs->id }}"
                                                                 data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
                                                                     class="fa-solid fa-download download"></i></button>
-                                                            {{-- <button data-id="{{ $favourite->songs->id }}"><i
-                                                                    class="fa-solid fa-star add-favourite"></i></button> --}}
-                                                            <button data-id="{{ $favourite->songs->id }}"><i
+
+                                                            <button data-id="{{ $favourite->songs->id }}" data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
                                                                     class="fa-solid fa-share share"></i></button>
                                                         @else
-                                                            <button data-id="{{ $favourite->songs->id }}" data-type="0"><i
+                                                            <button data-id="{{ $favourite->songs->id }}"  data-duration="fav_duration{{ $favo }}" data-type="0"><i
                                                                     class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                             <button data-id="{{ $favourite->songs->id }}"
                                                                 data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
                                                                     class="fa-solid fa-download download"></i></button>
-                                                            <!--<button data-id="{{ $favourite->songs->id }}"><i-->
-                                                            <!--        class="fa-solid fa-star add-favourite"></i></button>-->
-                                                            <button data-id="{{ $favourite->songs->id }}"><i
+
+                                                            <button data-id="{{ $favourite->songs->id }}" data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
                                                                     class="fa-solid fa-share share"></i></button>
                                                         @endif
-                                                    @else
-                                                        <button onclick="location.href='{{ route('login') }}'"><i
-                                                                class="fa-solid fa-cart-shopping"></i></button>
-                                                        <button data-id="{{ $favourite->songs->id }}"
-                                                            data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}"><i
-                                                                class="fa-solid fa-download download"></i></button>
-                                                        {{-- <button onclick="location.href='{{ route('login') }}'"><i
-                                                                class="fa-solid fa-star"></i></button> --}}
 
-                                                        <button
-                                                            data-href="{{ asset('assets/images/songs/' . $favourite->songs->demo_audio) }}">
-                                                            <i class="fa-solid fa-share share"></i></button>
-                                                    @endif
 
 
 
@@ -225,7 +222,7 @@
                                                     fav++;
                                                     this["fav" + fav] =
                                                         WaveSurfer.create({
-                                                            container: "#fav{{ $loop->iteration }}",
+                                                            container: "#fav{{ $favo }}",
                                                             loopSelection: true,
                                                             waveColor: "gray",
                                                             progressColor: "white",
@@ -245,8 +242,124 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                         {{--  favourite Songs Ends --}}
+                                           {{--  favourite Album Start --}}
+                                    @foreach ($favourites_album as $favourite)
+                                        @php
+                                        $favo++;
+                                        @endphp
+                                    <div class="music-items favourite">
+                                        <div class="items-left">
+                                            <div style="display: none;">
+                                                @if (Auth::user())
+                                                    <a id="fav_url{{ $favo }}"
+                                                        href="{{ asset('assets/images/album/' . $favourite->album->demo_audio) }}"></a>
+                                                @else`
+                                                    <a id="fav_url{{ $favo }}"
+                                                        href="{{ asset('assets/images/album/' . $favourite->album->demo_audio) }}"></a>
+                                                @endif
+                                            </div>
+                                            <input type="hidden" id="fav_item{{ $favo }}" value="0">
+                                            @if (isset($favourite->songs->image))
+                                                <img src="{{ asset('assets/images/album/' . $favourite->album->image) }}"
+                                                    alt="Upload Icon" data-holder-rendered="true" max-height="10px;"
+                                                    max-width="50px;" style="height:50px;width:50px;">
+                                            @else
+                                                <img src="{{ asset('assets/images/upload.png') }}" max-height="10px;"
+                                                    max-width="50px;" style="height:50px;width:50px;">
+                                            @endif
+
+                                            {{-- <button class="btn btn-default" > --}}
+                                            <i class="fa-solid fa-play" id="fav-icon-play{{ $favo }}"
+                                                onclick="favmusic('{{ $favo }}')"></i>
+
+                                            {{-- </button> --}}
 
 
+                                            <span class="artist-name">
+                                                <p id="fav_name{{ $favo }}">
+                                                    {{ $favourite->album->name }}
+                                                </p>
+                                                <p id="fav_artist_name{{ $favo }}">
+                                                    @foreach ($favourite->album->artist_name as $art)
+                                                        {{ $art->name  }}
+                                                    @endforeach
+                                                </p>
+                                            </span>
+                                            <p class="category" id="fav_category{{ $favo }}">
+                                                @foreach ($favourite->album->subcat as $gen)
+                                                    {{ $gen->name }}
+                                                @endforeach
+                                            </p>
+                                            <p class="time"><span
+                                                    id="fav_currenttime{{ $favo }}"></span> / <span
+                                                    id="fav_duration{{ $favo }}"></span></p>
+
+
+
+                                            <div class="demo" id="fav_demo{{ $favo }}"
+                                                style="width: 150px;">
+
+                                                <div id="fav{{ $favo }}" class="waveform"></div>
+                                            </div>
+                                            <span class="music-price">
+                                                $ . {{ $favourite->album->price }}
+                                            </span>
+                                        </div>
+                                        <div class="items-right">
+                                            <span class="music-action" id="fav_action{{ $favo }}">
+
+                                                    @if (Auth::user()->subscription_id == -1)
+
+                                                        <button data-id="{{ $favourite->album->id }}"  data-duration="fav_duration{{ $favo }}" data-type="1"><i
+                                                                class="fa-solid fa-cart-shopping add-to-cart"></i></button>
+                                                        <button data-id="{{ $favourite->album->id }}"
+                                                            data-href="{{ asset('assets/images/album/' . $favourite->album->demo) }}"><i
+                                                                class="fa-solid fa-download download"></i></button>
+
+                                                        <button data-id="{{ $favourite->album->id }}" data-href="{{ asset('assets/images/album/' . $favourite->album->demo) }}"><i
+                                                                class="fa-solid fa-share share"></i></button>
+                                                    @else
+                                                        <button data-id="{{ $favourite->album->id }}"  data-duration="fav_duration{{ $favo }}" data-type="1"><i
+                                                                class="fa-solid fa-cart-shopping add-to-cart"></i></button>
+                                                        <button data-id="{{ $favourite->album->id }}"
+                                                            data-href="{{ asset('assets/images/album/' . $favourite->album->demo) }}"><i
+                                                                class="fa-solid fa-download download"></i></button>
+
+                                                        <button data-id="{{ $favourite->album->id }}" data-href="{{ asset('assets/images/album/' . $favourite->album->demo) }}"><i
+                                                                class="fa-solid fa-share share"></i></button>
+                                                    @endif
+
+
+
+
+                                            </span>
+
+                                            <script>
+                                                fav++;
+                                                this["fav" + fav] =
+                                                    WaveSurfer.create({
+                                                        container: "#fav{{ $favo }}",
+                                                        loopSelection: true,
+                                                        waveColor: "gray",
+                                                        progressColor: "white",
+                                                        height: 48,
+                                                        maxCanvasWidth: 150,
+                                                        responsive:true,
+
+
+                                                    });
+
+                                                this["fav" + fav].load("{{ asset('assets/images/album/' . $favourite->album->demo) }}");
+
+                                                var dur = this["fav" + fav].getCurrentTime();
+
+                                                //  $('#time'+mux).text(parseFloat(this["music"+mux].getDuration(),2));
+                                            </script>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                     {{--  favourite Album Ends --}}
 
 
 
@@ -272,19 +385,26 @@
                                     <script>
                                         var mux = 0;
                                     </script>
+                                     @php
+                                     $down=0;
+                                     @endphp
+                                    {{--  downloads songs start--}}
                                     @foreach ($downloads as $download)
+                                        @php
+                                        $down++;
+                                        @endphp
                                         <div class="music-items downloads">
                                             <div class="items-left">
                                                 <div style="display: none;">
                                                     @if (Auth::user())
-                                                        <a id="music_url{{ $loop->iteration }}"
+                                                        <a id="music_url{{ $down}}"
                                                             href="{{ asset('assets/images/songs/' . $download->songs->demo_audio) }}"></a>
                                                     @else`
-                                                        <a id="music_url{{ $loop->iteration }}"
+                                                        <a id="music_url{{ $down}}"
                                                             href="{{ asset('assets/images/songs/' . $download->songs->demo_audio) }}"></a>
                                                     @endif
                                                 </div>
-                                                <input type="hidden" id="music_item{{ $loop->iteration }}" value="0">
+                                                <input type="hidden" id="music_item{{ $down}}" value="0">
                                                 @if (isset($download->songs->image))
                                                     <img src="{{ asset('assets/images/songs/' . $download->songs->image) }}"
                                                         alt="Upload Icon" data-holder-rendered="true" max-height="10px;"
@@ -295,44 +415,44 @@
                                                 @endif
 
                                                 {{-- <button class="btn btn-default" > --}}
-                                                <i class="fa-solid fa-play" id="icon-play{{ $loop->iteration }}"
-                                                    onclick="pausemusic('{{ $loop->iteration }}')"></i>
+                                                <i class="fa-solid fa-play" id="icon-play{{ $down}}"
+                                                    onclick="pausemusic('{{ $down}}')"></i>
 
                                                 {{-- </button> --}}
 
 
                                                 <span class="artist-name">
-                                                    <p id="music_name{{ $loop->iteration }}">
+                                                    <p id="music_name{{ $down}}">
                                                         {{ $download->songs->name }}
                                                     </p>
-                                                    <p id="artist_name{{ $loop->iteration }}">
+                                                    <p id="artist_name{{ $down}}">
                                                         @foreach ($download->songs->artist_name as $art)
-                                                            {{ $art->name . ',' }}
+                                                            {{ $art->name  }}
                                                         @endforeach
                                                     </p>
                                                 </span>
-                                                <p class="category" id="category{{ $loop->iteration }}">
+                                                <p class="category" id="category{{ $down}}">
                                                     @foreach ($download->songs->genre as $gen)
-                                                        {{ $gen->name . ',' }}
+                                                        {{ $gen->name  }}
                                                     @endforeach
                                                 </p>
                                                 <p class="time"><span
-                                                        id="currenttime{{ $loop->iteration }}"></span> / <span
-                                                        id="duration{{ $loop->iteration }}"></span></p>
+                                                        id="currenttime{{ $down}}"></span> / <span
+                                                        id="duration{{ $down}}"></span></p>
 
 
 
-                                                <div class="demo" id="demo{{ $loop->iteration }}"
+                                                <div class="demo" id="demo{{ $down}}"
                                                     style="width: 150px;">
 
-                                                    <div id="music{{ $loop->iteration }}" class="waveform"></div>
+                                                    <div id="music{{ $down}}" class="waveform"></div>
                                                 </div>
                                                 <span class="music-price">
                                                     $ . {{ $download->songs->price }}
                                                 </span>
                                             </div>
                                             <div class="items-right">
-                                                <span class="music-action" id="music_action{{ $loop->iteration }}">
+                                                <span class="music-action" id="music_action{{ $down}}">
 
                                                     @if (Auth::user()->subscription_id == -1)
                                                         {{-- <form action="{{ route('add.to.cart', $download->songs->id) }}">
@@ -342,17 +462,17 @@
                                                     </form> --}}
 
                                                         <button data-id="{{ $download->songs->id }}"
-                                                            data-href="{{ asset('assets/images/songs/' . $download->songs->demo_audio) }}"><i
-                                                                class="fa-solid fa-download home-download download"></i></button>
+                                                            data-href="{{ asset('assets/images/songs/' . $download->songs->audio) }}"><i
+                                                                class="fa-solid fa-download home-download download" ></i></button>
 
-                                                        <button data-id="{{ $download->songs->id }}"><i
+                                                        <button data-id="{{ $download->songs->id }}" data-href="{{ asset('assets/images/songs/' . $download->songs->demo_audio) }}"><i
                                                                 class="fa-solid fa-share share"></i></button>
                                                     @else
                                                         <button data-id="{{ $download->songs->id }}"
-                                                            data-href="{{ asset('assets/images/songs/' . $download->songs->demo_audio) }}"><i
+                                                            data-href="{{ asset('assets/images/songs/' . $download->songs->audio) }}"><i
                                                                 class="fa-solid fa-download download"></i></button>
 
-                                                        <button data-id="{{ $download->songs->id }}"><i
+                                                        <button data-id="{{ $download->songs->id }}"  data-href="{{ asset('assets/images/songs/' . $download->songs->demo_audio) }}"><i
                                                                 class="fa-solid fa-share share"></i></button>
                                                     @endif
 
@@ -365,7 +485,7 @@
                                                     mux++;
                                                     this["music" + mux] =
                                                         WaveSurfer.create({
-                                                            container: "#music{{ $loop->iteration }}",
+                                                            container: "#music{{ $down}}",
                                                             loopSelection: true,
                                                             waveColor: "gray",
                                                             progressColor: "white",
@@ -381,7 +501,121 @@
 
                                         </div>
                                     @endforeach
+                                    {{--  downloads songs ends--}}
+                                    {{--  downloads album start--}}
+                                    @foreach ($downloads_album as $download)
+                                        @php
+                                        $down++;
+                                        @endphp
+                                        <div class="music-items downloads">
+                                            <div class="items-left">
+                                                <div style="display: none;">
+                                                    @if (Auth::user())
+                                                        <a id="music_url{{ $down}}"
+                                                            href="{{ asset('assets/images/album/' . $download->album->demo) }}"></a>
+                                                    @else`
+                                                        <a id="music_url{{ $down}}"
+                                                            href="{{ asset('assets/images/songs/' . $download->songs->demo_audio) }}"></a>
+                                                    @endif
+                                                </div>
+                                                <input type="hidden" id="music_item{{ $down}}" value="0">
+                                                @if (isset($download->album->image))
+                                                    <img src="{{ asset('assets/images/album/' . $download->album->image) }}"
+                                                        alt="Upload Icon" data-holder-rendered="true" max-height="10px;"
+                                                        max-width="50px;" style="height:50px;width:50px;">
+                                                @else
+                                                    <img src="{{ asset('assets/images/upload.png') }}" max-height="10px;"
+                                                        max-width="50px;" style="height:50px;width:50px;">
+                                                @endif
 
+                                                {{-- <button class="btn btn-default" > --}}
+                                                <i class="fa-solid fa-play" id="icon-play{{ $down}}"
+                                                    onclick="pausemusic('{{ $down}}')"></i>
+
+                                                {{-- </button> --}}
+
+
+                                                <span class="artist-name">
+                                                    <p id="music_name{{ $down}}">
+                                                        {{ $download->album->name }}
+                                                    </p>
+                                                    <p id="artist_name{{ $down}}">
+                                                        @foreach ($download->album->artist_name as $art)
+                                                            {{ $art->name  }}
+                                                        @endforeach
+                                                    </p>
+                                                </span>
+                                                <p class="category" id="category{{ $down}}">
+                                                    @foreach ($download->album->subcat as $gen)
+                                                        {{ $gen->name  }}
+                                                    @endforeach
+                                                </p>
+                                                <p class="time"><span
+                                                        id="currenttime{{ $down}}"></span> / <span
+                                                        id="duration{{ $down}}"></span></p>
+
+
+
+                                                <div class="demo" id="demo{{ $down}}"
+                                                    style="width: 150px;">
+
+                                                    <div id="music{{ $down}}" class="waveform"></div>
+                                                </div>
+                                                <span class="music-price">
+                                                    $ . {{ $download->album->price }}
+                                                </span>
+                                            </div>
+                                            <div class="items-right">
+                                                <span class="music-action" id="music_action{{ $down}}">
+
+                                                    @if (Auth::user()->subscription_id == -1)
+                                                        {{-- <form action="{{ route('add.to.cart', $download->songs->id) }}">
+                                                        @csrf
+                                                        <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
+
+                                                    </form> --}}
+
+                                                        <button data-id="{{ $download->album->id }}"
+                                                            data-href="{{ asset('assets/images/album/' . $download->album->audio) }}"><i
+                                                                class="fa-solid fa-download home-download download"></i></button>
+
+                                                        <button data-id="{{ $download->album->id }}" data-href="{{ asset('assets/images/album/' . $download->album->demo) }}"><i
+                                                                class="fa-solid fa-share share"></i></button>
+                                                    @else
+                                                        <button data-id="{{ $download->album->id }}"
+                                                            data-href="{{ asset('assets/images/songs/' . $download->album->audio) }}"><i
+                                                                class="fa-solid fa-download download"></i></button>
+
+                                                        <button data-id="{{ $download->album->id }}" data-href="{{ asset('assets/images/album/' . $download->album->demo) }}"><i
+                                                                class="fa-solid fa-share share"></i></button>
+                                                    @endif
+
+
+
+
+                                                </span>
+                                            </div>
+                                                <script>
+                                                    mux++;
+                                                    this["music" + mux] =
+                                                        WaveSurfer.create({
+                                                            container: "#music{{ $down}}",
+                                                            loopSelection: true,
+                                                            waveColor: "gray",
+                                                            progressColor: "white",
+                                                            height: 48,
+                                                            maxCanvasWidth: 150,
+                                                            responsive:true,
+
+
+                                                        });
+
+                                                    this["music" + mux].load("{{ asset('assets/images/album/' . $download->album->demo) }}");
+                                                </script>
+
+                                        </div>
+                                    @endforeach
+                                    {{--  downloads album ends--}}
 
 
 
@@ -437,7 +671,7 @@
         </script>
     @endif
     <script>
-          $(".loader").fadeOut(25000);
+          $(".loader").fadeOut(5000);
         $(document).ready(function() {
             $("input").keyup(
                 function(e) {
@@ -484,7 +718,7 @@
             displayTime();
             $('#favourite_playlist').css('visibility','visible');
             $('#downloads_playlist').css('visibility','visible');
-        }, 25000);
+        }, 5000);
 
         function displayTime() {
             for (let index = 1; index <= mux; index++) {

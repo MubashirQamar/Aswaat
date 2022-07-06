@@ -161,13 +161,18 @@
         e.preventDefault();
 
         var ele = $(this).parent("button").attr("data-id");
-        console.log(ele);
+        var type = $(this).parent("button").attr("data-type");
+        var dur = $(this).parent("button").attr("data-duration");
+        var duration = $("#"+dur).text();
+        console.log(duration);
         $.ajax({
             url: '{{ route('add.to.cart') }}',
             method: "post",
             data: {
                 _token: '{{ csrf_token() }}',
                 id: ele,
+                type: type,
+                duration: duration,
 
             },
             success: function(response) {
