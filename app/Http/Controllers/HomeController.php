@@ -245,7 +245,8 @@ class HomeController extends Controller
     public function profile(Request $req)
     {
         $date = date('Y-m-d');
-        $q = Subscription::where('end_date',  '>=', $date)->where('status', 'Active')->get();
+        $q = Subscription::where('user_id',Auth::user()->id)->where('end_date',  '>=', $date)->where('status', 'Active')->get();
+        // $q = Subscription::where('user_id',Auth::user()->id)->where('status', 'Active')->get();
         $data['tab'] = "profile";
         if (isset($req->tab)) {
             $data['tab'] = $req->tab;
@@ -288,7 +289,7 @@ class HomeController extends Controller
 
 
         $date = date('Y-m-d');
-        $q = Subscription::where('end_date',  '>=', $date)->where('status', 'Active')->get();
+        $q = Subscription::where('user_id',Auth::user()->id)->where('end_date',  '>=', $date)->where('status', 'Active')->get();
         $data['total_download'] = $q->sum('total_download');
         $data['use_download'] = $q->sum('use_download');
         $data['totals'] = $q->sum('total_download') - $q->sum('use_download');

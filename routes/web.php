@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Session;
 |
 */
 
+Route::get('/clear', function () {
+    \Artisan::call('optimize:clear');
+
+});
 
 Route::get('/', 'HomeController@index');
 Route::get('/contact', 'HomeController@contactus');

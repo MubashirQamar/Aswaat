@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Artist;
 use App\Container\CommonContainer;
+use App\Download;
+use App\Favourite;
 use App\Genre;
 use App\Http\Controllers\Controller;
 use App\Instrument;
@@ -188,6 +190,8 @@ class SongsController extends Controller
         if (isset($songs->copyright)) {
             $this->media->unlinkProfilePic($songs->copyright, 'songs');
         }
+        Download::where('type','0')->where('song_id',$id)->delete();
+        Favourite::where('type','0')->where('song_id',$id)->delete();
         $songs->delete();
         return back();
     }

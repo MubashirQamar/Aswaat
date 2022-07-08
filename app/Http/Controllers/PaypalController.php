@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Album;
 use App\Download;
 use App\Http\Requests;
 use App\Package;
@@ -125,7 +126,7 @@ class PaypalController extends Controller
         $result = $payment->execute($execution, $this->_api_context);
 
         if ($result->getState() == 'approved') {
-            \Session::put('success', 'Payment success !!');
+            \Session::put('success', 'الدفع ناجح');
             $package = session()->get('package');
 
 
@@ -164,7 +165,7 @@ class PaypalController extends Controller
             return Redirect::route('payment-msg');
         }
 
-        \Session::put('error', 'Payment failed !!');
+        \Session::put('error', 'فشلت عملية الدفع');
         return Redirect::route('payment-msg');
     }
 
@@ -249,7 +250,7 @@ class PaypalController extends Controller
 
         if ($result->getState() == 'approved') {
             $total = $result->transactions[0]->amount->total;
-            \Session::put('success', 'Payment success !!');
+            \Session::put('success', 'الدفع ناجح');
             $package = session()->get('package');
 
             $cart = session()->get('cart');
@@ -259,7 +260,7 @@ class PaypalController extends Controller
             $zip = new ZipArchive;
             $fileName = 'myNewFile' . time() . '.zip';
             $date = date('Y-m-d');
-
+            $filearray=array();
 
             $pay = new AppPayment;
             $pay->user_id = Auth::user()->id;
@@ -278,6 +279,7 @@ class PaypalController extends Controller
                         $downloads->save();
                         $pay_detail = new PaymentDetail;
                         $pay_detail->payment_id = $pay->id;
+                        $pay_detail->type = $details['type'];
                         $pay_detail->relation_id = $key;
                         $pay_detail->save();
                         $sub = Subscription::where('user_id', Auth::user()->id)->where('end_date',  '>=', $date)->where('status', 'Active')->orderBy('id', 'ASC')->first();
@@ -294,19 +296,39 @@ class PaypalController extends Controller
                                 $sub->save();
                             }
                         }
-                        $song = Song::find($key);
-                        if (isset($song->audio)) {
-                            $zip->addFile(public_path('assets/images/songs/' . $song->audio), $song->audio);
-                        }
-                        if (isset($song->image)) {
-                            $zip->addFile(public_path('assets/images/songs/' . $song->image), $song->image);
-                        }
-                        if (isset($song->copyright)) {
-                            $zip->addFile(public_path('assets/images/songs/' . $song->copyright), $song->copyright);
-                        }
-                        if (isset($song->file)) {
-                            $zip->addFile(public_path('assets/images/songs/' . $song->file), $song->file);
-                        }
+                        if($id != 1){
+                            $song = Song::find($key);
+                            if (isset($song->audio)) {
+                                $zip->addFile(public_path('assets/images/songs/' . $song->audio), $song->audio);
+                                array_push($filearray,asset('assets/images/songs/' . $song->audio));
+                            }
+                            if (isset($song->image)) {
+                                $zip->addFile(public_path('assets/images/songs/' . $song->image), $song->image);
+                            }
+                            if (isset($song->copyright)) {
+                                $zip->addFile(public_path('assets/images/songs/' . $song->copyright), $song->copyright);
+                            }
+                            if (isset($song->file)) {
+                                $zip->addFile(public_path('assets/images/songs/' . $song->file), $song->file);
+                            }
+
+                            }else{
+                                $song = Album::find($key);
+                                if (isset($song->audio)) {
+                                    $zip->addFile(public_path('assets/images/album/' . $song->audio), $song->audio);
+                                    array_push($filearray,asset('assets/images/album/' . $song->audio));
+                                }
+                                if (isset($song->image)) {
+                                    $zip->addFile(public_path('assets/images/album/' . $song->image), $song->image);
+                                }
+                                if (isset($song->copyright)) {
+                                    $zip->addFile(public_path('assets/images/album/' . $song->copyright), $song->copyright);
+                                }
+                                if (isset($song->file)) {
+                                    $zip->addFile(public_path('assets/images/album/' . $song->file), $song->file);
+                                }
+
+                            }
                         unset($cart[$id][$key]);
                         session()->put('cart', $cart);
                     }
@@ -325,10 +347,11 @@ class PaypalController extends Controller
 
 
 
-            return redirect('/home')->with('download', $fileName);
+            return redirect('/home?tab=downloads')->with(['downloads_file' => $filearray]);
+
         }
 
-        \Session::put('error', 'Payment failed !!');
+        \Session::put('error', 'فشلت عملية الدفع');
         return Redirect::route('payment-msg');
     }
 }

@@ -57,7 +57,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body text-center">
-                    <h5>Do you like this? Share with your friends!</h5>
+                    <h5>هل احببت هذه؟ شارك الموضوع مع أصدقائك!</h5>
                     <div class="mt-5">
                         <input type="hidden" id="share_url">
                         <ul class="share_links">

@@ -13,9 +13,9 @@
         <h2 class="title">{!! $message !!}</h2>
         <?php Session::forget('error'); ?>
         @endif
-        <p class="message-text">You are redirect to home page please wait</p>
+        <p class="message-text"> يتم إعادة توجيهك إلى الصفحة الرئيسية نرجوا الإنتظار. </p>
 
-        <a href="{{ url('/home') }}" class="custom-btn secondary-btn"> BACK TO HOME </a>
+        <a href="{{ url('/home') }}" class="custom-btn secondary-btn"> العودة للخلف </a>
 
     </div>
 

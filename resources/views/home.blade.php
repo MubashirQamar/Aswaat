@@ -5,8 +5,8 @@
 
         <div class="container-fluid profil">
             <div class="profile-cart ">
-                <h2>My Account</h2>
-                <a href="{{ url('/cart') }}">Cart @if (session('cart'))
+                <h2>حسابي</h2>
+                <a href="{{ url('/cart') }}">سلةالمشتريات @if (session('cart'))
                             <?php
 
                                 $cart = session('cart');
@@ -38,15 +38,15 @@
             @endif
             <div class="d-flex align-items-start profile-nav">
                 <div class="nav nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <a class="nav-link @if($tab =='profile') active @endif" id="v-pills-home-tab" href="{{ url('home') }}?tab=profile">Profile</a>
-                    <a class="nav-link @if($tab =='favourites') active @endif" id="v-pills-favourites-tab" href="{{ url('home') }}?tab=favourites">My Favourites</a>
-                    <a class="nav-link @if($tab =='downloads') active @endif" id="v-pills-downloads-tab"  href="{{ url('home') }}?tab=downloads">My Downloads</a>
+                    <a class="nav-link @if($tab =='profile') active @endif" id="v-pills-home-tab" href="{{ url('home') }}?tab=profile">الملف الشخصي                    </a>
+                    <a class="nav-link @if($tab =='favourites') active @endif" id="v-pills-favourites-tab" href="{{ url('home') }}?tab=favourites">مفضلتي</a>
+                    <a class="nav-link @if($tab =='downloads') active @endif" id="v-pills-downloads-tab"  href="{{ url('home') }}?tab=downloads">تنزيلاتي</a>
                     {{-- <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
                         data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
                         aria-selected="false">Payments</button> --}}
                     <button class="nav-link" onclick="$('#logoutform').submit()" id="v-pills-signout-tab"
                         data-bs-toggle="pill" data-bs-target="#v-pills-signout" type="button" role="tab"
-                        aria-controls="v-pills-settings" aria-selected="false">Sign Out</button>
+                        aria-controls="v-pills-settings" aria-selected="false">تسجيل خروج</button>
 
                     <form id="logoutform" action="{{ route('logout') }}" method="post">
                         @csrf
@@ -57,20 +57,20 @@
 
                     <div class="tab-pane fade @if($tab =='profile') show active @endif" id="v-pills-home" role="tabpanel"
                         aria-labelledby="v-pills-home-tab">
-                        <p>Hello, {{ Auth::user()->name }}</p>
+                        <p>مرحبا, {{ Auth::user()->name }}</p>
 
                         <h5 class="gold">
                             @if (Auth::user()->subscription_id != -1)
                                 {{ $subscriber ? $subscriber->package->name : ' ' }}
                             @else
-                                Regular
-                            @endif Package
+                            عادي
+                            @endif حزمة
                         </h5>
-                        <p>CREDIT BALANCE: @if (Auth::user()->subscription_id != -1)
+                        <p>تنزيل الاعتمادات : @if (Auth::user()->subscription_id != -1)
                                 {{ $subscriber ? $credit : '0' }}
                             @else
                                 0
-                            @endif downloads</p>
+                            @endif التحميلات</p>
                         @if (Auth::user()->subscription_id != -1)
                             <span class="grey-text">expires on
                                 {{ $subscriber ? date('d/m/Y', strtotime($subscriber->end_date)) : ' ' }}</span>
@@ -186,7 +186,7 @@
                                                     <div id="fav{{ $favo }}" class="waveform"></div>
                                                 </div>
                                                 <span class="music-price">
-                                                    $ . {{ $favourite->songs->price }}
+                                                    $ {{ $favourite->songs->price }}
                                                 </span>
                                             </div>
                                             <div class="items-right">
@@ -260,7 +260,7 @@
                                                 @endif
                                             </div>
                                             <input type="hidden" id="fav_item{{ $favo }}" value="0">
-                                            @if (isset($favourite->songs->image))
+                                            @if (isset($favourite->album->image))
                                                 <img src="{{ asset('assets/images/album/' . $favourite->album->image) }}"
                                                     alt="Upload Icon" data-holder-rendered="true" max-height="10px;"
                                                     max-width="50px;" style="height:50px;width:50px;">
@@ -303,7 +303,7 @@
                                                 <div id="fav{{ $favo }}" class="waveform"></div>
                                             </div>
                                             <span class="music-price">
-                                                $ . {{ $favourite->album->price }}
+                                                $ {{ $favourite->album->price }}
                                             </span>
                                         </div>
                                         <div class="items-right">
@@ -448,7 +448,7 @@
                                                     <div id="music{{ $down}}" class="waveform"></div>
                                                 </div>
                                                 <span class="music-price">
-                                                    $ . {{ $download->songs->price }}
+                                                    $ {{ $download->songs->price }}
                                                 </span>
                                             </div>
                                             <div class="items-right">
@@ -562,7 +562,7 @@
                                                     <div id="music{{ $down}}" class="waveform"></div>
                                                 </div>
                                                 <span class="music-price">
-                                                    $ . {{ $download->album->price }}
+                                                    $ {{ $download->album->price }}
                                                 </span>
                                             </div>
                                             <div class="items-right">
@@ -634,25 +634,28 @@
 
         </div>
         <div style="display: none">
-            @if (session('download'))
-                <a id="downloadLink" href="{{ asset(session('download')) }}" download></a>
+            @if (session('downloads_file'))
+
+                    @foreach (session('downloads_file') as $id => $detail)
+                    {{-- @dd($detail); --}}
+                    <a id="downloadLink"  class="downloadLink" href="{{ $detail }}" download>{{ $detail }}</a>
+                    @endforeach
+
             @endif
         </div>
-        <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-            aria-hidden="true">
+        <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Added to cart!</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"> أﺿﯾف إﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>Song Name has been added to cart.</p>
+                        <p>   ﺗﻣت إﺿﺎﻓﺔ ت اﻟﺻو ﻰ إﻟ ﺔ ﻋرﺑ ق اﻟﺗﺳو  </p>
                     </div>
                     <div class="modal-footer">
-                        <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">Go To
-                                Cart</button></a>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Listen To More</button>
+                        <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">  اذھب اﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </button></a>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> اﺳﺗﻣﻊ اﻟﻰ د اﻟﻣزﯾ                    </button>
                     </div>
                 </div>
             </div>
@@ -661,13 +664,19 @@
 @endsection
 @push('include-js')
 
-    @if (session('download'))
+    @if (session('downloads_file'))
         <script>
-            window.onload = function() {
-                document.getElementById('downloadLink').click();
+            // window.onload = function() {
+                $(document).ready(function(){
+                    var els = document.getElementsByClassName("downloadLink");
+                        for(var i = 0; i < els.length; i++)
+                        {
+                            els[i].click();
 
+                        }
 
-            }
+                // $('.downloadLink')[0];
+                });
         </script>
     @endif
     <script>

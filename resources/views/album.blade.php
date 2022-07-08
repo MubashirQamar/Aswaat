@@ -22,33 +22,34 @@
                                 <form method="GET" id="filter-form" class="filter-form">
                                     <select name="sort" class="sort-filter">
                                         {{-- <option>Sort by ASWAT list</option> --}}
-                                        <option @if($sort == 'top') selected @endif  value="top">Top Download</option>
-                                        <option @if($sort == 'newest') selected @endif value="newest">Newest </option>
+                                        <option @if($sort=='top' ) selected @endif value="top">الأكثر تحميلاً</option>
+                                        <option @if($sort=='newest' ) selected @endif value="newest">الجديد </option>
 
                                     </select>
 
                                     <select name="instrument" class="sort-filter">
-                                        <option @if($instrument == 1) selected @endif value="newest" value="1">Vocal & Instrumental </option>
-                                        <option @if($instrument == 2) selected @endif  value="2">Vocal Only </option>
-                                        <option @if($instrument == 3) selected @endif  value="3">Instruments</option>
+                                        <option @if($instrument==1) selected @endif value="newest" value="1">معزوفات غنائية </option>
+                                        <option @if($instrument==2) selected @endif value="2">اصوات بشرية </option>
+                                        <option @if($instrument==3) selected @endif value="3">معزوفات موسيقية</option>
 
                                     </select>
 
-                                     <select name="bpm" class="sort-filter">
-                                    <option @if($bpm==0) selected @endif value="0">BPM</option>
-                                    <option @if($bpm == "slow" && !is_numeric($bpm)) selected @endif value="slow">Slow </option>
-                                    <option @if($bpm == "medslow" && !is_numeric($bpm)) selected @endif value="medslow">Med-Slow </option>
-                                    <option @if($bpm == "medium" && !is_numeric($bpm)) selected @endif value="medium">Medium </option>
-                                    <option @if($bpm == "medfast" && !is_numeric($bpm)) selected @endif value="medfast">Med-Fast </option>
-                                    <option @if($bpm == "fast" && !is_numeric($bpm)) selected @endif value="fast">Fast </option>
-                                  </select>
+                                    <select name="bpm" class="sort-filter">
+                                        <option @if($bpm==0) selected @endif value="0">السرعة</option>
+                                        <option @if($bpm=="slow" && !is_numeric($bpm)) selected @endif value="slow">بطيئ </option>
+                                        <option @if($bpm=="medslow" && !is_numeric($bpm)) selected @endif value="medslow">بطيئ متوسط </option>
+                                        <option @if($bpm=="medium" && !is_numeric($bpm)) selected @endif value="medium">متوسط </option>
+                                        <option @if($bpm=="medfast" && !is_numeric($bpm)) selected @endif value="medfast">سريع متوسط </option>
+                                        <option @if($bpm=="fast" && !is_numeric($bpm)) selected @endif value="fast">سريع جدا </option>
+                                    </select>
 
                                     <select name="duration" class="sort-filter">
-                                        <option>Any Duration</option>
-                                        <option  @if($duration == 1) selected @endif value="1">10 - 30 sec </option>
-                                        <option  @if($duration == 2) selected @endif value="2">30 - 50 sec </option>
-                                        <option  @if($duration == 3) selected @endif value="3">50+ sec     </option>
+                                        <option>مدة حرة</option>
+                                        <option @if($duration==1) selected @endif value="1">10-30 ثواني </option>
+                                        <option @if($duration==2) selected @endif value="2">30-50 ثواني </option>
+                                        <option @if($duration==3) selected @endif value="3">50+ ثواني </option>
                                     </select>
+
 
                                 </form>
 
@@ -213,22 +214,19 @@
                 </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Added to cart!</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Close"></button>
+                            <h5 class="modal-title" id="exampleModalLabel"> أﺿﯾف إﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>Song Name has been added to cart.</p>
+                            <p>   ﺗﻣت إﺿﺎﻓﺔ ت اﻟﺻو ﻰ إﻟ ﺔ ﻋرﺑ ق اﻟﺗﺳو  </p>
                         </div>
                         <div class="modal-footer">
-                            <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">Go To
-                                    Cart</button></a>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Listen To More</button>
+                            <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">  اذھب اﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </button></a>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> اﺳﺗﻣﻊ اﻟﻰ د اﻟﻣزﯾ                    </button>
                         </div>
                     </div>
                 </div>

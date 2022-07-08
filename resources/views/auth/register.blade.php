@@ -5,12 +5,12 @@
 
         <div class="sign-up main-section sign-up-section">
 
-            <h2 class="title">Sign Up</h2>
+            <h2 class="title">تسجيل جديد</h2>
 
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Username:</label>
+                    <label for="name">الاسم الشخصي:</label>
                     <input id="name" name="name" value="{{ old('name') }}" required autocomplete="off" autofocus
                         type="text">
                     @error('name')
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email:</label>
+                    <label for="email">البريد الالكتروني:</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="off">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">Password:</label>
+                    <label for="password">الرقم السري:</label>
                     <input id="password" type="password" name="password" required autocomplete="off">
                     @error('password')
                         <span class="invalid-feedback" role="alert">
@@ -41,30 +41,30 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password-confirm" style="">Confirm Password:</label>
+                    <label for="password-confirm" style="">تأكيد الرقم السري:</label>
                     <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="off">
 
                 </div>
 
                 <div class="form-group form-check custom-check">
                     <input type="checkbox" class="form-check-input" required id="exampleCheck1">
-                    <label class="form-check-label" for="exampleCheck1"> I agree to these <a href="{{ url('/terms') }}" target="_blank">Terms and Conditions</a>.</label>
+                    <label class="form-check-label" for="exampleCheck1"> <a href="{{ url('/terms') }}" target="_blank"> أوافق على هذه الشروط والأحكام</a></label>
                   </div>
                 <div class="button-group">
-                    <button class="custom-btn primary-btn"> Proceed </button>
+                    <button class="custom-btn primary-btn"> المتابعة </button>
                 </div>
 
             </form>
             <div class="sign-up bottom-section">
-                <h2 class="title">Start using Aswat for FREE!</h2>
+                <h2 class="title">ابدأ في التسجيل مجانًا!</h2>
 
-                    <p class="align-left"> With a free account you can. </p>
+                    <p class="align-left"> مع حساب مجاني يمكنك. </p>
 
                     <ul class="menu-list-inner">
 
-                        <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Download Music & SFX of your choice</li>
-                        <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Organized your own favorite list</li>
-                        <li><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Purchase Music & SFX individually</li>
+                        <li> تحميل الموسيقى والمؤثرات الصوتية <span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span></li>
+                        <li> قئمة المفضلة  <span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span></li>
+                        <li> شراء الموسيقى <span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span></li>
 
 
 
