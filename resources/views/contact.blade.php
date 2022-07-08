@@ -6,7 +6,7 @@
 
         <div class="sign-up contact-section text-center" id="contactsec2"  >
 
-            <h2 class="title">Contact Us</h2>
+            <h2 class="title">وسائل التواصل</h2>
 
             <p> Your details have been submitted successfully. </p>
             <p> One of our sales representative will get touch with you shortly. </p>
@@ -18,12 +18,12 @@
 
 
 
-            <h2 class="title">Contact Us</h2>
+            <h2 class="title">وسائل التواصل</h2>
 
             <form method="POST" action="{{ route('contact') }}">
                 @csrf
                 <div class="form-group">
-                    <label for="name">Name:</label>
+                    <label for="name">الاسم:</label>
                     <input id="name" name="name" required autocomplete="off" autofocus type="text">
                     @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="c_name">Company Name:</label>
+                    <label for="c_name">اسم الشركة:</label>
                     <input id="c_name" name="c_name" required autocomplete="off" autofocus type="text">
                     @error('c_name')
                         <span class="invalid-feedback" role="alert">
@@ -41,7 +41,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="city">City:</label>
+                    <label for="city">المدينة:</label>
                     <input id="city" name="city" required autocomplete="off" autofocus type="text">
                     @error('city')
                         <span class="invalid-feedback" role="alert">
@@ -50,7 +50,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="country">Country:</label>
+                    <label for="country">البلد:</label>
                     <input id="country" name="country" required autocomplete="off" autofocus type="text">
                     @error('country')
                         <span class="invalid-feedback" role="alert">
@@ -59,7 +59,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="p_number">Phone Number:</label>
+                    <label for="p_number">رقم المحمول:</label>
                     <input id="p_number" name="p_number" required autocomplete="off" autofocus type="text">
                     @error('p_number')
                         <span class="invalid-feedback" role="alert">
@@ -68,7 +68,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="email">Email:</label>
+                    <label for="email">عنوان البريد الالكتروني:</label>
                     <input id="email" type="email" name="email" value="{{ old('email') }}" required autocomplete="off">
                     @error('email')
                         <span class="invalid-feedback" role="alert">
@@ -80,7 +80,7 @@
 
 
                 <div class="button-group">
-                    <button class="custom-btn primary-btn"> Submit </button>
+                    <button class="custom-btn primary-btn"> ارسال </button>
                 </div>
 
             </form>
@@ -108,8 +108,8 @@
                     <i class="fa-solid fa-location-dot contact-icon"></i>
                     {{-- <i class="fa-solid fa-location-dot "> --}}
                         {{-- <span class="fix-editor">&nbsp;</span></i> --}}
-                        <p> Al Fahd Building 1 - Office 19 </p>
-                        <p> Mohammed Bin Saud Dis.,Dammam,Saudia Arabia </p>
+                        <p> مبنى الفهد 1 - مكتب 19 </p>
+                        <p> حي محمد بن سعود   ، الدمام ، المملكة العربية السعودية </p>
                 </div>
 
             </div>

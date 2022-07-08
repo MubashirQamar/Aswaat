@@ -35,15 +35,15 @@
 
 
 
-                <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }} "><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }} "><a class="nav-link" href="{{ url('/') }}">الرئيسية</a></li>
 
 
 
-                <li class="nav-item {{ (request()->is('sound-tracks')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/sound-tracks') }}">Sound Tracks</a></li>
+                <li class="nav-item {{ (request()->is('sound-tracks')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/sound-tracks') }}">موسيقى تصويرية</a></li>
 
 
 
-                <li class="nav-item {{ (request()->is('sound-effects')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/sound-effects') }}">Sound Effects</a></li>
+                <li class="nav-item {{ (request()->is('sound-effects')) ? 'active' : '' }}"><a class="nav-link" href="{{ url('/sound-effects') }}">مؤثرات صوتية</a></li>
 
             </ul>
 
@@ -51,17 +51,17 @@
 
 
         <div class="end-box">
-            <a  href="{{ route('register') }}" class="custom-btn primary-btn"> Start Now </a>
+            <a  href="{{ route('register') }}" class="custom-btn primary-btn"> ابدأ الآن </a>
 
-            <a class="{{ (request()->is('/packages')) ? 'active' : '' }}" href="{{ url('/packages') }}">Pricing</a>
+            <a class="{{ (request()->is('/packages')) ? 'active' : '' }}" href="{{ url('/packages') }}">الأسعار</a>
             @if (Auth::user() && Auth::user()->is_admin == 0)
-            <a href="{{ url('/home') }}"><i class="fa-solid fa-user"></i> My Account</a>
+            <a href="{{ url('/home') }}"><i class="fa-solid fa-user"></i>   حسابي</a>
             @else
-            <a href="{{ route('login') }}"><i class="fa-solid fa-user"></i> Sign-in</a>
+            <a href="{{ route('login') }}"><i class="fa-solid fa-user"></i> تسجيل الدخول</a>
 
                 @endif
 
-            <div class="dropdown">
+            <div class="dropdown" style="display: none">
                 <img src="{{ asset('frontend/images/usa.png') }}" onclick="customDropdown()" class="dropbtn">
                 <div id="myDropdown" class="dropdown-content">
                     {{-- <a href="#"><img src="{{ asset('frontend/images/spain.png') }}">Spanish</a> --}}
@@ -99,7 +99,7 @@
 
                         <div class="search-group">
                             <i class="fa-solid fa-magnifying-glass"></i>
-                            <input type="text" name="searchmusic" placeholder="Search Music">
+                            <input type="text" name="searchmusic" placeholder="البحث">
                             <button>Clear</button>
                         </div>
 
@@ -121,12 +121,12 @@
 
             <ul class="menu-list">
                 <li>
-                    <a href="{{ url('/sound-tracks') }}" class="menu-link">Sound Tracks</a>
+                    <a href="{{ url('/sound-tracks') }}" class="menu-link">موسيقى تصويرية</a>
                 </li>
 
                 <li>
 
-                    <a href="{{ url('/sound-effects') }}" class="menu-link">Sound Effects</a>
+                    <a href="{{ url('/sound-effects') }}" class="menu-link">مؤثرات صوتية</a>
 
                 </li>
 
@@ -139,8 +139,8 @@
 
             <ul class="menu-list-inner">
 
-                <li><a href="{{ url('/about') }}">About Us</a></li>
-                <li><a href="{{ url('/contact') }}">Contact Us</a></li>
+                <li><a href="{{ url('/about') }}">من نحن</a></li>
+                <li><a href="{{ url('/contact') }}">وسائل التواصل</a></li>
 
 
 
@@ -149,8 +149,8 @@
             <div class="side-menu-GDPR">
 
                 <ul>
-                    <li><a href="{{ url('/terms') }}">Terms & Conditions</a></li>
-                    <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
+                    <li><a href="{{ url('/terms') }}">الشروط والأحكام</a></li>
+                    <li><a href="{{ url('/privacy') }}">سياسة الخصوصية</a></li>
                 </ul>
 
             </div>

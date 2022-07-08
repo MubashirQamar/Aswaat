@@ -6,6 +6,8 @@ use App\Album;
 use App\Artist;
 use App\Category;
 use App\Container\CommonContainer;
+use App\Download;
+use App\Favourite;
 use App\Http\Controllers\Controller;
 use App\SubCategory;
 use Illuminate\Http\Request;
@@ -162,7 +164,8 @@ class AlbumController extends Controller
     public function destroy($id)
     {
         $album = Album::where('id', $id);
-
+        Download::where('type','1')->where('song_id',$id)->delete();
+        Favourite::where('type','1')->where('song_id',$id)->delete();
         $album->delete();
         return back();
     }

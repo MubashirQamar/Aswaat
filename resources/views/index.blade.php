@@ -7,14 +7,14 @@
 
         <!--begin container -->
 
-        <div class="container h-100-per">
+        <div class="">
 
 
 
             <!--begin row -->
 
-            <div class="row align-items-center h-100-per">
-
+            <div class=" align-items-center ">
+                <img src="{{ asset('frontend/images/English-Header.jpg') }}" style="width: 100%!important">
 
 
                 <!--begin col-md-6-->
@@ -27,34 +27,34 @@
 
 
 
-                <div class="col-xlg-4 col-lg-4 col-md-12 col-sm-12 col-xsm-12">
+                    {{-- <div class="col-xlg-4 col-lg-4 col-md-12 col-sm-12 col-xsm-12">
 
-                    <!--begin newsletter-form -->
-                    <div class="heading text-center">
-                        <h2>
-                            Original Creators need
-                        </h2>
+                        <!--begin newsletter-form -->
+                        <div class="heading text-center">
+                            <h2>
+                                Original Creators need
+                            </h2>
 
-                        <h1>ORIGINAL</h1>
-                        <h1 class="heading-space">SOUND</h1>
+                            <h1>ORIGINAL</h1>
+                            <h1 class="heading-space">SOUND</h1>
+                        </div>
+                        <div class="banner-btn text-center ">
+                            <a href="{{ route('register') }}" class="custom-btn secondary-btn">Start Now</a>
+                            <a href="{{ url('/packages') }}" class="custom-btn secondary-btn"> Pricing </a>
+
+                        </div>
+
+                        <div class="heading banner-lower-heading text-center">
+                            <h6>1,000+ ORIGINAL</h6>
+                            <h6>SOUND TRACKS & SOUND EFFECTS</h6>
+                        </div>
+
                     </div>
-                    <div class="banner-btn text-center ">
-                        <a href="{{ route('register') }}" class="custom-btn secondary-btn">Start Now</a>
-                        <a href="{{ url('/packages') }}" class="custom-btn secondary-btn"> Pricing </a>
 
-                    </div>
+                    <div class="banner-logo">
+                        <img src="{{asset('frontend/images/logo.png')}}" class="logo" />
 
-                    <div class="heading banner-lower-heading text-center">
-                        <h6>1,000+ ORIGINAL</h6>
-                        <h6>SOUND TRACKS & SOUND EFFECTS</h6>
-                    </div>
-
-                </div>
-
-                <div class="banner-logo">
-                    <img src="{{asset('frontend/images/logo.png')}}" class="logo" />
-
-                </div>
+                    </div> --}}
                 <!--end newsletter-form -->
 
 
@@ -100,37 +100,37 @@
 
             <div class="text-center">
 
-                <h2 class="title">SAY GOODBYE TO COPYRIGHT STRIKES!</h2>
-                <h4 class="subtitle">GET COMMERCIAL LICENSE FOR USING AUDIO FILES IN YOUR VIDEOS</h4>
+                <h2 class="title">قل وداعا لإنتهاك حقوق الطبع والنشر!</h2>
+                <h4 class="subtitle">احصل على رخصة إستخدام وعدم ممانعة لاستخدام الملفات الصوتية في مقاطع الفيديو الخاصة بك</h4>
 
             </div>
 
             <ul class="platforms">
 
-                <li><i class="fa-solid fa-check"></i>Youtube</li>
-                <li><i class="fa-solid fa-check"></i>Vimeo</li>
-                <li><i class="fa-solid fa-check"></i>Facebook</li>
-                <li><i class="fa-solid fa-check"></i>Twitter</li>
-                <li><i class="fa-solid fa-check"></i>Instagram</li>
-                <li><i class="fa-solid fa-check"></i>Snapchat</li>
-                <li><i class="fa-solid fa-check"></i>Tiktok</li>
-                <li><i class="fa-solid fa-check"></i>Twitch</li>
-                <li><i class="fa-solid fa-check"></i>Commercials</li>
-                <li><i class="fa-solid fa-check"></i>Cinema & Films</li>
-                <li><i class="fa-solid fa-check"></i>Podcasts</li>
-                <li><i class="fa-solid fa-check"></i>Websites</li>
-                <li><i class="fa-solid fa-check"></i>Applications</li>
-                <li><i class="fa-solid fa-check"></i>Games</li>
-                <li><i class="fa-solid fa-check"></i>Presentations</li>
-                <li><i class="fa-solid fa-check"></i>Client Work</li>
-                <li><i class="fa-solid fa-check"></i>Weddings</li>
-                <li><i class="fa-solid fa-check"></i>Any Future Platform</li>
+                <li>يوتيوب <i class="fa-solid fa-check"></i></li>
+                <li>تك توك<i class="fa-solid fa-check"></i></li>
+                <li>التطبيقات<i class="fa-solid fa-check"></i></li>
+                <li>فيميو<i class="fa-solid fa-check"></i></li>
+                <li>تويتر<i class="fa-solid fa-check"></i></li>
+                <li>الألعاب<i class="fa-solid fa-check"></i></li>
+                <li>فيسبوك<i class="fa-solid fa-check"></i></li>
+                <li>اعلانات تجارية<i class="fa-solid fa-check"></i></li>
+                <li>العروض التقديمية<i class="fa-solid fa-check"></i></li>
+                <li>الافلام والمسلسلات<i class="fa-solid fa-check"></i></li>
+                <li>تويتر<i class="fa-solid fa-check"></i></li>
+                <li>أعمال العملاء<i class="fa-solid fa-check"></i></li>
+                <li>انستجرام<i class="fa-solid fa-check"></i></li>
+                <li>بودكاست<i class="fa-solid fa-check"></i></li>
+                <li>المناسبات<i class="fa-solid fa-check"></i></li>
+                <li>سناب شاات<i class="fa-solid fa-check"></i></li>
+                <li>المواقع الالكترونية<i class="fa-solid fa-check"></i></li>
+                <li>المنصات الإلكتونية<i class="fa-solid fa-check"></i></li>
 
 
             </ul>
 
             <div class="py-5 text-center">
-                <a href="{{ route('register') }}" class="custom-btn primary-btn"> Start Free Now </a>
+                <a href="{{ route('register') }}" class="custom-btn primary-btn"> ابدأ التسجيل المجاني </a>
             </div>
 
         </div>
@@ -178,32 +178,32 @@
                     <form method="GET" id="filter-form" class="filter-form">
                         <select name="sort" class="sort-filter">
                             {{-- <option>Sort by ASWAT list</option> --}}
-                            <option @if($sort=='top' ) selected @endif value="top">Top Download</option>
-                            <option @if($sort=='newest' ) selected @endif value="newest">Newest </option>
+                            <option @if($sort=='top' ) selected @endif value="top">الأكثر تحميلاً</option>
+                            <option @if($sort=='newest' ) selected @endif value="newest">الجديد </option>
 
                         </select>
 
                         <select name="instrument" class="sort-filter">
-                            <option @if($instrument==1) selected @endif value="newest" value="1">Vocal & Instrumental </option>
-                            <option @if($instrument==2) selected @endif value="2">Vocal Only </option>
-                            <option @if($instrument==3) selected @endif value="3">Instruments</option>
+                            <option @if($instrument==1) selected @endif value="newest" value="1">معزوفات غنائية </option>
+                            <option @if($instrument==2) selected @endif value="2">اصوات بشرية </option>
+                            <option @if($instrument==3) selected @endif value="3">معزوفات موسيقية</option>
 
                         </select>
 
                         <select name="bpm" class="sort-filter">
-                            <option @if($bpm==0) selected @endif value="0">BPM</option>
-                            <option @if($bpm=="slow" && !is_numeric($bpm)) selected @endif value="slow">Slow </option>
-                            <option @if($bpm=="medslow" && !is_numeric($bpm)) selected @endif value="medslow">Med-Slow </option>
-                            <option @if($bpm=="medium" && !is_numeric($bpm)) selected @endif value="medium">Medium </option>
-                            <option @if($bpm=="medfast" && !is_numeric($bpm)) selected @endif value="medfast">Med-Fast </option>
-                            <option @if($bpm=="fast" && !is_numeric($bpm)) selected @endif value="fast">Fast </option>
+                            <option @if($bpm==0) selected @endif value="0">السرعة</option>
+                            <option @if($bpm=="slow" && !is_numeric($bpm)) selected @endif value="slow">بطيئ </option>
+                            <option @if($bpm=="medslow" && !is_numeric($bpm)) selected @endif value="medslow">بطيئ متوسط </option>
+                            <option @if($bpm=="medium" && !is_numeric($bpm)) selected @endif value="medium">متوسط </option>
+                            <option @if($bpm=="medfast" && !is_numeric($bpm)) selected @endif value="medfast">سريع متوسط </option>
+                            <option @if($bpm=="fast" && !is_numeric($bpm)) selected @endif value="fast">سريع جدا </option>
                         </select>
 
                         <select name="duration" class="sort-filter">
-                            <option>Any Duration</option>
-                            <option @if($duration==1) selected @endif value="1">10 - 30 sec </option>
-                            <option @if($duration==2) selected @endif value="2">30 - 50 sec </option>
-                            <option @if($duration==3) selected @endif value="3">50+ sec </option>
+                            <option>مدة حرة</option>
+                            <option @if($duration==1) selected @endif value="1">10-30 ثواني </option>
+                            <option @if($duration==2) selected @endif value="2">30-50 ثواني </option>
+                            <option @if($duration==3) selected @endif value="3">50+ ثواني </option>
                         </select>
                         <input type="hidden" name="type" value="{{ $type }}">
                         <input type="hidden" name="music_type_id" value="{{ $music_type_id }}">
@@ -505,16 +505,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Added to cart!</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> أﺿﯾف إﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Song Name has been added to cart.</p>
+                    <p>   ﺗﻣت إﺿﺎﻓﺔ ت اﻟﺻو ﻰ إﻟ ﺔ ﻋرﺑ ق اﻟﺗﺳو  </p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">Go To
-                            Cart</button></a>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Listen To More</button>
+                    <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">  اذھب اﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </button></a>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> اﺳﺗﻣﻊ اﻟﻰ د اﻟﻣزﯾ                    </button>
                 </div>
             </div>
         </div>

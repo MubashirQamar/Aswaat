@@ -89,7 +89,7 @@
                     <div class="col-lg-12 text-end my-5">
                         <input type="hidden" name="desc"  value="Buy a Package of {{ $name }}">
                         <input type="hidden" name="amount"  value="{{ $total }}">
-                        <button type="submit" class="custom-btn primary-btn">Pay With Paypal</button>
+                        <button type="submit" class="custom-btn primary-btn">ﺷراء ﻣﻊ ي ﺑﺎ ل ﺑﺎ </button>
 
                     </div>
                 </form>

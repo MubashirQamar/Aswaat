@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class Favourite extends Model
 {
-    //
+    //0 songs
+    // 1 albums
     public function songs()
     {
         return $this->belongsTo('App\Song','song_id','id');

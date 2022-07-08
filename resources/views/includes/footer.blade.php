@@ -8,10 +8,10 @@
         <div class="footer-menu container">
             <ul>
 
-                <li><a href="{{ url('/contact') }}">Contact Us</a></li>
-                <li><a href="{{ url('/about') }}">About Us</a></li>
-                <li><a href="{{ url('/terms') }}">Terms & Conditions</a></li>
-                <li><a href="{{ url('/privacy') }}">Privacy Policy</a></li>
+                <li><a href="{{ url('/contact') }}">وسائل التواصل</a></li>
+                <li><a href="{{ url('/about') }}">من نحن</a></li>
+                <li><a href="{{ url('/terms') }}">الشروط والأحكام</a></li>
+                <li><a href="{{ url('/privacy') }}">سياسة الخصوصية</a></li>
 
             </ul>
         </div>
@@ -32,10 +32,10 @@
 
     <div class="footer-bottom">
 
-        <p style="text-align: center"> Copyright &copy;
+        <p style="text-align: center">
             <script>
                 document.write(new Date().getFullYear())
-            </script> Aswaat All Rights Reserved
+            </script> جميع الحقوق  محفوظة لدى ( أصوات )
         </p>
 
     </div>

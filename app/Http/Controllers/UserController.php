@@ -67,7 +67,7 @@ class UserController extends Controller
     public function addToCart(Request $request)
     {
         $date = date('Y-m-d');
-        $q = Subscription::where('end_date',  '>=', $date)->where('status','Active')->get();
+        $q = Subscription::where('user_id',Auth::user()->id)->where('end_date',  '>=', $date)->where('status','Active')->get();
 
         $totals = $q->sum('total_download') - $q->sum('use_download');
 
@@ -159,13 +159,17 @@ class UserController extends Controller
 
     public function checkout(Request $request)
     {
+
         $cart = session()->get('cart');
+
+
         if (count($cart) == 0) {
             return redirect('/home');
         }
         $zip = new ZipArchive;
-        $fileName = 'myNewFile' . time() . '.zip';
+        $fileName = 'Aswwat' . time() . '.zip';
         $date = date('Y-m-d');
+        $filearray=array();
 
 
         if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE) {
@@ -175,6 +179,7 @@ class UserController extends Controller
                 $downloads = new Download;
                 $downloads->song_id = $key;
                 $downloads->user_id = Auth::user()->id;
+                $downloads->type =$details['type'];
                 $downloads->save();
 
                 $sub = Subscription::where('user_id', Auth::user()->id)->where('end_date',  '>=', $date)->where('status','Active')->orderBy('id', 'ASC')->first();
@@ -192,22 +197,47 @@ class UserController extends Controller
                 $sub->save();
 
                 }
-                $song = Song::find($key);
-                if (isset($song->audio)) {
-                    $zip->addFile(public_path('assets/images/songs/' . $song->audio), $song->audio);
-                }
-                if (isset($song->image)) {
-                    $zip->addFile(public_path('assets/images/songs/' . $song->image), $song->image);
-                }
-                if (isset($song->copyright)) {
-                    $zip->addFile(public_path('assets/images/songs/' . $song->copyright), $song->copyright);
-                }
-                if (isset($song->file)) {
-                    $zip->addFile(public_path('assets/images/songs/' . $song->file), $song->file);
-                }
+                if($id != 1){
+                    $song = Song::find($key);
+                    if (isset($song->audio)) {
+                        $zip->addFile(public_path('assets/images/songs/' . $song->audio), $song->audio);
+                        array_push($filearray,asset('assets/images/songs/' . $song->audio));
+                        // array_push($filearray,asset('assets/images/songs/' . $song->audio));
+                    }
+                    if (isset($song->image)) {
+                        $zip->addFile(public_path('assets/images/songs/' . $song->image), $song->image);
+                    }
+                    if (isset($song->copyright)) {
+                        $zip->addFile(public_path('assets/images/songs/' . $song->copyright), $song->copyright);
+                    }
+                    if (isset($song->file)) {
+                        $zip->addFile(public_path('assets/images/songs/' . $song->file), $song->file);
+                    }
+
+                    }else{
+                        $song = Album::find($key);
+                        if (isset($song->audio)) {
+                            $zip->addFile(public_path('assets/images/album/' . $song->audio), $song->audio);
+                            array_push($filearray,asset('assets/images/album/' . $song->audio));
+                        }
+                        if (isset($song->image)) {
+                            $zip->addFile(public_path('assets/images/album/' . $song->image), $song->image);
+                        }
+                        if (isset($song->copyright)) {
+                            $zip->addFile(public_path('assets/images/album/' . $song->copyright), $song->copyright);
+                        }
+                        if (isset($song->file)) {
+                            $zip->addFile(public_path('assets/images/album/' . $song->file), $song->file);
+                        }
+
+                    }
+
+
                 unset($cart[$id][$key]);
                 session()->put('cart', $cart);
             }
+            unset($cart[$id]);
+            session()->put('cart', $cart);
         }
 
 
@@ -215,7 +245,9 @@ class UserController extends Controller
             $zip->close();
         }
 
-        return response()->download(public_path($fileName));
+        // return redirect('/home?tab=downloads');
+        // dd($filearray);
+        return redirect('/home?tab=downloads')->with(['downloads_file' => $filearray]);
     }
 
 

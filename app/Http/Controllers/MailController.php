@@ -25,7 +25,7 @@ class MailController extends Controller
             'data'=>$data
          ],function ($mail) use($request){
              $mail->from('talabat@aswwat.com','Aswwat');
-             $mail->to('rameez.pluton@gmail.com')->subject('Aswwat Inquiry');
+             $mail->to('talabat@aswwat.com')->subject('Aswwat Inquiry');
          });
          return back()->with(['msg'=>'success']);
         // echo "Basic Email Sent. Check your inbox.";

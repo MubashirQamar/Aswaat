@@ -3,8 +3,8 @@
 @section('content')
     <div class="main-section package">
 
-        <h2 class="title">Select Package</h2>
-        <h5 class="sub-title"> Unlimited Music & SFX - Download & get life time license! </h5>
+        <h2 class="title">حدد الباقة</h2>
+        <h5 class="sub-title"> غير محدود  موسيقى و مؤثرات صوتية مع ترخيص عدم ممنانعة استخدام مدى الحياة</h5>
         <div class="container">
             <form id="formpackage" method="POST" action="{{ url('save-package') }}" role="form" autocomplete="off">
                 {{-- <form method="GET" action="{{url('payment')}}" role="form" autocomplete="off"> --}}
@@ -15,21 +15,23 @@
 
                         <div class="pkg-group">
                             <input type="radio" checked id="regular" value="-1" name="package">
-                            <label for="regular">Regular</label>
+                            <label for="regular">عادي</label>
                         </div>
 
                         <div class="pkg-box">
 
-                            <p><span><i class="fa-solid fa-circle-check"></i></span> Pay at regular price.</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Pay For Each File You Download</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>All Social Media Platforms</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Paid Ads</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Commercial Projects</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Client Work</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Podcasts</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Any online platform</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Broadcast & TV</p>
-                            <p><span><i class="fa-solid fa-circle-check"></i></span>Usage License Provided</p>
+                            <p>دفع بالاشتراك للباقة العادية<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p>دفع بدون اشتراك قطعة واحدة<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p>جميع منصات وسائل التواصل الاجتماعي<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p>إعلانات مدفوعة الأجر <span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p> المشاريع التجارية<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p>العملاء <span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p>بودكاست<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p>المنصات عبر الانترنت<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p> اذاعة وتلفزيون<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p> ترخيص عدم ممانعة<span><i class="fa-solid fa-circle-check"></i></span></p>
+
+
                             {{-- <p>&lt; More Details &gt;</p> --}}
 
                         </div>
@@ -40,15 +42,15 @@
 
                             <div class="pkg-group">
                                 <input type="radio" id="{{ $package->name }}" value="{{ $package->id }}" name="package">
-                                <label for="silver">{{ $package->name }} @ $ {{ $package->price }}/mo.</label>
+                                <label for="silver">{{ $package->name }}  $ {{ $package->price }}/شهر </label>
                             </div>
 
                             <div class="pkg-box">
 
-                                <p><span><i class="fa-solid fa-circle-check"></i></span>{{ $package->downloads }}
-                                    download/month.</p>
+                                <p>{{ $package->downloads }}
+                                    تحميل عدد ملفات صوتية  <span><i class="fa-solid fa-circle-check"></i></span></p>
                                 @foreach ($package->package_detail as $detail)
-                                    <p><span><i class="fa-solid fa-circle-check"></i></span>{{ $detail->description }}</p>
+                                    <p>{{ $detail->description }} <span><i class="fa-solid fa-circle-check"></i></span></p>
                                 @endforeach
 
 
@@ -77,8 +79,7 @@
                     <div class="row">
                         <div class="container">
                             <div class="col-lg-12 sign-up text-center mt-5">
-                                <p><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> Secure
-                                    Payments</p>
+                                <p><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> تأمين الدفع</p>
                                 <div class="payment-img">
                                     <img src="{{ asset('frontend/images/payments.jpg') }}">
 
@@ -92,8 +93,7 @@
 
                             <button
                                 @if ($modal == 0) type="submit" @else type="button" onclick="packagemodal()" @endif
-                                class="custom-btn primary-btn">Confirm
-                                Purchase</button>
+                                class="custom-btn primary-btn">تأكيد الشراء</button>
                         </div>
                     @endif
             </form>
@@ -106,12 +106,12 @@
 
     <div class="package-bottom-section ">
 
-        <h2 class="title">Enterprise Package</h2>
-        <p>Specialized Music & Sound Effects</p>
-        <p>Customiized licesence & Terms</p>
-        <p>Exclusive Ownership of Files</p>
+        <h2 class="title">الباقات </h2>
+        <p>موسيقى ومؤثرات صوتية خاصة</p>
+        <p>ترخيص خاص</p>
+        <p>الملكية الحصرية للمفات</p>
         <div class="py-5 text-center">
-            <a href="{{ url('/contact') }}" class="custom-btn primary-btn"> Contact Us </a>
+            <a href="{{ url('/contact') }}" class="custom-btn primary-btn"> وسائل التواصل </a>
         </div>
     </div>
 @endsection

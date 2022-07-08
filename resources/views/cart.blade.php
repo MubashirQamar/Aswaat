@@ -6,7 +6,7 @@
         <div class="container-fluid profil">
 
             <div class="profile-cart">
-                <h2>CART</h2>
+                <h2>سلةالمشتريات</h2>
             </div>
 
             <div class="row cart-tables">
@@ -76,7 +76,7 @@
                                 <tr class="">
                                     <td colspan="2" nowrap="true">
                                         <a class="txt-gold " href="{{ url('/packages') }}">Switch to silver/gold
-                                            package and save 75%! </a>
+                                            قم بالتبديل إلى الباقة الفضة/الذهبية وحفظ ما يصل إلى 75 ٪  </a>
                                     </td>
                                 </tr>
                             @else
@@ -91,7 +91,7 @@
 
                                 <tr>
                                     <td>
-                                        <p>Available Download </p>
+                                        <p>التنزيلات المتاحة </p>
                                     </td>
                                     <td class="pull-right">
                                         {{ $totals }}
@@ -113,8 +113,7 @@
 
                         <input type="hidden" name="desc"  value="Buy Songs">
                         <input type="hidden" name="amount"  value="{{ $total }}">
-                        <button type="{{$button}}" class="custom-btn primary-btn">Confirm
-                            Purchase</button>
+                        <button type="{{$button}}" class="custom-btn primary-btn"> ﺗﺄﻛﯾد اﻟﺷراء                        </button>
 
                     </div>
                 </form>
