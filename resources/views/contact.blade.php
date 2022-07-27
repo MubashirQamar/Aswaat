@@ -76,7 +76,16 @@
                         </span>
                     @enderror
                 </div>
+                <div class="form-group">
+                    <label for="message">تفاسل :</label>
+                    <textarea rows="4" id="message" type="message" name="message" value="" required autocomplete="off"> </textarea>
 
+                    @error('message')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
 
 
                 <div class="button-group">
@@ -100,7 +109,7 @@
                 <div class="icon-wrapper">
                     <i class="fa-solid fa-envelope contact-icon">
                         <span class="fix-editor">&nbsp;</span></i>
-                    <p> talabat@awwat.com </p>
+                    <p> talabat@aswwat.com </p>
                 </div>
             </div>
             <div class="contact-box">

@@ -135,7 +135,7 @@
                                                         <button data-id="{{ $mus->id }}"  data-duration="duration{{ $loop->iteration }}"  data-type="1"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $mus->id }}"
-                                                            data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
+                                                            data-href="{{ asset('assets/images/album/' . $mus->demo) }}" data-name={{$mus->demo}}><i
                                                                 class="fa-solid fa-download download"></i></button>
                                                         <button data-id="{{ $mus->id }}" data-type="1"><i
                                                                 class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
@@ -145,7 +145,7 @@
                                                         <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}"  data-type="1"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
                                                         <button data-id="{{ $mus->id }}"
-                                                            data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
+                                                            data-href="{{ asset('assets/images/album/' . $mus->demo) }}" data-name={{$mus->demo}}><i
                                                                 class="fa-solid fa-download download"></i></button>
                                                         <button data-id="{{ $mus->id }}" data-type="1"><i
                                                                 class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
@@ -156,7 +156,7 @@
                                                     <button onclick="location.href='{{ route('login') }}'"><i
                                                             class="fa-solid fa-cart-shopping"></i></button>
                                                     <button data-id="{{ $mus->id }}"
-                                                        data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i
+                                                        data-href="{{ asset('assets/images/album/' . $mus->demo) }}" data-name={{$mus->demo}}><i
                                                             class="fa-solid fa-download download"></i></button>
                                                     <button onclick="location.href='{{ route('login') }}'"><i
                                                             class="fa-solid fa-star"></i></button>

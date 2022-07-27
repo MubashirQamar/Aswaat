@@ -444,7 +444,6 @@ a {
     color: var(--white);
     font-weight: 700;
     width: 200px;
-    justify-content: flex-end;
 }
 
 .platforms li i {
@@ -655,6 +654,15 @@ a {
     color: var(--white)
 }
 
+.sign-up .form-group textarea {
+    width: 80%!important;
+    background-color: transparent!important;
+    border: 1px solid var(--white)!important;
+    outline: 0;
+    color: var(--white)!important;
+}
+
+
 .sign-up p {
     color: var(--white);
     padding: 0 !important
@@ -685,9 +693,12 @@ a {
     margin-top: 10px
 }
 
-.pkg-box span {
-    color: var(--primary);
-    margin-left: 1rem
+
+.pkg-box .primary-text{
+     color: var(--primary) !important;
+}
+.pkg-box .danger-text{
+    color:red !important;
 }
 
 .pkg-group input[type=radio] {
@@ -1444,4 +1455,8 @@ a {
         top: 24px;
         height: 32px
     }
+}
+.pkg-box span{
+    padding:2px!important;
+    color: var(--primary)!important;
 }
