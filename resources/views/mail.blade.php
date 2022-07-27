@@ -26,6 +26,10 @@
                 <td>Email</td>
                 <td>{{ $data['email'] }}</td>
             </tr>
+            <tr>
+                <td>Message</td>
+                <td>{{ $data['message'] }}</td>
+            </tr>
         </table>
     </body>
 </html>

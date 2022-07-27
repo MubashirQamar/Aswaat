@@ -100,7 +100,7 @@
 
             <div class="text-center">
 
-                <h2 class="title">قل وداعا لإنتهاك حقوق الطبع والنشر!</h2>
+                <h2 class="title">قل وداعا لإنتهاك حقوق الطبع والنشر</h2>
                 <h4 class="subtitle">احصل على رخصة إستخدام وعدم ممانعة لاستخدام الملفات الصوتية في مقاطع الفيديو الخاصة بك</h4>
 
             </div>
@@ -218,7 +218,7 @@
                 <input type="hidden" id="current_music_id" value="">
                 {{-- Music  start --}}
 
-                @if ($type != 'soundtrack' || $type!=0)
+                @if ($type!=0)
                 <div class="music-list" id="playlist" style="visibility: hidden;">
                     <script>
                         var mux = 0;
@@ -283,22 +283,22 @@
 
                                 </form> --}}
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
-                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i class="fa-solid fa-download download"></i></button>
+                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}" data-name="{{$mus->demo_audio}}"><i class="fa-solid fa-download download"></i></button>
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-star @if (in_array($mus->id , $favourite)) yellow @endif add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                     <i class="fa-solid fa-share share"></i></button>
                                 @else
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
-                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i class="fa-solid fa-download download"></i></button>
+                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}" data-name="{{$mus->demo_audio}}"><i class="fa-solid fa-download download"></i></button>
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="0"><i class="fa-solid fa-star @if(in_array($mus->id , $favourite)) yellow @endif  add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                     <i class="fa-solid fa-share share"></i></button>
                                 @endif
                                 @else
                                 <button onclick="location.href='{{ route('login') }}'"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}"><i class="fa-solid fa-download download"></i></button>
+                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}" data-name="{{$mus->demo_audio}}"><i class="fa-solid fa-download download"></i></button>
                                 <button onclick="location.href='{{ route('login') }}'"><i class="fa-solid fa-star"></i></button>
-
+11
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/songs/' . $mus->demo_audio) }}">
                                     <i class="fa-solid fa-share share"></i></button>
                                 @endif
@@ -406,18 +406,18 @@
 
                                 </form> --}}
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
-                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-download download"></i></button>
+                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}" data-name="{{$mus->demo}}"><i class="fa-solid fa-download download"></i></button>
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-star add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-share share"></i></button>
                                 @else
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-cart-shopping add-to-cart"></i></button>
-                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-download download"></i></button>
+                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}" data-name="{{$mus->demo}}"><i class="fa-solid fa-download download"></i></button>
                                 <button data-id="{{ $mus->id }}" data-duration="duration{{ $loop->iteration }}" data-type="1"><i class="fa-solid fa-star add-favourite"></i></button>
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-share share"></i></button>
                                 @endif
                                 @else
                                 <button onclick="location.href='{{ route('login') }}'"><i class="fa-solid fa-cart-shopping"></i></button>
-                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"><i class="fa-solid fa-download download"></i></button>
+                                <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}" data-name="{{$mus->demo}}"><i class="fa-solid fa-download download"></i></button>
                                 <button onclick="location.href='{{ route('login') }}'"><i class="fa-solid fa-star"></i></button>
 
                                 <button data-id="{{ $mus->id }}" data-href="{{ asset('assets/images/album/' . $mus->demo) }}"> <i class="fa-solid fa-share share"></i></button>
@@ -505,15 +505,15 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"> أﺿﯾف إﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> أضيف إلى عربة التسوق </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>   ﺗﻣت إﺿﺎﻓﺔ ت اﻟﺻو ﻰ إﻟ ﺔ ﻋرﺑ ق اﻟﺗﺳو  </p>
+                    <p>   تمت إضافة الصوت إلى عربة التسوق  </p>
                 </div>
                 <div class="modal-footer">
-                    <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">  اذھب اﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </button></a>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> اﺳﺗﻣﻊ اﻟﻰ د اﻟﻣزﯾ                    </button>
+                    <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">  اذهب للسلة </button></a>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> استمع إلى المزيد                    </button>
                 </div>
             </div>
         </div>

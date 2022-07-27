@@ -113,7 +113,7 @@
         text-align: start;
         width: auto
     }
-    .sign-up .form-group input {
+    .sign-up .form-group input textarea{
         width: auto
     }
     .cart-tables table td {
@@ -286,7 +286,7 @@
         width: 55%;
         margin: 0 auto
     }
-    .sign-up .form-group input {
+    .sign-up .form-group input textarea{
         width: 70%
     }
     .sign-up .form-group label {
@@ -314,7 +314,7 @@
         width: 55%;
         margin: 0 auto
     }
-    .sign-up .form-group input {
+    .sign-up .form-group input textarea{
         width: 70%
     }
     .sign-up .form-group input[type=checkbox] {
@@ -356,7 +356,7 @@
         width: 55%;
         margin: 0 auto
     }
-    .sign-up .form-group input {
+    .sign-up .form-group input textarea{
         width: 70%
     }
     .sign-up .form-group label {
@@ -376,7 +376,7 @@
         width: 55%;
         margin: 0 auto
     }
-    .sign-up .form-group input {
+    .sign-up .form-group input textarea {
         width: 70%
     }
     .sign-up .form-group label {

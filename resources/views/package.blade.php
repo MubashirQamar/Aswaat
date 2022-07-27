@@ -20,16 +20,16 @@
 
                         <div class="pkg-box">
 
-                            <p>دفع بالاشتراك للباقة العادية<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p>دفع بالاشتراك للباقة العادية<span ><i class="fa-solid fa-circle-check"></i></span></p>
                             <p>دفع بدون اشتراك قطعة واحدة<span><i class="fa-solid fa-circle-check"></i></span></p>
                             <p>جميع منصات وسائل التواصل الاجتماعي<span><i class="fa-solid fa-circle-check"></i></span></p>
-                            <p>إعلانات مدفوعة الأجر <span><i class="fa-solid fa-circle-check"></i></span></p>
-                            <p> المشاريع التجارية<span><i class="fa-solid fa-circle-check"></i></span></p>
-                            <p>العملاء <span><i class="fa-solid fa-circle-check"></i></span></p>
-                            <p>بودكاست<span><i class="fa-solid fa-circle-check"></i></span></p>
-                            <p>المنصات عبر الانترنت<span><i class="fa-solid fa-circle-check"></i></span></p>
-                            <p> اذاعة وتلفزيون<span><i class="fa-solid fa-circle-check"></i></span></p>
-                            <p> ترخيص عدم ممانعة<span><i class="fa-solid fa-circle-check"></i></span></p>
+                            <p> إعلانات مدفوعة ادية <span ><i class="fa-solid fa-circle-check"></i></span></span></p>
+                            <p> المشاريع التجارية<span class="danger-text"><i class="fa-solid fa-circle-xmark"></i></span></p>
+                            <p>العملاء <span class="danger-text"><i class="fa-solid fa-circle-xmark"></i></span></p>
+                            <p>بودكاست<span class="danger-text"><i class="fa-solid fa-circle-xmark"></i></span></p>
+                            <p>المنصات عبر الانترنت<span class="danger-text"><i class="fa-solid fa-circle-xmark"></i></span></p>
+                            <p> اذاعة وتلفزيون<span class="danger-text"><i class="fa-solid fa-circle-xmark"></i></span></p>
+                            <p> ترخيص عدم ممانعة <span ><i class="fa-solid fa-circle-check"></i></span></span></p>
 
 
                             {{-- <p>&lt; More Details &gt;</p> --}}
@@ -49,8 +49,19 @@
 
                                 <p>{{ $package->downloads }}
                                     تحميل عدد ملفات صوتية  <span><i class="fa-solid fa-circle-check"></i></span></p>
+                          
                                 @foreach ($package->package_detail as $detail)
-                                    <p>{{ $detail->description }} <span><i class="fa-solid fa-circle-check"></i></span></p>
+                                    <p>{{ $detail->description }} 
+                                            @if($loop->parent->first && $loop->iteration >= 5) 
+                                            <span class="danger-text">
+                                                 <i class="fa-solid fa-circle-xmark"></i>
+                                            </span>
+                                            @else
+                                            <span class="primary-text">
+                                                <i class="fa-solid fa-circle-check"></i>
+                                            </span>
+                                            @endif
+                                    </p>
                                 @endforeach
 
 
@@ -106,12 +117,11 @@
 
     <div class="package-bottom-section ">
 
-        <h2 class="title">الباقات </h2>
+        <h2 class="title">للطلبات الخاصة </h2>
         <p>موسيقى ومؤثرات صوتية خاصة</p>
-        <p>ترخيص خاص</p>
-        <p>الملكية الحصرية للمفات</p>
+        <p> مع رخصة امتلاك حقوق ملكية الاصوات</p>
         <div class="py-5 text-center">
-            <a href="{{ url('/contact') }}" class="custom-btn primary-btn"> وسائل التواصل </a>
+            <a href="{{ url('/contact') }}" class="custom-btn primary-btn"> للطلبات هنا </a>
         </div>
     </div>
 @endsection

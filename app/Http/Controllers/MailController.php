@@ -18,6 +18,7 @@ class MailController extends Controller
             'city'=> $request->city,
             'phone_number'=> $request->p_number,
             'email'=> $request->email,
+            'message'=> $request->message,
         );
         $email=$request->email;
         $name=$request->name;

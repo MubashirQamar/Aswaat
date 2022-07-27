@@ -81,24 +81,7 @@
         </div>
     </div>
 
-    <div class="modal fade custom-modal" id="error" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Download Limit Exceeded</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Sorry You Can Not Add More Items To carts</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">Go To
-                            Cart</button></a>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Listen To More</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
     <!-- Modal -->
@@ -228,10 +211,11 @@
         var current = $(this);
         var ele = $(this).parent("button").attr("data-id");
         var link = $(this).parent("button").attr("data-href");
+        var name = $(this).parent("button").attr("data-name");
         console.log(link)
         var element = document.createElement('a');
         element.setAttribute('href', link);
-        element.setAttribute('download', link);
+        element.setAttribute('download', name);
 
         element.style.display = 'none';
         document.body.appendChild(element);
