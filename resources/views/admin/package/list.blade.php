@@ -4,6 +4,7 @@
         <div class="box">
             <div class="box-header d-flex">
                 <h2>Package</h2>
+
                 <a href="{{ url('admin/package/add') }}"><button class="btn btn-info"> Add New </button></a>
             </div>
             <div class="box-divider m-a-0"></div>

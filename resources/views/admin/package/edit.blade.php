@@ -14,8 +14,8 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 form-control-label">Package Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" value="{{ $package->name }}"
-                                placeholder="Package Name" autocomplete="off">
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ $package->name }}" placeholder="Package Name" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -37,43 +37,46 @@
                             <div class="box">
                                 <div class="box-header d-flex">
                                     <h3>Package Details</h3>
-                                    <button id="addBtn" type="button" class="btn btn-primary"><i
-                                            class="fa-solid fa-plus"></i> Add More </button>
+                                    {{-- <button id="addBtn" type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add More </button> --}}
                                 </div>
                                 <table class="table">
                                     <thead>
                                         <tr>
-
-                                            <th>Description</th>
                                             <th></th>
+                                            <th>Description</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="package_table">
 
-                                        @php
-                                            $i = 0;
-                                        @endphp
-                                        @foreach ($package_detail as $detail)
+                                            @foreach ($package_detail as $package)
+
+                                                <tr>
+                                                    <td><input type="hidden" name="package_detail_id[]"
+                                                            value="{{ $package->package_content->id }}">{{ $loop->iteration }}</td>
+                                                    <td><span>{{ $package->package_content->description }}</span></td>
+                                                    <td><select name="status[]" class="form-control select2-multiple">
+                                                            <option value="1"  @if($package->status==1) selected @endif >Yes</option>
+                                                            <option value="0" @if($package->status==0) selected @endif>No</option>
+                                                        </select></td>
+                                                </tr>
+
+                                            @endforeach
+                                            @if(count($package_detail)!=0)
+                                            @foreach ($pack_desc as $pack)
+
                                             <tr>
-                                                <td id="R{{ $i++ }}">
-                                                    <div class="form-group row">
-
-                                                        <div class="col-sm-12">
-                                                            <input type="text" class="form-control" id="description"
-                                                                value="{{ $detail->description }}" name="description[]"
-                                                                placeholder="Description" autocomplete="off" required>
-                                                        </div>
-                                                    </div>
-
-                                                </td>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button type="button" class="btn btn-danger remove"><i
-                                                            class="fa-solid fa-xmark"></i></button>
-                                                </td>
+                                                <td><input type="hidden" name="package_detail_id[]"
+                                                        value="{{ $pack->id }}">{{ $loop->iteration }}</td>
+                                                <td><span>{{ $pack->description }}</span></td>
+                                                <td><select name="status[]" class="form-control select2-multiple">
+                                                        <option value="1">Yes</option>
+                                                        <option value="0">No</option>
+                                                    </select></td>
                                             </tr>
-                                        @endforeach
 
+                                        @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -94,7 +97,7 @@
         $(document).ready(function() {
 
             // Denotes total number of rows
-            var rowIdx = '<?= $i ?>';
+            var rowIdx = '<?= $i=0 ?>';
 
             // jQuery button click event to add a row
             $('#addBtn').on('click', function() {
