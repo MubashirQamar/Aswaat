@@ -100,6 +100,16 @@
                             <span class="nav-text">Package</span>
                         </a>
                     </li>
+                    <li class="{{ (request()->is('admin/pack/description*')) ? 'active' : '' }}">
+                        <a href="{{ url('/admin/pack/description') }}">
+                            <span class="nav-icon">
+                                <i class="fa-solid fa-cubes">
+                                    <span ui-include="'{{ asset('assets/images/i_0.svg') }}"></span>
+                                </i>
+                            </span>
+                            <span class="nav-text">Package Details</span>
+                        </a>
+                    </li>
                     <li class="{{ (request()->is('admin/subscriber*')) ? 'active' : '' }}">
                         <a href="{{ url('/admin/subscriber') }}">
                             <span class="nav-icon">

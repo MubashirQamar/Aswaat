@@ -7653,3 +7653,6 @@ fieldset[disabled] .md-switch input+i:after {
 .btn-download {
     padding: 0.6rem 0.75rem;
 }
+.custom-radio-label{
+    padding: 6px;
+}

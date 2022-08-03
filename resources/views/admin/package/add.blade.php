@@ -14,8 +14,8 @@
                     <div class="form-group row">
                         <label for="name" class="col-sm-2 form-control-label">Package Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Package Name"
-                                autocomplete="off" required>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Package Name" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -37,18 +37,27 @@
                             <div class="box">
                                 <div class="box-header d-flex">
                                     <h3>Package Details</h3>
-                                    <button id="addBtn" type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add More </button>
+                                    {{-- <button id="addBtn" type="button" class="btn btn-primary"><i class="fa-solid fa-plus"></i> Add More </button> --}}
                                 </div>
                                 <table class="table">
                                     <thead>
                                         <tr>
-
+                                            <th></th>
                                             <th>Description</th>
-                                            <th ></th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tbody id="package_table">
-
+                                        @foreach ($pack_desc as $pack)
+                                            <tr >
+                                                <td><input type="hidden" name="package_detail_id[]" value="{{ $pack->id }}">{{ $loop->iteration }}</td>
+                                                <td><span>{{ $pack->description }}</span></td>
+                                                <td><select name="status[]" class="form-control select2-multiple">
+                                                    <option value="1">Yes</option>
+                                                    <option value="0">No</option>
+                                                </select></td>
+                                            </tr>
+                                        @endforeach
 
                                     </tbody>
                                 </table>
@@ -66,17 +75,17 @@
     </div>
 @endsection
 @push('include-js')
-<script>
-    $(document).ready(function () {
+    <script>
+        $(document).ready(function() {
 
-      // Denotes total number of rows
-      var rowIdx = 0;
+            // Denotes total number of rows
+            var rowIdx = 0;
 
-      // jQuery button click event to add a row
-      $('#addBtn').on('click', function () {
+            // jQuery button click event to add a row
+            $('#addBtn').on('click', function() {
 
-        // Adding a row inside the tbody.
-        $('#package_table').append(`<tr id="R${++rowIdx}">
+                // Adding a row inside the tbody.
+                $('#package_table').append(`<tr id="R${++rowIdx}">
 
                 <td>
                     <div class="form-group row">
@@ -93,41 +102,41 @@
                 <button  type="button"  class="btn btn-danger remove"><i class="fa-solid fa-xmark"></i></button>
                 </td>
               </tr>`);
-      });
+            });
 
-      // jQuery button click event to remove a row.
-      $('#package_table').on('click', '.remove', function () {
+            // jQuery button click event to remove a row.
+            $('#package_table').on('click', '.remove', function() {
 
-        // Getting all the rows next to the row
-        // containing the clicked button
-        var child = $(this).closest('tr').nextAll();
+                // Getting all the rows next to the row
+                // containing the clicked button
+                var child = $(this).closest('tr').nextAll();
 
-        // Iterating across all the rows
-        // obtained to change the index
-        child.each(function () {
+                // Iterating across all the rows
+                // obtained to change the index
+                child.each(function() {
 
-          // Getting <tr> id.
-          var id = $(this).attr('id');
+                    // Getting <tr> id.
+                    var id = $(this).attr('id');
 
-          // Getting the <p> inside the .row-index class.
-          var idx = $(this).children('.row-index').children('p');
+                    // Getting the <p> inside the .row-index class.
+                    var idx = $(this).children('.row-index').children('p');
 
-          // Gets the row number from <tr> id.
-          var dig = parseInt(id.substring(1));
+                    // Gets the row number from <tr> id.
+                    var dig = parseInt(id.substring(1));
 
-          // Modifying row index.
-          idx.html(`Row ${dig - 1}`);
+                    // Modifying row index.
+                    idx.html(`Row ${dig - 1}`);
 
-          // Modifying row id.
-          $(this).attr('id', `R${dig - 1}`);
+                    // Modifying row id.
+                    $(this).attr('id', `R${dig - 1}`);
+                });
+
+                // Removing the current row.
+                $(this).closest('tr').remove();
+
+                // Decreasing total number of rows by 1.
+                rowIdx--;
+            });
         });
-
-        // Removing the current row.
-        $(this).closest('tr').remove();
-
-        // Decreasing total number of rows by 1.
-        rowIdx--;
-      });
-    });
-  </script>
+    </script>
 @endpush
