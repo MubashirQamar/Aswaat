@@ -72,7 +72,7 @@
                                     $ {{ Auth::user()->subscription_id == -1 ? $total : '00' }}
                                 </td>
                             </tr>
-                            @if (Auth::user()->subscription_id == -1)
+                            @if (Auth::user()->subscription_id == 1)
                                 <tr class="">
                                     <td colspan="2" nowrap="true">
                                         <a class="txt-gold " href="{{ url('/packages') }}">Switch to silver/gold
@@ -106,7 +106,7 @@
                     </table>
 
                 </div>
-                <form  @if(Auth::user()->subscription_id != -1) action="{{ url('/checkout') }}" @else action="{{ url('/chechout-payment') }}" @endif method="post">
+                <form  @if(Auth::user()->subscription_id != 1) action="{{ url('/checkout') }}" @else action="{{ url('/chechout-payment') }}" @endif method="post">
                     {{-- <form   action="{{ url('/checkout') }}"  method="post"> --}}
                     @csrf
                     <div class="col-lg-12 text-end my-5">

@@ -134,7 +134,7 @@
 
                                                 <span class="music-action" id="album_action{{ $loop->iteration }}">
                                                     @if (Auth::user())
-                                                        @if (Auth::user()->subscription_id == -1)
+                                                        @if (Auth::user()->subscription_id == 1)
                                                             {{-- <form action="{{ route('add.to.cart', $alb->id) }}">
                                                         @csrf
                                                         <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
@@ -298,7 +298,7 @@
                                             <div class="items-right">
                                                 <span class="music-action" id="music_action{{ $loop->iteration }}">
                                                     @if (Auth::user())
-                                                        @if (Auth::user()->subscription_id == -1)
+                                                        @if (Auth::user()->subscription_id == 1)
                                                             {{-- <form action="{{ route('add.to.cart', $mus->id) }}">
                                             @csrf
                                             <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
@@ -436,7 +436,7 @@
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> --}}
 
     <script>
-        $(".loader").fadeOut(25000);
+        $(".loader").fadeOut(5000);
         var wavesurfer, current_album_id, current_music_id;
         // Init on DOM ready
         function updatetime(time) {
@@ -492,7 +492,7 @@
             displayTime();
             $('#playlist').css('visibility', 'visible');
             // $("#playlist").load(location.href+" #playlist>*","");
-        }, 25000);
+        }, 5000);
 
         function displayTime() {
             for (let index = 1; index <= alb; index++) {

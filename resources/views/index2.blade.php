@@ -250,7 +250,7 @@
 
                                 <span class="music-action" id="music_action{{ $loop->iteration }}">
                                     @if (Auth::user())
-                                        @if (Auth::user()->subscription_id == -1)
+                                        @if (Auth::user()->subscription_id == 1)
                                             {{-- <form action="{{ route('add.to.cart', $mus->id) }}">
                                                 @csrf
                                                 <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
@@ -408,7 +408,7 @@
 
                                 <span class="music-action" id="music_action{{ $loop->iteration }}">
                                     @if (Auth::user())
-                                        @if (Auth::user()->subscription_id == -1)
+                                        @if (Auth::user()->subscription_id == 1)
                                             {{-- <form action="{{ route('add.to.cart', $mus->id) }}">
                                                 @csrf
                                                 <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>

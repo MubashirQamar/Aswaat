@@ -18,11 +18,32 @@
                                 placeholder="Package Name" autocomplete="off" required>
                         </div>
                     </div>
+                       <div class="form-group row">
+                        <label for="downloads" class="col-sm-2 form-control-label">Sound Track Downloads</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="sound_track" name="sound_track"
+                                placeholder="Sound Track Downloads" autocomplete="off" required>
+                        </div>
+                    </div>
+                       <div class="form-group row">
+                        <label for="downloads" class="col-sm-2 form-control-label">Sound Effect Downloads</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="sound_effect" name="sound_effect"
+                                placeholder="Sound Effect Downloads" autocomplete="off" required>
+                        </div>
+                    </div>
                     <div class="form-group row">
-                        <label for="downloads" class="col-sm-2 form-control-label">Downloads</label>
+                        <label for="downloads" class="col-sm-2 form-control-label">Total Downloads</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="downloads" name="downloads"
                                 placeholder="Downloads" autocomplete="off" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="content" class="col-sm-2 form-control-label">Content</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="content" name="content"
+                                placeholder="Content" autocomplete="off" required>
                         </div>
                     </div>
                     <div class="form-group row">

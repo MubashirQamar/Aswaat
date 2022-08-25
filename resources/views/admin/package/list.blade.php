@@ -17,6 +17,14 @@
                     </button>
                 </div>
             @endif
+                @if (session()->get('error'))
+                <div class="alert alert-danger alert-dismissible " role="alert">
+                    {{ session()->get('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
                 <div class="table-responsive">
                     <table class="datatables table table-striped b-t b-b">
                         <thead>

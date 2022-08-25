@@ -77,7 +77,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="message">تفاسل :</label>
+                    <label for="message">تفاصيل :</label>
                     <textarea rows="4" id="message" type="message" name="message" value="" required autocomplete="off"> </textarea>
 
                     @error('message')

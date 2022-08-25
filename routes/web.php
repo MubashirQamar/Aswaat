@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Session;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +35,7 @@ Route::group(['prefix' => '/', 'middleware' => ['role:0', 'auth']], function () 
     Route::get('/home', 'HomeController@profile')->name('home');
     Route::get('/payment-msg', 'HomeController@paymentMsg')->name('payment-msg');
     Route::post('/update-profile', 'UserController@updateProfile')->name('update-profile');
+
     Route::get('/cart', 'HomeController@cart')->name('cart');
     Route::post('/save-package', 'UserController@updatePackage');
     Route::post('add-to-cart', 'UserController@addToCart')->name('add.to.cart');
@@ -46,17 +46,22 @@ Route::group(['prefix' => '/', 'middleware' => ['role:0', 'auth']], function () 
     Route::post('add-to-Favourite', 'UserController@addToFavourite')->name('add-to-Favourite');
     Route::post('/checkout', 'UserController@checkout');
     Route::post('createorder', 'PaypalController@payWithPaypal')->name('createorder');
+// testing route without payment
+    Route::post('freeDownload', 'PaypalController@freeDownload');
 
-    Route::get('payment', array('as' => 'payment', 'uses' => 'PaypalController@payWithPaypal',));
-    Route::post('paypal', array('as' => 'paypal', 'uses' => 'PaypalController@postPaymentWithpaypal',));
-    Route::get('paypal', array('as' => 'status', 'uses' => 'PaypalController@getPaymentStatus',));
+    Route::get('payment', ['as' => 'payment', 'uses' => 'PaypalController@payWithPaypal']);
+    Route::post('paypal', ['as' => 'paypal', 'uses' => 'PaypalController@postPaymentWithpaypal']);
+    Route::get('paypal', ['as' => 'status', 'uses' => 'PaypalController@getPaymentStatus']);
 
-    Route::post('chechout-payment', array('as' => 'chechout-payment', 'uses' => 'PaypalController@songPaymentWithpaypal',));
-    Route::get('payment-status', array('as' => 'payment-status', 'uses' => 'PaypalController@getSongPaymentStatus',));
+    Route::post('chechout-payment', ['as' => 'chechout-payment', 'uses' => 'PaypalController@songPaymentWithpaypal']);
+    Route::get('payment-status', ['as' => 'payment-status', 'uses' => 'PaypalController@getSongPaymentStatus']);
 });
 
+Route::get('/admin/account-setting', 'UserController@setting');
+Route::post('/admin/update-setting', 'UserController@updatesetting');
 Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'middleware' => ['role:1', 'auth']], function () {
     Route::get('/', 'AdminController@index')->name('admin');
+
     //  Artist Route
     Route::get('/artist', 'ArtistController@index');
     Route::get('/artist/add', 'ArtistController@add');
@@ -96,13 +101,11 @@ Route::group(['prefix' => '/admin', 'namespace' => 'Admin', 'middleware' => ['ro
     Route::post('/package/update/{id}', 'PackageController@update');
     Route::post('/package/delete/{id}', 'PackageController@destroy');
 
-
     //  Package Decription
     Route::get('/pack/description', 'PackageController@packageDesc');
     Route::post('/pack/store', 'PackageController@packageDescStore');
     Route::post('/pack/update', 'PackageController@packageDescUpdate');
     Route::post('/pack/delete/{id}', 'PackageController@packageDescdestroy');
-
 
     // Subscriber Route
     Route::get('subscriber', 'SubscriberController@index');
