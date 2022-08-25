@@ -15,7 +15,7 @@ class Song extends Model
 
     public static function songs()
     {
-        $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->get();
+        $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->orderBy('id', 'DESC')->get();
 
      foreach($songs as $song)
      {

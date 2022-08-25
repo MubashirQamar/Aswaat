@@ -60,18 +60,18 @@
                         <p>مرحبا, {{ Auth::user()->name }}</p>
 
                         <h5 class="gold">
-                            @if (Auth::user()->subscription_id != -1)
+                            @if (Auth::user()->subscription_id != 1)
                                 {{ $subscriber ? $subscriber->package->name : ' ' }}
                             @else
                             عادي
                             @endif حزمة
                         </h5>
-                        <p>تنزيل الاعتمادات : @if (Auth::user()->subscription_id != -1)
+                        <p>تنزيل الاعتمادات : @if (Auth::user()->subscription_id != 1)
                                 {{ $subscriber ? $credit : '0' }}
                             @else
                                 0
                             @endif التحميلات</p>
-                        @if (Auth::user()->subscription_id != -1)
+                        @if (Auth::user()->subscription_id != 1)
                             <span class="grey-text">expires on
                                 {{ $subscriber ? date('d/m/Y', strtotime($subscriber->end_date)) : ' ' }}</span>
                         @endif
@@ -192,7 +192,7 @@
                                             <div class="items-right">
                                                 <span class="music-action" id="fav_action{{ $favo }}">
 
-                                                        @if (Auth::user()->subscription_id == -1)
+                                                        @if (Auth::user()->subscription_id == 1)
 
                                                             <button data-id="{{ $favourite->songs->id }}"  data-duration="fav_duration{{ $favo }}" data-type="0"><i
                                                                     class="fa-solid fa-cart-shopping add-to-cart"></i></button>
@@ -309,7 +309,7 @@
                                         <div class="items-right">
                                             <span class="music-action" id="fav_action{{ $favo }}">
 
-                                                    @if (Auth::user()->subscription_id == -1)
+                                                    @if (Auth::user()->subscription_id == 1)
 
                                                         <button data-id="{{ $favourite->album->id }}"  data-duration="fav_duration{{ $favo }}" data-type="1"><i
                                                                 class="fa-solid fa-cart-shopping add-to-cart"></i></button>
@@ -454,7 +454,7 @@
                                             <div class="items-right">
                                                 <span class="music-action" id="music_action{{ $down}}">
 
-                                                    @if (Auth::user()->subscription_id == -1)
+                                                    @if (Auth::user()->subscription_id == 1)
                                                         {{-- <form action="{{ route('add.to.cart', $download->songs->id) }}">
                                                         @csrf
                                                         <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>
@@ -568,7 +568,7 @@
                                             <div class="items-right">
                                                 <span class="music-action" id="music_action{{ $down}}">
 
-                                                    @if (Auth::user()->subscription_id == -1)
+                                                    @if (Auth::user()->subscription_id == 1)
                                                         {{-- <form action="{{ route('add.to.cart', $download->songs->id) }}">
                                                         @csrf
                                                         <button type="submit"><i class="fa-solid fa-download add-to-cart"></i></button>

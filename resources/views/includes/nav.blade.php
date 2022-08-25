@@ -31,7 +31,7 @@
 
             <!-- begin navbar-nav -->
 
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll justify-content-center">
+            <ul class="navbar-nav ms-auto me-lg-5 my-2 my-lg-0 navbar-nav-scroll justify-content-center">
 
 
 
@@ -51,15 +51,16 @@
 
 
         <div class="end-box">
-            <a  href="{{ route('register') }}" class="custom-btn primary-btn"> ابدأ الآن </a>
-
-            <a class="{{ (request()->is('/packages')) ? 'active' : '' }}" href="{{ url('/packages') }}">الأسعار</a>
             @if (Auth::user() && Auth::user()->is_admin == 0)
             <a href="{{ url('/home') }}"><i class="fa-solid fa-user"></i>   حسابي</a>
             @else
             <a href="{{ route('login') }}"><i class="fa-solid fa-user"></i> تسجيل الدخول</a>
-
                 @endif
+
+
+            <a class="{{ (request()->is('/packages')) ? 'active' : '' }}" href="{{ url('/packages') }}">الأسعار</a>
+            <a  href="{{ route('register') }}" class="custom-btn primary-btn"> ابدأ الآن </a>
+
 
             <div class="dropdown" style="display: none">
                 <img src="{{ asset('frontend/images/usa.png') }}" onclick="customDropdown()" class="dropbtn">

@@ -14,23 +14,31 @@
 
             <li class="nav-item dropdown">
 
-                <a class="nav-link clear dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link clear dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="avatar w-32">
                         <img src="{{ asset('assets/images/a0.jpg') }}" alt="...">
                         <i class="on b-white bottom"></i>
                     </span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">
-                    <form action="{{route('logout')}}" method="post">
-                        @csrf
-                        <button type="submit" class="dropdown-item">
-                          <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </button>
+                    <a class="dropdown-item" href="{{ url('admin/account-setting') }}">
+
+
+                        <button type="button" class="dropdown-item"> <i class="mdi mdi-logout mr-2 text-primary"></i>
+                             Settings
+                        </button>
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <form action="{{ route('logout') }}" method="post">
+                            @csrf
+                            <button type="submit" class="dropdown-item">
+                                <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </button>
                         </form>
                     </a>
 
                 </div>
-              </li>
+            </li>
 
             <li class="nav-item hidden-md-up">
                 <a class="nav-link" data-toggle="collapse" data-target="#collapse">

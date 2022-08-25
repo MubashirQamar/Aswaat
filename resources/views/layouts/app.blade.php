@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Aswat') }}</title>
 
     <link rel="shortcut icon" href="images/favicon.ico">
-    <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('frontend/css/rightstyle.css') }}" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{{ asset('frontend/images/favicon.png') }}">
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">

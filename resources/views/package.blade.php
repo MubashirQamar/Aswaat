@@ -11,7 +11,7 @@
                 @csrf
                 <div class="row" id="my_radio_box">
 
-                    <div class="col-lg-4">
+                    <div class="col-lg-4" style="display: none;">
 
                         <div class="pkg-group">
                             <input type="radio" checked id="regular" value="-1" name="package">
@@ -41,19 +41,24 @@
                         <div class="col-lg-4">
 
                             <div class="pkg-group">
+                                @if($package->id != 4)
                                 <input type="radio" id="{{ $package->name }}" value="{{ $package->id }}" name="package">
-                                <label for="silver">{{ $package->name }}  $ {{ $package->price }}/شهر </label>
+                                @else
+                                <a href="{{ url('/contact') }}"><label  class="custom-link">Link  </label></a>
+                                @endif
+                                {{-- <label for="silver">{{ $package->name }}  $ {{ $package->price }}/شهر </label> --}}
+                                <label for="silver">{{ $package->content }}  </label>
                             </div>
 
                             <div class="pkg-box">
 
                                 <p>{{ $package->downloads }}
                                     تحميل عدد ملفات صوتية  <span><i class="fa-solid fa-circle-check"></i></span></p>
-                          
+
                                 @foreach ($package->package_detail as $detail)
-                                    <p>{{ $detail->description }} 
-                                            @if($loop->parent->first && $loop->iteration >= 5) 
-                                            <span class="danger-text">
+                                    <p>{{ $detail->package_content->description }}
+                                            @if($detail->status == 0)
+                                            <span class="default-text">
                                                  <i class="fa-solid fa-circle-xmark"></i>
                                             </span>
                                             @else
@@ -89,7 +94,17 @@
                     </div> --}}
                     <div class="row">
                         <div class="container">
+                                     @if (Auth::user())
+                        {{-- <div id="paypal-button-container"></div> --}}
+                        <div class="col-lg-12 text-center my-5">
+
+                            <button
+                                @if ($modal == 0) type="submit" @else type="button" onclick="packagemodal()" @endif
+                                class="custom-btn primary-btn">تأكيد الشراء</button>
+                        </div>
+                    @endif
                             <div class="col-lg-12 sign-up text-center mt-5">
+
                                 <p><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> تأمين الدفع</p>
                                 <div class="payment-img">
                                     <img src="{{ asset('frontend/images/payments.jpg') }}">
@@ -98,15 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (Auth::user())
-                        {{-- <div id="paypal-button-container"></div> --}}
-                        <div class="col-lg-12 text-end my-5">
 
-                            <button
-                                @if ($modal == 0) type="submit" @else type="button" onclick="packagemodal()" @endif
-                                class="custom-btn primary-btn">تأكيد الشراء</button>
-                        </div>
-                    @endif
             </form>
 
         </div>
@@ -115,14 +122,14 @@
     </div>
 
 
-    <div class="package-bottom-section ">
+    <div class="package-bottom-section " >
 
-        <h2 class="title">للطلبات الخاصة </h2>
+        {{-- <h2 class="title">للطلبات الخاصة </h2>
         <p>موسيقى ومؤثرات صوتية خاصة</p>
         <p> مع رخصة امتلاك حقوق ملكية الاصوات</p>
         <div class="py-5 text-center">
             <a href="{{ url('/contact') }}" class="custom-btn primary-btn"> للطلبات هنا </a>
-        </div>
+        </div> --}}
     </div>
 @endsection
 
@@ -141,7 +148,7 @@
         }
 
         function packagemodal() {
-            if (value != -1) {
+            if (value != 1) {
                 $('#package-modal').modal('show');
             } else {
                 packageselect();
