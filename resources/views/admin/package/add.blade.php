@@ -53,7 +53,7 @@
                                 autocomplete="off" required>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="display: none;">
                         <div class="col-sm-6">
                             <div class="box">
                                 <div class="box-header d-flex">

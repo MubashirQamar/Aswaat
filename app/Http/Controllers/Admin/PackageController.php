@@ -157,8 +157,8 @@ class PackageController extends Controller
     public function packageDescdestroy($id)
     {
         $package = PackageContent::where('id', $id);
-
         $package->delete();
+        $delete = DB::table('package_details')->where('package_content_id', $id)->delete();
 
         return back();
     }

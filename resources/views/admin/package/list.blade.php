@@ -45,7 +45,7 @@
                                     <td>{{ $package->price }}</td>
                                     <td><a href="{{ url('admin/package/edit/' . $package->id) }}"><i
                                         class="fa-solid fa-pen-to-square text-1x"></i></a> &nbsp; <a
-                                    onclick="$('#submit'+{{ $package->id }}).click()"><i
+                                    onclick="$('#submit'+{{ $package->id }}).click()" style="display: none;"><i
                                         class="fa-solid fa-trash-can text-1x"></i></a>
                                 <form action="{{ url('admin/package/delete/' . $package->id) }}" method="post"
                                     class="delete-form">
