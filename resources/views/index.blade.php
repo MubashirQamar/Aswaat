@@ -123,7 +123,7 @@
                     <li>انستجرام<i class="fa-solid fa-check"></i></li>
                     <li>بودكاست<i class="fa-solid fa-check"></i></li>
                     <li>المناسبات<i class="fa-solid fa-check"></i></li>
-                    <li>سناب شاات<i class="fa-solid fa-check"></i></li>
+                    <li>  سناب شات <i class="fa-solid fa-check"></i></li>
                     <li>المواقع الالكترونية<i class="fa-solid fa-check"></i></li>
                     <li>المنصات الإلكتونية<i class="fa-solid fa-check"></i></li>
 

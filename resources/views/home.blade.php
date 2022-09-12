@@ -576,14 +576,14 @@
                                                     </form> --}}
 
                                                         <button data-id="{{ $download->album->id }}"
-                                                            data-href="{{ asset('assets/images/album/' . $download->album->audio) }}" data-name={{$download->album->audio}}><i
+                                                            data-href="{{ url('/secure/file/album/' . $download->album->audio) }}" data-name={{$download->album->audio}}><i
                                                                 class="fa-solid fa-download home-download download"></i></button>
 
                                                         <button data-id="{{ $download->album->id }}" data-href="{{ asset('assets/images/album/' . $download->album->demo) }}"><i
                                                                 class="fa-solid fa-share share"></i></button>
                                                     @else
                                                         <button data-id="{{ $download->album->id }}"
-                                                            data-href="{{ asset('assets/images/album/' . $download->album->audio) }}" data-name={{$download->album->audio}}><i
+                                                            data-href="{{ url('/secure/file/album/' . $download->album->audio) }}" data-name={{$download->album->audio}}><i
                                                                 class="fa-solid fa-download download"></i></button>
 
                                                         <button data-id="{{ $download->album->id }}" data-href="{{ asset('assets/images/album/' . $download->album->demo) }}"><i

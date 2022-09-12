@@ -2,7 +2,7 @@
 
 @section('content')
     <main>
-        <section class="sound-section" style="background-image: url({{ asset('frontend/images/banner02.jpg') }})"
+        <section class="sound-section" style="background-image: url({{ asset('frontend/images/ST_BANNER_03.jpg') }})"
             id="home">
 
 

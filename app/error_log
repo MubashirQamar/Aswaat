@@ -1,0 +1,4 @@
+[08-Sep-2022 21:28:19 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Foundation\Auth\User" not found in /home/aswwat/public_html/app/User.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/aswwat/public_html/app/User.php on line 10

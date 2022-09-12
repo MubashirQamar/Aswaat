@@ -55,6 +55,8 @@ Route::group(['prefix' => '/', 'middleware' => ['role:0', 'auth']], function () 
 
     Route::post('chechout-payment', ['as' => 'chechout-payment', 'uses' => 'PaypalController@songPaymentWithpaypal']);
     Route::get('payment-status', ['as' => 'payment-status', 'uses' => 'PaypalController@getSongPaymentStatus']);
+
+    Route::get('/secure/file/{folder}/{file_name}', 'FileController@file');
 });
 
 Route::get('/admin/account-setting', 'UserController@setting');

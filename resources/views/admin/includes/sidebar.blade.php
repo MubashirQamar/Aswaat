@@ -100,7 +100,7 @@
                             <span class="nav-text">Package</span>
                         </a>
                     </li>
-                    <li class="{{ (request()->is('admin/pack/description*')) ? 'active' : '' }}">
+                    <li class="{{ (request()->is('admin/pack/description*')) ? 'active' : '' }}" style="display: none;">
                         <a href="{{ url('/admin/pack/description') }}">
                             <span class="nav-icon">
                                 <i class="fa-solid fa-cubes">

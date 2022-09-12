@@ -56,17 +56,11 @@
 
             </form>
             <div class="sign-up bottom-section">
-                <h2 class="title">ابدأ في التسجيل مجانًا!</h2>
+                <h2 class="title"> </h2>
 
-                    <p class="align-left"> مع حساب مجاني يمكنك. </p>
+                    <p class="align-left"> </p>
 
-                    <ul class="menu-list-inner">
-
-                        <li> تحميل الموسيقى والمؤثرات الصوتية <span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span></li>
-                        <li> قئمة المفضلة  <span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span></li>
-                        <li> شراء الموسيقى <span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span></li>
-
-
+                    
 
                     </ul>
 

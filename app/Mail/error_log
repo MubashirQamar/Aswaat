@@ -1,0 +1,4 @@
+[08-Sep-2022 21:28:23 UTC] PHP Fatal error:  Uncaught Error: Class "Illuminate\Mail\Mailable" not found in /home/aswwat/public_html/app/Mail/MyEmail.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/aswwat/public_html/app/Mail/MyEmail.php on line 10
