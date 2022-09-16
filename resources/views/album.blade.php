@@ -20,21 +20,21 @@
                             <div class="music-filter">
 
                                 <form method="GET" id="filter-form" class="filter-form">
-                                    <select name="sort" class="sort-filter">
+                                    <select name="sort" id="sort" class="sort-filter">
                                         {{-- <option>Sort by ASWAT list</option> --}}
                                         <option @if($sort=='top' ) selected @endif value="top">الأكثر تحميلاً</option>
                                         <option @if($sort=='newest' ) selected @endif value="newest">الجديد </option>
 
                                     </select>
 
-                                    <select name="instrument" class="sort-filter">
+                                    <select name="instrument" id="instrument" class="sort-filter">
                                         <option @if($instrument==1) selected @endif value="newest" value="1">معزوفات غنائية </option>
                                         <option @if($instrument==2) selected @endif value="2">اصوات بشرية </option>
                                         <option @if($instrument==3) selected @endif value="3">معزوفات موسيقية</option>
 
                                     </select>
 
-                                    <select name="bpm" class="sort-filter">
+                                    <select name="bpm" id="bpm" class="sort-filter">
                                         <option @if($bpm==0) selected @endif value="0">السرعة</option>
                                         <option @if($bpm=="slow" && !is_numeric($bpm)) selected @endif value="slow">بطيئ </option>
                                         <option @if($bpm=="medslow" && !is_numeric($bpm)) selected @endif value="medslow">بطيئ متوسط </option>
@@ -43,7 +43,7 @@
                                         <option @if($bpm=="fast" && !is_numeric($bpm)) selected @endif value="fast">سريع جدا </option>
                                     </select>
 
-                                    <select name="duration" class="sort-filter">
+                                    <select name="duration" id="duration" class="sort-filter">
                                         <option>مدة حرة</option>
                                         <option @if($duration==1) selected @endif value="1">10-30 ثواني </option>
                                         <option @if($duration==2) selected @endif value="2">30-50 ثواني </option>
@@ -55,6 +55,7 @@
 
                             </div>
                             <input type="hidden" id="current_music_id" value="">
+                            <input type="hidden" id="album_id" value="{{ $album_id }}">
                             <div class="loader" id="loader">
                                 <div class="lds-facebook"><div></div><div></div><div></div></div>
                                 <h3>Loading ...</h3>
@@ -238,6 +239,206 @@
 
     <script>
         $(".loader").fadeOut(5000);
+        var type, sort, instrument, duration, music_type_id, auth_user, asset_music_url, asset_album_url,asset_songs_url;
+        var musicarray = [];
+        var mux = 0;
+        var totalmux = 0;
+        var page = 1;
+        var lastpage = 0;
+        var pagedata = 1;
+        var loaddata = 10;
+        //  asset_album_url = "{{ asset('assets/images/album/') }}";
+        asset_album_url = "https://aswwat.com/public/assets/images/album";
+        asset_songs_url = "https://aswwat.com/public/assets/images/songs";
+
+        function fetchsongs(page) {
+            type = $('#type').val();
+            sort = $('#sort').val();
+            instrument = $('#instrument').val();
+            duration = $('#duration').val();
+            music_type_id = $('#music_type_id').val();
+            auth_user = $('#auth_user').val();
+            var album_id = $('#album_id').val();
+            var subscription = 0;
+            $.ajax({
+                url: "{{ url('/getAlbum') }}?page=" + page,
+                datatype: 'json',
+                data: {
+                    type: type,
+                    sort: sort,
+                    instrument: instrument,
+                    duration,
+                    music_type_id: music_type_id,
+                    page: page,
+                    album_id:album_id,
+                },
+                cache: false,
+                success: function(data) {
+                    musicarray = [];
+
+                        var row = ""
+                        var color = ''
+                        pagedata = 0
+                        if (data.music.data.length == 0) {
+                            pagedata = 0;
+                        } else {
+                            pagedata = 1;
+                        }
+                        last_page = data.music.last_page;
+                        // console.log(data.music);
+                        var favourite = data.favourite;
+                        $.each(data.music.data, function(index, value) {
+                            mux++
+                            if (favourite.indexOf(value.id) !== -1) {
+                                color = 'yellow';
+                            } else {
+                                color = '';
+                            }
+                            row += "<div class='music-items'>" +
+                                "<div class='items-left'>" +
+                                "<div style='display: none;'>";
+                            if (auth_user == 1) {
+                                row += "<a id='music_url" + mux +
+                                    "' href='" + asset_album_url + "/" + value.demo +
+                                    "'></a>";
+                            } else {
+                                row += "<a id='music_url" + mux +
+                                    "' href='" + asset_album_url + "/" + value.demo +
+                                    "'></a>";
+                            }
+                            row += "</div><input type='hidden' id='music_item" + mux + "' value='0'>";
+
+                            if (value.image)
+                                row += "<img src='" + asset_album_url + "/" + value.image +
+                                "' alt='Upload Icon' data-holder-rendered='true' max-height='10px;' max-width='50px;' style='height:50px;width:50px;'>";
+                            else {
+                                row += "<img src='" + asset_album_url + "/" + value.image +
+                                    "' alt='Upload Icon' data-holder-rendered='true' max-height='10px;' max-width='50px;' style='height:50px;width:50px;'>";
+                            }
+                            row += "<i class='fa-solid fa-play' id='icon-play" + mux +
+                                "'  onclick='pausemusic(" + mux + ")'></i>" +
+                                "<span class='artist-name'>" +
+                                "<p id='music_name" + mux + "'>" + value.name + "</p>" +
+                                "<p id='artist_name" + mux + "'>" + value.artist_name  + "</p>" +
+                                "</span>" +
+                                "<p class='category' id='category" + mux + "'>" + value.cat_name +
+                                "</p>" +
+                                "<p class='time'><span id='currenttime" + mux + "'></span> / " +
+                                "<span id='duration" + mux + "'></span>" +
+                                "</p>" +
+                                "<div class='demo' id='demo" + mux + "'>" +
+                                "<div id='music" + mux + "' class='waveform'></div></div>" +
+                                "<span class='music-price'> $ " + parseFloat(value.price) +
+                                " </span>" +
+                                "</div>" +
+                                "<div class='items-right'>" +
+                                "<span class='music-action' id='music_action" + mux + "'>";
+
+                            if (auth_user == 1) {
+                                if (subscription == 1) {
+
+                                    row += "<button data-id='" + value.id +
+                                        "' data-duration='duration" + mux +
+                                        "' data-type='1'><i class='fa-solid fa-cart-shopping add-to-cart'></i></button>" +
+                                        "<button data-id='" + value.id + "'  data-href='" +
+                                        asset_album_url + "/" + value.demo + " ' data-name='" + value
+                                        .demo + "'>" +
+                                        "<i class='fa-solid fa-download download'></i></button>" +
+                                        "<button data-id='" + value.id + "' data-duration='duration" +
+                                        mux + "' data-type='1'><i class='fa-solid " + color +
+                                        "  fa-star add-favourite'></i></button>" +
+                                        "<button data-id='" + value.id + "' data-href='" +
+                                        asset_album_url + "/" + value.demo +
+                                        "' ><i class='fa-solid  fa-share share'></i></button>";
+                                } else {
+                                    row += "<button data-id='" + value.id +
+                                        "' data-duration='duration" + mux +
+                                        "' data-type='1'><i class='fa-solid fa-cart-shopping add-to-cart'></i></button>" +
+                                        "<button data-id='" + value.id + "'  data-href='" +
+                                        asset_album_url + "/" + value.demo + "' data-name='" + value
+                                        .demo + "'>" +
+                                        "<i class='fa-solid fa-download download'></i></button>" +
+                                        "<button data-id='" + value.id + "' data-duration='duration" +
+                                        mux + "' data-type='1'><i class='fa-solid " + color +
+                                        " fa-star add-favourite'></i></button>" +
+                                        "<button data-id='" + value.id + "' data-href='" +
+                                        asset_album_url + "" + value.demo +
+                                        "' ><i class='fa-solid fa-share share'></i></button>";
+                                }
+                            } else {
+                                row +=
+                                    "<button ><i class='fa-solid fa-cart-shopping add-to-cart'></i>" +
+                                    "</button>" +
+                                    "<button data-id='" + value.id + "' data-href='" + asset_album_url +
+                                    "/" + value.demo + "' data-name='" + value.demo +
+                                    "'><i class='fa-solid fa-download download'></i></button>" +
+                                    "<button ><i class='fa-solid fa-star add-favourite'></i></button>"
+
+                                    +
+                                    "<button data-id='" + value.id + "' data-href='" + asset_album_url +
+                                    "/" + value.demo +
+                                    "' ><i class='fa-solid fa-share share'></i></button>";
+                            }
+                            row += "</span></div></div>";
+
+                            musicarray.push(asset_album_url + "/" + value.demo);
+
+
+
+                        })
+
+
+                    totalmux = mux;
+                    //    console.log(musicarray);
+                    $('#playlist').append(row);
+                }
+            });
+        }
+        fetchsongs(page);
+
+        function loadsongsdata(){
+            if (last_page > page) {
+                    page++;
+            setTimeout(() => {
+                fetchsongs(page);
+                    setTimeout(() => {
+                     loadsongs(page);
+
+                    }, 2000);
+                    setTimeout(() => {
+                        displayTime()
+                    }, 6000);
+                    }, 2000);
+                }
+        }
+        setInterval(() => {
+                        loadsongsdata();
+
+                    }, 5000);
+                    function loadsongs(p) {
+            var pg = parseInt(p) * loaddata;
+            var mux = parseInt(pg) - 10;
+            console.log(mux);
+            for (let index = 0; index < musicarray.length; index++) {
+                mux++;
+
+                this["music" + mux] =
+                    WaveSurfer.create({
+                        container: "#music" + mux,
+                        loopSelection: true,
+                        waveColor: "gray",
+                        progressColor: "white",
+                        height: 48,
+                        maxCanvasWidth: 150,
+                        width: 150,
+                        responsive: true,
+
+
+                    });
+                this["music" + mux].load(musicarray[index]);
+
+            }
+        }
         var wavesurfer, current_music_id;
         // Init on DOM ready
         function updatetime(time) {
@@ -284,13 +485,22 @@
             });
         });
         setTimeout(() => {
-        displayTime();
-        $('#playlist').css('visibility','visible');
-        // $("#playlist").load(location.href+" #playlist>*","");
-    }, 5000);
+
+$('#playlist').css('visibility', 'visible');
+displayTime()
+
+// $("#playlist").load(location.href+" #playlist>*","");
+}, 6000);
+setTimeout(() => {
+
+
+loadsongs(page);
+
+// $("#playlist").load(location.href+" #playlist>*","");
+}, 2000);
 
         function displayTime() {
-            for (let index = 1; index <= mux; index++) {
+            for (let index = 1; index <= totalmux; index++) {
                 // console.log(formatTimecode(this["music" + index].getDuration()));
 
                 $('#duration' + index).text(formatTimecode(this["music" + index].getDuration()));
@@ -327,7 +537,7 @@
 
             $('#duration' + sad).text();
             $('#current_music_id').val(sad);
-            for (i = 1; i <= mux; i++) {
+            for (i = 1; i <= totalmux; i++) {
                 this["music" + i].pause();
                 $('#icon-play' + i).removeClass('fa-pause');
                 $('#icon-play' + i).addClass('fa-play');

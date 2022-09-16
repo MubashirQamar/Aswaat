@@ -17,10 +17,10 @@
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-   <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> -->
-     <script src="https://unpkg.com/wavesurfer.js@6.2.0/dist/wavesurfer.js"></script>
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/2.0.4/wavesurfer.min.js"></script> -->
+    <script src="https://unpkg.com/wavesurfer.js@6.2.0/dist/wavesurfer.js"></script>
 
-<!--<script src="{{ asset('frontend/js/wavesurfer.js') }}"></script>-->
+    <!--<script src="{{ asset('frontend/js/wavesurfer.js') }}"></script>-->
     <script>
         function formatTimecode(sec) {
             var seconds = sec;
@@ -62,8 +62,8 @@
                     <div class="mt-5">
                         <input type="hidden" id="share_url">
                         <ul class="share_links">
-                            <li class="bg_fb"><a href="#" class="share_icon" rel="tooltip"
-                                    title="Facebook"><i class="fa-brands fa-facebook"></i></a></li>
+                            <li class="bg_fb"><a href="#" class="share_icon" rel="tooltip" title="Facebook"><i
+                                        class="fa-brands fa-facebook"></i></a></li>
 
                             <li class="bg_insta"><a href="#" class="share_icon" rel="tooltip"
                                     title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
@@ -75,7 +75,7 @@
 
                             </li>
                         </ul>
-                        <div class="copy-link" style="display: none"> <b><span>link is copied</span></b>  </div>
+                        <div class="copy-link" style="display: none"> <b><span>link is copied</span></b> </div>
                     </div>
                 </div>
             </div>
@@ -136,78 +136,87 @@
             }
         });
     });
-    $('.sort-filter').change(function(){
-        document.cookie=1;
-       $('#filter-form').submit();
+    $('.sort-filter').change(function() {
+        document.cookie = 1;
+        $('#filter-form').submit();
     });
 
-    $(".add-to-cart").click(function(e) {
+    $(document).on("click", ".add-to-cart", function(e) {
+        console.log('d');
         e.preventDefault();
+        if (auth_user == 1) {
+            var ele = $(this).parent("button").attr("data-id");
+            var type = $(this).parent("button").attr("data-type");
+            var dur = $(this).parent("button").attr("data-duration");
+            var duration = $("#" + dur).text();
+            console.log(duration);
+            $.ajax({
+                url: '{{ route('add.to.cart') }}',
+                method: "post",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: ele,
+                    type: type,
+                    duration: duration,
 
-        var ele = $(this).parent("button").attr("data-id");
-        var type = $(this).parent("button").attr("data-type");
-        var dur = $(this).parent("button").attr("data-duration");
-        var duration = $("#"+dur).text();
-        console.log(duration);
-        $.ajax({
-            url: '{{ route('add.to.cart') }}',
-            method: "post",
-            data: {
-                _token: '{{ csrf_token() }}',
-                id: ele,
-                type: type,
-                duration: duration,
+                },
+                success: function(response) {
+                    //    window.location.reload();
 
-            },
-            success: function(response) {
-                //    window.location.reload();
-
-                if (response.data == 'Success') {
-                    $('#exampleModal').modal('show');
-                } else {
-                    $('#error').modal('show');
+                    if (response.data == 'Success') {
+                        $('#exampleModal').modal('show');
+                    } else {
+                        $('#error').modal('show');
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            location.href = "{{ route('login') }}";
+        }
+
     });
 
-    $(".add-favourite").click(function(e) {
 
+    $(document).on("click", ".add-favourite", function(e) {
         e.preventDefault();
-        var current = $(this);
-        var ele = $(this).parent("button").attr("data-id");
-        var type = $(this).parent("button").attr("data-type");
-        // $(this).css({"color": "yellow"});
-        console.log(ele);
-        $.ajax({
-            url: '{{ route('add-to-Favourite') }}',
-            method: "post",
-            data: {
-                _token: '{{ csrf_token() }}',
-                id: ele,
-                type: type,
+        if (auth_user == 1) {
+            var current = $(this);
+            var ele = $(this).parent("button").attr("data-id");
+            var type = $(this).parent("button").attr("data-type");
+            // $(this).css({"color": "yellow"});
+            console.log(ele);
+            $.ajax({
+                url: '{{ route('add-to-Favourite') }}',
+                method: "post",
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    id: ele,
+                    type: type,
 
-            },
-            success: function(response) {
-                if (response.status == 'remove') {
-                    current.css({
-                        "color": "white"
-                    });
-                } else {
-                    current.css({
-                        "color": "#ffc107"
-                    });
+                },
+                success: function(response) {
+                    if (response.status == 'remove') {
+                        current.css({
+                            "color": "white"
+                        });
+                    } else {
+                        current.css({
+                            "color": "#ffc107"
+                        });
 
+                    }
+                    //    window.location.reload();
+
+                    // $('#exampleModal').modal('show');
                 }
-                //    window.location.reload();
-
-                // $('#exampleModal').modal('show');
-            }
-        });
+            });
+        } else {
+            location.href = "{{ route('login') }}";
+        }
     });
 
-    $(".download").click(function(e) {
 
+    $(document).on("click", ".download", function(e) {
         e.preventDefault();
         var current = $(this);
         var ele = $(this).parent("button").attr("data-id");
@@ -230,8 +239,8 @@
     });
 
 
-    $(".share").click(function(e) {
 
+    $(document).on("click", ".share", function(e) {
         e.preventDefault();
         var current = $(this);
         var ele = $(this).parent("button").attr("data-href");
@@ -262,7 +271,8 @@
         }
     });
 
-    $(".bg_fb").click(function(e) {
+
+    $(document).on("click", ".bg_fb", function(e) {
         e.preventDefault();
         var link = $('#share_url').val();
         // let params = `;
@@ -270,7 +280,8 @@
             'height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'
         );
     });
-    $(".bg_insta").click(function(e) {
+
+    $(document).on("click", ".bg_insta", function(e) {
         e.preventDefault();
         var link = $('#share_url').val();
         // let params = `;
@@ -278,7 +289,8 @@
             'height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes'
         );
     });
-    $(".bg_whatsapp").click(function(e) {
+
+    $(document).on("click", ".bg_whatsapp", function(e) {
         e.preventDefault();
         var link = $('#share_url').val();
         // let params = `;
@@ -287,15 +299,16 @@
         );
     });
 
-    $(".bg_copylink").click(function(e) {
+
+    $(document).on("click", ".bg_copylink", function(e) {
         e.preventDefault();
         var link = $('#share_url').val();
         // let params = `;
 
         navigator.clipboard.writeText(link);
-        $('.copy-link').css('display','');
+        $('.copy-link').css('display', '');
         setTimeout(() => {
-            $('.copy-link').css('display','none');
+            $('.copy-link').css('display', 'none');
         }, 3000);
         // $(this).append('<p>URL copied!</p>')
         // window.open('https://api.whatsapp.com/send?text='+link,'popUpWindow','height=500,width=400,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
