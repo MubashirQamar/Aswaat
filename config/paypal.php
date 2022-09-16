@@ -13,6 +13,9 @@
 return array(
     'client_id' =>'AU4_BktFl-ZP9ipBo3SOcAAGSvoUhtthqArEzVxAHGeF7IiutdVL8H34vtdqdX9ZbpCWv6x8PH4ZtgJB',
     'secret' => 'EIx7FwqiewAuigTzNHNHM1fh0kISUzbFSHrFTfXeppDp_FY19ELKpur8z8d44GwHqxwFUgGfFMkyjIeS',
+
+    // 'client_id' =>'AU4_BktFl-ZP9ipBo3SOcAAGSvoUhtthqArEzVxAHGeF7IiutdVL8H34vtdqdX9ZbpCWv6x8PH4ZtgJB',
+    // 'secret' => 'EIx7FwqiewAuigTzNHNHM1fh0kISUzbFSHrFTfXeppDp_FY19ELKpur8z8d44GwHqxwFUgGfFMkyjIeS',
     'settings' => array(
         /**
          * Available option 'sandbox' or 'live'

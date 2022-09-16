@@ -13,9 +13,9 @@ class Song extends Model
         return $this->hasMany('App\Download','song_id','id');
     }
 
-    public static function songs()
+    public static function songs($page=null)
     {
-        $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->orderBy('id', 'DESC')->get();
+        $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->orderBy('id', 'DESC')->paginate(10);
 
      foreach($songs as $song)
      {
@@ -33,7 +33,7 @@ class Song extends Model
     }
     public static function songsfilterByMusicType($music_type_id)
     {
-       $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->get();
+       $songs = Song::withCount('downloads')->orderBy('downloads_count','desc')->paginate(10);
 
      foreach($songs as $song)
      {
@@ -50,7 +50,7 @@ class Song extends Model
      return $songs;
     }
 
-    public static function songsSortfilterByMusicType($sort=null,$instrument=null,$bpm=null,$duration=null)
+    public static function songsSortfilterByMusicType($page=null,$sort=null,$instrument=null,$bpm=null,$duration=null)
     {
        $songs = Song::withCount('downloads');
         if(is_numeric($instrument) == 1)
@@ -70,7 +70,7 @@ class Song extends Model
         }else{
             $songs  = $songs->orderBy('id','desc');
         }
-        $songs  = $songs->get();
+        $songs  = $songs->paginate(10);
      foreach($songs as $song)
      {
          $artist_id=explode(',',$song->artist_id);
@@ -85,7 +85,7 @@ class Song extends Model
      }
      return $songs;
     }
-    public static function songsSortSearchfilterByMusicType($sort=null,$instrument=null,$bpm=null,$duration=null,$search)
+    public static function songsSortSearchfilterByMusicType($page=null,$sort=null,$instrument=null,$bpm=null,$duration=null,$search)
     {
        $songs = Song::withCount('downloads');
         if(is_numeric($instrument) == 1)
@@ -105,7 +105,7 @@ class Song extends Model
         }else{
             $songs  = $songs->orderBy('id','desc');
         }
-        $songs  = $songs->where('tags', 'LIKE', "%{$search}%")->get();
+        $songs  = $songs->where('tags', 'LIKE', "%{$search}%")->paginate(5);
      foreach($songs as $song)
      {
          $artist_id=explode(',',$song->artist_id);
@@ -120,9 +120,9 @@ class Song extends Model
      }
      return $songs;
     }
-    public static function songsSearchfilterByMusicType($search)
+    public static function songsSearchfilterByMusicType($page,$search)
     {
-       $songs = Song::withCount('downloads')->where('tags', 'LIKE', "%{$search}%")->orderBy('downloads_count','desc')->get();
+       $songs = Song::withCount('downloads')->where('tags', 'LIKE', "%{$search}%")->orderBy('downloads_count','desc')->paginate(5);
 
      foreach($songs as $song)
      {

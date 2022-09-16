@@ -197,7 +197,7 @@
                         <div class="pkg-box">
                             <p>
                                 تنفيذ حسب الطلب <span><i class="fa-solid fa-circle-check"></i></span></p>
-                         
+
                             <p>اﻻﺳﺗﺧدام ﻓﻲ ﺟﻣﯾﻊ وﺳﺎﺋل اﻟﺗواﺻل اﻻﺟﺗﻣﺎﻋﻲ
                                 <span class="primary-text">
                                     <i class="fa-solid fa-circle-check"></i>
@@ -238,7 +238,10 @@
                                     <i class="fa-solid fa-circle-check"></i>
                                 </span>
                             </p>
-                         
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
+                            <p>&nbsp;</p>
                         </div>
                     </div>
                         {{--  Gold Package --}}
@@ -301,15 +304,15 @@
                     </div> --}}
                     <div class="row">
                         <div class="container">
-                            @if (Auth::user())
+
                                 {{-- <div id="paypal-button-container"></div> --}}
                                 <div class="col-lg-12 text-center my-5">
 
                                     <button
-                                        @if ($modal == 0) type="submit" @else type="button" onclick="packagemodal()" @endif
+                                    @if (Auth::user())   @if ($modal == 0) type="submit" @else type="button" onclick="packagemodal()" @endif @else onclick="signup()"  @endif
                                         class="custom-btn primary-btn">تأكيد الشراء</button>
                                 </div>
-                            @endif
+
                             <div class="col-lg-12 sign-up text-center mt-5">
 
                                 <p><span class="sign-up-li"><i class="fa-solid fa-circle-check"></i></span> تأمين الدفع
@@ -343,6 +346,9 @@
 
 @push('include-js')
     <script>
+        function signup(){
+            location.href="{{ route('register') }}";
+        }
         var value = -1;
         $(document).ready(function() {
             var $radios = $('input[name=package]').change(function() {

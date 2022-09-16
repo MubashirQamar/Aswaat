@@ -19,6 +19,12 @@ Route::get('/clear', function () {
 });
 
 Route::get('/', 'HomeController@index');
+Route::get('/getMusic', 'HomeController@getMusicAlbum');
+Route::get('/getSearchMusic', 'HomeController@searchData');
+Route::get('/getAlbum', 'HomeController@albumData');
+
+
+
 Route::get('/contact', 'HomeController@contactus');
 Route::get('/packages', 'HomeController@package');
 Route::get('/sound-effects', 'HomeController@sound_effect');

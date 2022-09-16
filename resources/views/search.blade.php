@@ -22,36 +22,51 @@
                                 <div class="music-filter">
 
                                     <form method="GET" id="filter-form" class="filter-form">
-                                        <select name="sort" class="sort-filter">
+                                        <select name="sort" id="sort" class="sort-filter">
                                             {{-- <option>Sort by ASWAT list</option> --}}
-                                            <option @if($sort=='top' ) selected @endif value="top">الأكثر تحميلاً</option>
-                                            <option @if($sort=='newest' ) selected @endif value="newest">الجديد </option>
+                                            <option @if ($sort == 'top') selected @endif value="top">الأكثر
+                                                تحميلاً</option>
+                                            <option @if ($sort == 'newest') selected @endif value="newest">الجديد
+                                            </option>
 
                                         </select>
 
-                                        <select name="instrument" class="sort-filter">
-                                            <option @if($instrument==1) selected @endif value="newest" value="1">معزوفات غنائية </option>
-                                            <option @if($instrument==2) selected @endif value="2">اصوات بشرية </option>
-                                            <option @if($instrument==3) selected @endif value="3">معزوفات موسيقية</option>
+                                        <select name="instrument" id="instrument" class="sort-filter">
+                                            <option @if ($instrument == 1) selected @endif value="newest"
+                                                value="1">معزوفات غنائية </option>
+                                            <option @if ($instrument == 2) selected @endif value="2">اصوات
+                                                بشرية </option>
+                                            <option @if ($instrument == 3) selected @endif value="3">معزوفات
+                                                موسيقية</option>
 
                                         </select>
 
-                                        <select name="bpm" class="sort-filter">
-                                            <option @if($bpm==0) selected @endif value="0">السرعة</option>
-                                            <option @if($bpm=="slow" && !is_numeric($bpm)) selected @endif value="slow">بطيئ </option>
-                                            <option @if($bpm=="medslow" && !is_numeric($bpm)) selected @endif value="medslow">بطيئ متوسط </option>
-                                            <option @if($bpm=="medium" && !is_numeric($bpm)) selected @endif value="medium">متوسط </option>
-                                            <option @if($bpm=="medfast" && !is_numeric($bpm)) selected @endif value="medfast">سريع متوسط </option>
-                                            <option @if($bpm=="fast" && !is_numeric($bpm)) selected @endif value="fast">سريع جدا </option>
+                                        <select name="bpm" id="bpm" class="sort-filter">
+                                            <option @if ($bpm == 0) selected @endif value="0">السرعة
+                                            </option>
+                                            <option @if ($bpm == 'slow' && !is_numeric($bpm)) selected @endif value="slow">بطيئ
+                                            </option>
+                                            <option @if ($bpm == 'medslow' && !is_numeric($bpm)) selected @endif value="medslow">بطيئ
+                                                متوسط </option>
+                                            <option @if ($bpm == 'medium' && !is_numeric($bpm)) selected @endif value="medium">متوسط
+                                            </option>
+                                            <option @if ($bpm == 'medfast' && !is_numeric($bpm)) selected @endif value="medfast">سريع
+                                                متوسط </option>
+                                            <option @if ($bpm == 'fast' && !is_numeric($bpm)) selected @endif value="fast">سريع
+                                                جدا </option>
                                         </select>
 
-                                        <select name="duration" class="sort-filter">
+                                        <select name="duration" id="duration" class="sort-filter">
                                             <option>مدة حرة</option>
-                                            <option @if($duration==1) selected @endif value="1">10-30 ثواني </option>
-                                            <option @if($duration==2) selected @endif value="2">30-50 ثواني </option>
-                                            <option @if($duration==3) selected @endif value="3">50+ ثواني </option>
+                                            <option @if ($duration == 1) selected @endif value="1">10-30
+                                                ثواني </option>
+                                            <option @if ($duration == 2) selected @endif value="2">30-50
+                                                ثواني </option>
+                                            <option @if ($duration == 3) selected @endif value="3">50+
+                                                ثواني </option>
                                         </select>
-                                        <input type="hidden" value="{{ $search }}" name="searchmusic">
+                                        <input type="hidden" value="{{ $search }}" id="searchmusic"
+                                            name="searchmusic">
                                     </form>
 
                                 </div>
@@ -82,8 +97,7 @@
                                                             href="{{ asset('assets/images/album/' . $alb->demo) }}"></a>
                                                     @endif
                                                 </div>
-                                                <input type="hidden" id="album_item{{ $loop->iteration }}"
-                                                    value="0">
+                                                <input type="hidden" id="album_item{{ $loop->iteration }}" value="0">
                                                 @if (isset($alb->image))
                                                     <img src="{{ asset('assets/images/album/' . $alb->image) }}"
                                                         alt="Upload Icon" data-holder-rendered="true" max-height="10px;"
@@ -113,15 +127,14 @@
                                                     {{ $alb->cat_name }}
 
                                                 </p>
-                                                <p class="time"><span
-                                                        id="alb_currenttime{{ $loop->iteration }}"></span> /
+                                                <p class="time"><span id="alb_currenttime{{ $loop->iteration }}"></span>
+                                                    /
                                                     <span id="alb_duration{{ $loop->iteration }}"></span>
                                                 </p>
 
 
 
-                                                <div class="demo" id="demo{{ $loop->iteration }}"
-                                                    style="width: 150px;">
+                                                <div class="demo" id="demo{{ $loop->iteration }}" style="width: 150px;">
 
                                                     <div id="album{{ $loop->iteration }}" class="waveform"></div>
                                                 </div>
@@ -254,9 +267,8 @@
                                                         alt="Upload Icon" data-holder-rendered="true" max-height="10px;"
                                                         max-width="50px;" style="height:50px;width:50px;">
                                                 @else
-                                                    <img src="{{ asset('assets/images/upload.png') }}"
-                                                        max-height="10px;" max-width="50px;"
-                                                        style="height:50px;width:50px;">
+                                                    <img src="{{ asset('assets/images/upload.png') }}" max-height="10px;"
+                                                        max-width="50px;" style="height:50px;width:50px;">
                                                 @endif
 
                                                 {{-- <button class="btn btn-default" > --}}
@@ -413,19 +425,23 @@
                 </div>
             </div>
             <!-- Modal -->
-            <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade custom-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="exampleModalLabel"> أﺿﯾف إﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <p>   ﺗﻣت إﺿﺎﻓﺔ ت اﻟﺻو ﻰ إﻟ ﺔ ﻋرﺑ ق اﻟﺗﺳو  </p>
+                            <p> ﺗﻣت إﺿﺎﻓﺔ ت اﻟﺻو ﻰ إﻟ ﺔ ﻋرﺑ ق اﻟﺗﺳو </p>
                         </div>
                         <div class="modal-footer">
-                            <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary">  اذھب اﻟﻰ ﺔ ﻋرﺑ ق اﻟﺗﺳو </button></a>
-                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> اﺳﺗﻣﻊ اﻟﻰ د اﻟﻣزﯾ                    </button>
+                            <a href="{{ url('/cart') }}"><button type="button" class="btn btn-secondary"> اذھب اﻟﻰ ﺔ
+                                    ﻋرﺑ ق اﻟﺗﺳو </button></a>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"> اﺳﺗﻣﻊ اﻟﻰ د اﻟﻣزﯾ
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -437,6 +453,366 @@
 
     <script>
         $(".loader").fadeOut(5000);
+
+        var type, sort, instrument, duration, music_type_id, auth_user, asset_music_url, asset_album_url, asset_songs_url,
+            search;
+        var musicarray = [];
+        var albumarray = [];
+        var mux = 0;
+        var alb = 0;
+        var totalmux = 0;
+        var totalalb = 0;
+        var page = 1;
+        var songslastpage = 0;
+        var albumslastpage = 0;
+        var pagedata = 1;
+        var loaddata = 5;
+        //  asset_album_url = "{{ asset('assets/images/album/') }}";
+        asset_album_url = "https://aswwat.com/public/assets/images/album";
+        asset_songs_url = "https://aswwat.com/public/assets/images/songs";
+
+        function fetchsongs(page) {
+            type = $('#type').val();
+            sort = $('#sort').val();
+            instrument = $('#instrument').val();
+            duration = $('#duration').val();
+            music_type_id = $('#music_type_id').val();
+            auth_user = $('#auth_user').val();
+            search = $('#searchmusic').val();
+            var subscription = 0;
+            $.ajax({
+                url: "{{ url('/getSearchMusic') }}?page=" + page,
+                datatype: 'json',
+                data: {
+                    type: type,
+                    sort: sort,
+                    instrument: instrument,
+                    duration,
+                    music_type_id: music_type_id,
+                    page: page,
+                    searchmusic: search,
+                },
+                cache: false,
+                success: function(data) {
+                    albumarray = [];
+                    musicarray = [];
+                    // album start here
+
+                    var row = ""
+                    var color = ''
+                    pagedata = 0
+
+                    albumslastpage = data.albums.last_page;
+                    // console.log(data.music);
+                    var favourite = data.favourite;
+                    $.each(data.albums.data, function(index, value) {
+                        alb++
+                        if (favourite.indexOf(value.id) !== -1) {
+                            color = 'yellow';
+                        } else {
+                            color = '';
+                        }
+                        row += "<div class='music-items'>" +
+                            "<div class='items-left'>" +
+                            "<div style='display: none;'>";
+                        if (auth_user == 1) {
+                            row += "<a id='album_url" + alb +
+                                "' href='" + asset_album_url + "/" + value.demo +
+                                "'></a>";
+                        } else {
+                            row += "<a id='album_url" + alb +
+                                "' href='" + asset_album_url + "/" + value.demo +
+                                "'></a>";
+                        }
+                        row += "</div><input type='hidden' id='album_item" + alb + "' value='0'>";
+
+                        if (value.image)
+                            row += "<img src='" + asset_album_url + "/" + value.image +
+                            "' alt='Upload Icon' data-holder-rendered='true' max-height='10px;' max-width='50px;' style='height:50px;width:50px;'>";
+                        else {
+                            row += "<img src='" + asset_album_url + "/" + value.image +
+                                "' alt='Upload Icon' data-holder-rendered='true' max-height='10px;' max-width='50px;' style='height:50px;width:50px;'>";
+                        }
+                        row += "<i class='fa-solid fa-play' id='album_icon-play" + alb +
+                            "'  onclick='pausealbum(" + alb + ")'></i>" +
+                            "<span class='artist-name'>" +
+                            "<p id='album_name" + alb + "'>" + value.name + "</p>" +
+                            "<p id='album_artist_name" + alb + "'>" + value.artist_name + "</p>" +
+                            "</span>" +
+                            "<p class='category' id='category" + alb + "'>" + value.cat_name +
+                            "</p>" +
+                            "<p class='time'><span id='alb_currenttime" + alb + "'></span> / " +
+                            "<span id='alb_duration" + alb + "'></span>" +
+                            "</p>" +
+                            "<div class='demo' id='demo" + alb + "'>" +
+                            "<div id='album" + alb + "' class='waveform'></div></div>" +
+                            "<span class='music-price'> $ " + parseFloat(value.price) +
+                            " </span>" +
+                            "</div>" +
+                            "<div class='items-right'>" +
+                            "<span class='music-action' id='album_action" + alb + "'>";
+
+                        if (auth_user == 1) {
+                            if (subscription == 1) {
+
+                                row += "<button data-id='" + value.id +
+                                    "' data-duration='alb_duration" + alb +
+                                    "' data-type='1'><i class='fa-solid fa-cart-shopping add-to-cart'></i></button>" +
+                                    "<button data-id='" + value.id + "'  data-href='" +
+                                    asset_album_url + "/" + value.demo + " ' data-name='" + value
+                                    .demo + "'>" +
+                                    "<i class='fa-solid fa-download download'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-duration='alb_duration" +
+                                    alb + "' data-type='1'><i class='fa-solid " + color +
+                                    "  fa-star add-favourite'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-href='" +
+                                    asset_album_url + "/" + value.demo +
+                                    "' ><i class='fa-solid  fa-share share'></i></button>";
+                            } else {
+                                row += "<button data-id='" + value.id +
+                                    "' data-duration='alb_duration" + alb +
+                                    "' data-type='1'><i class='fa-solid fa-cart-shopping add-to-cart'></i></button>" +
+                                    "<button data-id='" + value.id + "'  data-href='" +
+                                    asset_album_url + "/" + value.demo + "' data-name='" + value
+                                    .demo + "'>" +
+                                    "<i class='fa-solid fa-download download'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-duration='alb_duration" +
+                                    alb + "' data-type='1'><i class='fa-solid " + color +
+                                    " fa-star add-favourite'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-href='" +
+                                    asset_album_url + "" + value.demo +
+                                    "' ><i class='fa-solid fa-share share'></i></button>";
+                            }
+                        } else {
+                            row +=
+                                "<button ><i class='fa-solid fa-cart-shopping add-to-cart'></i>" +
+                                "</button>" +
+                                "<button data-id='" + value.id + "' data-href='" + asset_album_url +
+                                "/" + value.demo + "' data-name='" + value.demo +
+                                "'><i class='fa-solid fa-download download'></i></button>" +
+                                "<button ><i class='fa-solid fa-star add-favourite'></i></button>"
+
+                                +
+                                "<button data-id='" + value.id + "' data-href='" + asset_album_url +
+                                "/" + value.demo +
+                                "' ><i class='fa-solid fa-share share'></i></button>";
+                        }
+                        row += "</span></div></div>";
+
+                        albumarray.push(asset_album_url + "/" + value.demo);
+
+
+
+                    });
+                    totalalb = alb;
+                    //  Songs List Data
+
+
+                    var musiclist = data.music;
+
+
+                    songslastpage = data.music.last_page;
+                    // console.log(data.music);
+                    var favourite = data.favourite;
+                    $.each(data.music.data, function(index, value) {
+                        mux++
+                        if (favourite.indexOf(value.id) !== -1) {
+                            color = 'yellow';
+                        } else {
+                            color = '';
+                        }
+                        row += "<div class='music-items'>" +
+                            "<div class='items-left'>" +
+                            "<div style='display: none;'>";
+                        if (auth_user == 1) {
+                            row += "<a id='album_url" + mux +
+                                "' href='" + asset_songs_url + "" + value.demo_audio +
+                                "'></a>";
+                        } else {
+                            row += "<a id='album_url" + mux +
+                                "' href='" + asset_songs_url + "" + value.demo_audio +
+                                "'></a>";
+                        }
+                        row += "</div><input type='hidden' id='music_item" + mux + "' value='0'>";
+
+                        if (value.image)
+                            row += "<img src='" + asset_songs_url + "/" + value.image +
+                            "' alt='Upload Icon' data-holder-rendered='true' max-height='10px;' max-width='50px;' style='height:50px;width:50px;'>";
+                        else {
+                            row += "<img src='" + asset_songs_url + "/" + value.image +
+                                "' alt='Upload Icon' data-holder-rendered='true' max-height='10px;' max-width='50px;' style='height:50px;width:50px;'>";
+                        }
+                        row += "<i class='fa-solid fa-play' id='icon-play" + mux +
+                            "'  onclick='pausemusic(" + mux + ")'></i>" +
+                            "<span class='artist-name'>" +
+                            "<p id='music_name" + mux + "'>" + value.name + "</p>" +
+                            "<p id='artist_name" + mux + "'>" + value.artist_name[0].name + "</p>" +
+                            "</span>" +
+                            "<p class='category' id='category" + mux + "'>" + value.genre[0].name +
+                            "</p>" +
+                            "<p class='time'><span id='currenttime" + mux + "'></span> / " +
+                            "<span id='duration" + mux + "'></span>" +
+                            "</p>" +
+                            "<div class='demo' id='demo" + mux + "'>" +
+                            "<div id='music" + mux + "' class='waveform'></div></div>" +
+                            "<span class='music-price'> $ " + parseFloat(value.price) +
+                            " </span>" +
+                            "</div>" +
+                            "<div class='items-right'>" +
+                            "<span class='music-action' id='music_action" + mux + "'>";
+
+                        if (auth_user == 1) {
+                            if (subscription == 1) {
+
+                                row += "<button data-id='" + value.id +
+                                    "' data-duration='duration" + mux +
+                                    "' data-type='1'><i class='fa-solid fa-cart-shopping add-to-cart'></i></button>" +
+                                    "<button data-id='" + value.id + "'  data-href='" +
+                                    asset_songs_url + "/" + value.demo_audio + " ' data-name='" + value
+                                    .demo_audio + "'>" +
+                                    "<i class='fa-solid fa-download download'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-duration='duration" +
+                                    mux + "' data-type='1'><i class='fa-solid " + color +
+                                    "  fa-star add-favourite'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-href='" +
+                                    asset_songs_url + "/" + value.demo_audio +
+                                    "' ><i class='fa-solid  fa-share share'></i></button>";
+                            } else {
+                                row += "<button data-id='" + value.id +
+                                    "' data-duration='duration" + mux +
+                                    "' data-type='1'><i class='fa-solid fa-cart-shopping add-to-cart'></i></button>" +
+                                    "<button data-id='" + value.id + "'  data-href='" +
+                                    asset_songs_url + "/" + value.demo_audio + "' data-name='" + value
+                                    .demo_audio + "'>" +
+                                    "<i class='fa-solid fa-download download'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-duration='duration" +
+                                    mux + "' data-type='1'><i class='fa-solid " + color +
+                                    " fa-star add-favourite'></i></button>" +
+                                    "<button data-id='" + value.id + "' data-href='" +
+                                    asset_songs_url + "" + value.demo_audio +
+                                    "' ><i class='fa-solid fa-share share'></i></button>";
+                            }
+                        } else {
+                            row +=
+                                "<button ><i class='fa-solid fa-cart-shopping add-to-cart'></i>" +
+                                "</button>" +
+                                "<button data-id='" + value.id + "' data-href='" + asset_songs_url +
+                                "/" + value.demo_audio + "' data-name='" + value.demo_audio +
+                                "'><i class='fa-solid fa-download download'></i></button>" +
+                                "<button ><i class='fa-solid fa-star add-favourite'></i></button>"
+
+                                +
+                                "<button data-id='" + value.id + "' data-href='" + asset_songs_url +
+                                "/" + value.demo_audio +
+                                "' ><i class='fa-solid fa-share share'></i></button>";
+                        }
+                        row += "</span></div></div>";
+                        // this["music" + mux] = mux;
+                        //     this["music" + mux] =
+                        //     WaveSurfer.create({
+                        //         container: "#music" + mux,
+                        //         loopSelection: true,
+                        //         waveColor: "gray",
+                        //         progressColor: "white",
+                        //         height: 48,
+                        //         maxCanvasWidth: 150,
+                        //         width: 150,
+                        //         responsive: true,
+
+
+                        //     });
+                        musicarray.push(asset_songs_url + "/" + value.demo_audio);
+                        // this["music" + mux].load(""+ asset_songs_url +""+value.demo);
+
+
+                    })
+
+                    //  end List Data
+                    totalmux = mux;
+
+                    $('#playlist').append(row);
+                }
+            });
+        }
+
+
+
+
+        fetchsongs(page)
+
+        function loadsongsdata() {
+            if (songslastpage > page || albumslastpage > page) {
+                page++;
+                setTimeout(() => {
+                    fetchsongs(page);
+                    setTimeout(() => {
+                        loadsongs(page);
+                        loadablums(page);
+
+                    }, 2000);
+                    setTimeout(() => {
+                        displayTime()
+                    }, 6000);
+                }, 2000);
+            }
+        }
+        setInterval(() => {
+            loadsongsdata();
+
+        }, 5000);
+
+        function loadsongs(p) {
+            var pg = parseInt(p) * loaddata;
+            var mux = parseInt(pg) - 10;
+            console.log(mux);
+            for (let index = 0; index < musicarray.length; index++) {
+                mux++;
+
+                this["music" + mux] =
+                    WaveSurfer.create({
+                        container: "#music" + mux,
+                        loopSelection: true,
+                        waveColor: "gray",
+                        progressColor: "white",
+                        height: 48,
+                        maxCanvasWidth: 150,
+                        width: 150,
+                        responsive: true,
+
+
+                    });
+                this["music" + mux].load(musicarray[index]);
+
+            }
+        }
+
+        function loadablums(p) {
+            var pg = parseInt(p) * loaddata;
+            var alb = parseInt(pg) - 10;
+            console.log(alb);
+            for (let index = 0; index < albumarray.length; index++) {
+                alb++;
+
+                this["album" + alb] =
+                    WaveSurfer.create({
+                        container: "#album" + alb,
+                        loopSelection: true,
+                        waveColor: "gray",
+                        progressColor: "white",
+                        height: 48,
+                        maxCanvasWidth: 150,
+                        width: 150,
+                        responsive: true,
+
+
+                    });
+                this["album" + alb].load(albumarray[index]);
+
+            }
+        }
+
+
+
         var wavesurfer, current_album_id, current_music_id;
         // Init on DOM ready
         function updatetime(time) {
@@ -489,19 +865,29 @@
             });
         });
         setTimeout(() => {
-            displayTime();
+
             $('#playlist').css('visibility', 'visible');
+            displayTime();
+
             // $("#playlist").load(location.href+" #playlist>*","");
-        }, 5000);
+        }, 6000);
+        setTimeout(() => {
+
+
+            loadsongs(page);
+            loadablums(page);
+
+            // $("#playlist").load(location.href+" #playlist>*","");
+        }, 2000);
 
         function displayTime() {
-            for (let index = 1; index <= alb; index++) {
+            for (let index = 1; index <= totalalb; index++) {
                 // console.log(formatTimecode(this["album" + index].getDuration()));
 
                 $('#alb_duration' + index).text(formatTimecode(this["album" + index].getDuration()));
                 $('#alb_currenttime' + index).text(formatTimecode(this["album" + index].getCurrentTime()));
             }
-            for (let index = 1; index <= mux; index++) {
+            for (let index = 1; index <= totalmux; index++) {
                 // console.log(formatTimecode(this["album" + index].getDuration()));
 
                 $('#duration' + index).text(formatTimecode(this["music" + index].getDuration()));
@@ -552,12 +938,19 @@
             var album_url = $('#album_url' + sad).attr('href');
             var album_action = $('#album_action' + sad).html();
             // console.log(album_action);
-
+            var current_album_id = $('#current_album_id').val();
+            var current_music_id = $('#current_music_id').val();
 
             $('#duration' + sad).text();
             $('#current_album_id').val(sad);
-            for (i = 1; i <= alb; i++) {
-                this["album" + i].pause();
+
+            for (i = 1; i <= totalalb; i++) {
+                // console.log(this["album" + current_album_id]);
+                // console.log(this["music" + current_music_id]);
+                if (current_music_id) {
+                    this["music" + current_music_id].pause();
+                }
+                this["album" + current_album_id].pause();
                 $('#album_icon-play' + i).removeClass('fa-pause');
                 $('#album_icon-play' + i).addClass('fa-play');
                 // $('#demo' + i).css('visibility', 'visible');
@@ -604,12 +997,15 @@
             var music_url = $('#music_url' + sad).attr('href');
             var music_action = $('#music_action' + sad).html();
             // console.log(music_action);
-
-
+            var current_album_id = $('#current_album_id').val();
+            var current_music_id = $('#current_music_id').val();
             $('#duration' + sad).text();
             $('#current_music_id').val(sad);
-            for (i = 1; i <= mux; i++) {
-                this["music" + i].pause();
+            for (i = 1; i <= totalmux; i++) {
+                if (current_album_id) {
+                    this["album" + current_album_id].pause();
+                }
+                this["music" + current_music_id].pause();
                 $('#icon-play' + i).removeClass('fa-pause');
                 $('#icon-play' + i).addClass('fa-play');
                 // $('#demo' + i).css('visibility', 'visible');
